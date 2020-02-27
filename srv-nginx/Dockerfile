@@ -15,7 +15,7 @@ echo -n 'apache:x:48:' >> /etc/group && \
 mkdir -p '/usr/share/httpd' && \
 mkdir -p ${HOME} && chown ${USER}:${USER} ${HOME}
 
-user root:root
+user ${USER}
 
 expose 80:80
 

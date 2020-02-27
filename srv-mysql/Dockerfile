@@ -12,7 +12,7 @@ run yum install -y mariadb mariadb-server mariadb-test && \
 yum clean all && \
 mkdir -p ${HOME} && chown ${USER}:${USER} ${HOME}
 
-user ${USER}:${USER}
+user ${USER}
 
 expose ${PORT}:${PORT}
 
