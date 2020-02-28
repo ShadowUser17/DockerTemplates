@@ -1,4 +1,5 @@
 srv-mysql/mysql
 srv-pgsql/data
 srv-pgsql/backups
+srv-uwsgi/pyapp
 
