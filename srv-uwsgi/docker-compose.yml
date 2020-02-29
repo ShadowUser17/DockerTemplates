@@ -8,3 +8,4 @@ services:
             - "./pyapp:/var/pyapp:ro"
           ports:
             - "8001:8001"
+

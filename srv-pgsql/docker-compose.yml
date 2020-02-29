@@ -9,3 +9,4 @@ services:
             - "./backups:/var/lib/pgsql/backups:rw"
           ports:
             - "5432:5432"
+
