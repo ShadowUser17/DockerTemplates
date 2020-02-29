@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+        php:
+          container_name: "php"
+          image: "srv-php"
+          network_mode: "bridge"
+          ports:
+            - "9000:9000"
+

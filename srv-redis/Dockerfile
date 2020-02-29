@@ -6,6 +6,8 @@ run yum install -y epel-release && \
 
 copy --chown=root:root ./redis.conf /etc/
 
+user root
+
 expose 6379:6379
 
 cmd /usr/bin/redis-server /etc/redis.conf
