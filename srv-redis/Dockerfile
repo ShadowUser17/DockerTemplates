@@ -1,14 +1,15 @@
-from centos:7
+FROM alpine
 
-run yum install -y epel-release && \
-	yum install -y redis && \
-	yum clean all
+RUN apk add --no-cache redis && rm -f /etc/redis.conf
 
-copy --chown=root:root ./redis.conf /etc/
+COPY --chown=root:root ./redis.conf /etc/
 
-user root
+ENV HOME /var/lib/redis
 
-expose 6379:6379
+WORKDIR ${HOME}
 
-cmd /usr/bin/redis-server /etc/redis.conf
+USER redis
 
+EXPOSE 6379
+
+CMD /usr/bin/redis-server /etc/redis.conf

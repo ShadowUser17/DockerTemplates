@@ -1,23 +1,21 @@
-from centos:7
+FROM alpine
 
-arg USER=mysql
-arg HOME=/var/lib/mysql
-arg PORT=3306
+ARG USER=mysql
+ARG HOME=/var/lib/mysql
+ARG PORT=3306
 
-env USER ${USER}
-env HOME ${HOME}
-env PORT ${PORT}
+RUN apk add --no-cache mariadb mariadb-client mariadb-server-utils && \
+rm -rvf /etc/my.cnf /etc/my.cnf.d && \
+mkdir /run/mysqld && chown ${USER}:${USER} /run/mysqld
 
-run yum install -y mariadb mariadb-server mariadb-test && \
-	yum clean all && \
-	mkdir -p ${HOME} && chown ${USER}:${USER} ${HOME}
+ENV USER ${USER}
+ENV HOME ${HOME}
+ENV PORT ${PORT}
 
-user ${USER}
+USER ${USER}
+WORKDIR ${HOME}
+EXPOSE ${PORT}
 
-expose ${PORT}:${PORT}
-
-workdir ${HOME}
-
-cmd mysql_install_db --basedir=/usr --rpm; \
-	/usr/libexec/mysqld --basedir=/usr --port ${PORT} --pid-file=${HOME}/mysql.pid
+CMD mysql_install_db --basedir=/usr --datadir=${HOME} --user=${USER} --rpm ; \
+mysqld --basedir=/usr --bind-address=0.0.0.0 --port=${PORT} --pid-file=${HOME}/mysqld.pid
 
