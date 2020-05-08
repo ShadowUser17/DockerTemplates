@@ -8,7 +8,7 @@ env HOME ${HOME}
 
 copy --chown=root:root ./nginx.repo /etc/yum.repos.d/
 
-run yum install -y httpd-tools nginx && \
+run yum install -y httpd-tools openssl nginx && \
 	yum clean all && \
 	echo -n 'apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin' >> /etc/passwd && \
 	echo -n 'apache:x:48:' >> /etc/group && \
@@ -16,10 +16,10 @@ run yum install -y httpd-tools nginx && \
 	mkdir -p ${HOME} && chown ${USER}:${USER} ${HOME}
 
 user ${USER}
-
-expose 80:80
-
 workdir ${HOME}
+
+expose 80
+expose 443
 
 cmd nginx -g 'daemon off;'
 
