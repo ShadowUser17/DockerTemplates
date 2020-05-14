@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+        openvas:
+          container_name: "openvas"
+          image: "openvas"
+          network_mode: "bridge"
+          volumes:
+            - "./redis:/var/lib/redis:rw"
+            - "./openvas:/var/lib/openvas:rw"
+            - "./gvm:/var/lib/gvm:rw"
+          ports:
+            - "9392:9392"
+
