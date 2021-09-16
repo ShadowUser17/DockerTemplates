@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.5"
 services:
     pdns:
         container_name: "recursor"
@@ -9,4 +9,3 @@ services:
            options:
               max-size: "300k"
               max-file: "5"
-

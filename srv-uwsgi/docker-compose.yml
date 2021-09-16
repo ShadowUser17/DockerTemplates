@@ -1,11 +1,10 @@
-version: "3.4"
+version: "3.5"
 services:
         pyapp:
           container_name: "pyapp"
           image: "srv-uwsgi"
           network_mode: "bridge"
           volumes:
-            - "./pyapp:/var/pyapp:ro"
+            - "$PWD/pyapp:/var/pyapp:ro"
           ports:
             - "8001:8001"
-

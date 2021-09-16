@@ -1,12 +1,11 @@
-version: "3.4"
+version: "3.5"
 services:
         pgsql:
           container_name: "pgsql"
           image: "srv-pgsql"
           network_mode: "bridge"
           volumes:
-            - "./data:/var/lib/pgsql/data:rw"
-            - "./backups:/var/lib/pgsql/backups:rw"
+            - "$PWD/data:/var/lib/pgsql/data:rw"
+            - "$PWD/backups:/var/lib/pgsql/backups:rw"
           ports:
             - "5432:5432"
-

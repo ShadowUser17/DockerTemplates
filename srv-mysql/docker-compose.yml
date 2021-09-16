@@ -1,11 +1,10 @@
-version: "3.4"
+version: "3.5"
 services:
         mysql:
           container_name: "mysql"
           image: "srv-mysql"
           network_mode: "bridge"
           volumes:
-            - "./mysql:/var/lib/mysql:rw"
+            - "$PWD/mysql:/var/lib/mysql:rw"
           ports:
             - "3306:3306"
-

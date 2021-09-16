@@ -1,11 +1,10 @@
-version: "3.4"
+version: "3.5"
 services:
         redis:
           container_name: "redis"
           image: "srv-redis"
           network_mode: "bridge"
           volumes:
-            - "./redis:/var/lib/redis:rw"
+            - "$PWD/redis:/var/lib/redis:rw"
           ports:
             - "6379:6379"
-

@@ -2,8 +2,7 @@ version: "3.5"
 services:
   jenkins:
     container_name: "srv-cicd"
-    image: "jenkins:2.60.3-alpine"
-    network_mode: "bridge"
+    image: "jenkins/jenkins:lts"
     volumes:
       - "$PWD/jenkins:/var/jenkins_home:rw"
     ports:
