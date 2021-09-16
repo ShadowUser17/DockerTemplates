@@ -1,8 +1,11 @@
 version: "3.5"
 services:
   jenkins:
-    container_name: "srv-cicd"
-    image: "jenkins/jenkins:lts"
+    container_name: "srv-jenkins"
+    image: "jenkins:golang"
+    build:
+      context: "$PWD"
+      dockerfile: "dockerfile-golang"
     volumes:
       - "$PWD/jenkins:/var/jenkins_home:rw"
     ports:
