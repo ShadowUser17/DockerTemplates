@@ -3,3 +3,5 @@ srv-pgsql/data
 srv-pgsql/backups
 srv-uwsgi/pyapp
 
+Jenkins/jenkins
+
