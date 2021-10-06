@@ -3,6 +3,7 @@ services:
   jenkins:
     container_name: "srv-jenkins"
     image: "jenkins:golang"
+    network_mode: "bridge"
     build:
       context: "$PWD"
       dockerfile: "dockerfile-golang"

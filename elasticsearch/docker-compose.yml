@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  elasticsearch:
+    container_name: "srv-esearch"
+    image: "elasticsearch:7.14.2"
+    network_mode: "bridge"
+    ulimits:
+      memlock:
+        soft: "-1"
+        hard: "-1"
+    environment:
+      - "node.name=srv-esearch"
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - "$PWD/data:/usr/share/elasticsearch/data:rw"
+    ports:
+      - "9200:9200"
+      - "9300:9300"

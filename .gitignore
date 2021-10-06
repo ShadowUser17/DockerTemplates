@@ -4,4 +4,5 @@ srv-pgsql/backups
 srv-uwsgi/pyapp
 
 Jenkins/jenkins
+elasticsearch/data
 
