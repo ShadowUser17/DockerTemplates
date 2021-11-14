@@ -1,8 +1,8 @@
-srv-mysql/mysql
-srv-pgsql/data
-srv-pgsql/backups
-srv-uwsgi/pyapp
+Docker/srv-mysql/mysql
+Docker/srv-pgsql/data
+Docker/srv-pgsql/backups
+Docker/srv-uwsgi/pyapp
 
-Jenkins/jenkins
-elasticsearch/data
+Docker/Jenkins/jenkins
+Docker/elasticsearch/data
 
