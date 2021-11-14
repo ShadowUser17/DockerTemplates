@@ -1,0 +1,13 @@
+apiVersion: "apps/v1"
+kind: "Pod"
+metadata:
+    name: "nginx-pod"
+spec:
+    restartPolicy: "Never"
+    containers:
+    - name: "nginx"
+      image: "docker.io/library/nginx:alpine"
+      ports:
+      - containerPort: 80
+        hostPort: 8080
+        protocol: "TCP"
