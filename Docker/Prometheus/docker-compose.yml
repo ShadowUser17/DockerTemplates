@@ -5,10 +5,20 @@ services:
     container_name: "prometheus"
     network_mode: "bridge"
     volumes:
-      - "$PWD/config:/etc/prometheus:ro"
-      - "$PWD/storage:/prometheus:rw"
+      - "$PWD/prometheus-conf:/etc/prometheus:ro"
+      - "$PWD/prometheus:/prometheus:rw"
     ports:
       - "9090:9090"
+
+  alertmanager:
+    image: "prom/alertmanager:v0.23.0"
+    container_name: "alertmanager"
+    network_mode: "bridge"
+    volumes:
+      - "$PWD/alertmanager-conf:/etc/alertmanager:ro"
+      - "$PWD/alertmanager:/alertmanager:rw"
+    ports:
+      - "9093:9093"
 
   grafana:
     image: "grafana/grafana:8.3.0"
