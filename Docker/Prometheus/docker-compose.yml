@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.8"
 services:
   node-exporter:
     image: "prom/node-exporter:v1.3.0"
@@ -14,7 +14,7 @@ services:
       - "/sys:/host/sys:ro"
       - "/:/rootfs:ro"
     ports:
-      - "9100:9100"
+      - "9100:9100/tcp"
 
   prometheus:
     image: "prom/prometheus:v2.31.1"
@@ -24,12 +24,8 @@ services:
       - "$PWD/prometheus-conf:/etc/prometheus:ro"
       - "$PWD/prometheus:/prometheus:rw"
     ports:
-      - "9090:9090"
-    depends_on:
-      - "node-exporter"
-    links:
-      - "node-exporter"
-
+      - "9090:9090/tcp"
+  
   # alertmanager:
   #   image: "prom/alertmanager:v0.23.0"
   #   container_name: "alertmanager"
@@ -38,7 +34,7 @@ services:
   #     - "$PWD/alertmanager-conf:/etc/alertmanager:ro"
   #     - "$PWD/alertmanager:/alertmanager:rw"
   #   ports:
-  #     - "9093:9093"
+  #     - "9093:9093/tcp"
 
   grafana:
     image: "grafana/grafana:8.3.0"
@@ -47,8 +43,4 @@ services:
     volumes:
       - "$PWD/grafana:/var/lib/grafana:rw"
     ports:
-      - "3000:3000"
-    depends_on:
-      - "prometheus"
-    links:
-      - "prometheus"
+      - "3000:3000/tcp"

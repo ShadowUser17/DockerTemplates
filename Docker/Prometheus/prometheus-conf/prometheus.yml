@@ -13,7 +13,7 @@ scrape_configs:
     scrape_interval: "30s"
     static_configs:
       - targets:
-        - "localhost:9090"
+        - "127.0.0.1:9090"
         labels:
           group: "self"
 
@@ -21,6 +21,6 @@ scrape_configs:
     scrape_interval: "30s"
     static_configs:
       - targets:
-        - "node-exporter:9100"
+        - "172.17.0.2:9100"
         labels:
           group: "node"
