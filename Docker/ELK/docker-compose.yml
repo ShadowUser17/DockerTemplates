@@ -2,7 +2,7 @@ version: "3.5"
 services:
   elasticsearch:
     container_name: "srv-esearch"
-    image: "elasticsearch:7.14.2"
+    image: "elasticsearch:7.16.1"
     network_mode: "bridge"
     ulimits:
       memlock:
@@ -19,7 +19,7 @@ services:
 
   kibana:
     container_name: "srv-kibana"
-    image: "kibana:7.14.2"
+    image: "kibana:7.16.1"
     network_mode: "bridge"
     depends_on:
       - "elasticsearch"
