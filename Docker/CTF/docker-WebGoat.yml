@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  webgoat:
+    image: "webgoat/goatandwolf:v8.2.2"
+    container_name: "webgoat"
+    network_mode: "bridge"
+    environment:
+      - "TZ=Europe/Kiev"
+    ports:
+      - "8080:8080/tcp"
+      - "9090:9090/tcp"
