@@ -24,7 +24,6 @@ services:
 
   grafana:
     image: "grafana/grafana:8.3.3"
-    # image: "grafana/grafana:8.2.7"
     container_name: "grafana"
     network_mode: "bridge"
     depends_on:
@@ -33,7 +32,6 @@ services:
     volumes:
       - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
       - "$PWD/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro"
-    #  - "$PWD/grafana-conf/grafana.ini:/etc/grafana/grafana.ini:ro"
       - "$PWD/grafana:/var/lib/grafana:rw"
     ports:
       - "3000:3000/tcp"
