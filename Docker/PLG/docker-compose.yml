@@ -1,28 +1,36 @@
 version: "3.8"
 services:
-  promtail:
-    image: "grafana/promtail:2.4.1"
-    container_name: "promtail"
-    network_mode: "bridge"
-    command:
-      - "-config.file=/etc/promtail/config.yml"
-    volumes:
-      - "/var/log:/var/log:ro"
-
   loki:
     image: "grafana/loki:2.4.1"
     container_name: "loki"
     network_mode: "bridge"
     command:
       - "-config.file=/etc/loki/local-config.yaml"
+    volumes:
+      - "$PWD/loki-conf.yml:/etc/loki/local-config.yaml:ro"
     ports:
       - "3100:3100/tcp"
+
+  promtail:
+    image: "grafana/promtail:2.4.1"
+    container_name: "promtail"
+    network_mode: "bridge"
+    depends_on:
+      - "loki"
+    command:
+      - "-config.file=/etc/promtail/config.yml"
+    volumes:
+      - "$PWD/promtail-conf.yml:/etc/promtail/config.yml:ro"
+      - "/var/log:/var/log:ro"
 
   grafana:
     image: "grafana/grafana:8.3.3"
     container_name: "grafana"
     network_mode: "bridge"
+    depends_on:
+      - "loki"
     volumes:
+      - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
       - "$PWD/grafana:/var/lib/grafana:rw"
     ports:
       - "3000:3000/tcp"
