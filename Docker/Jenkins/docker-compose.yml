@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.8"
 services:
   jenkins:
     container_name: "srv-jenkins"
@@ -10,5 +10,5 @@ services:
     volumes:
       - "$PWD/jenkins:/var/jenkins_home:rw"
     ports:
-      - "8080:8080"
-      - "50000:50000"
+      - "8080:8080/tcp"
+      - "50000:50000/tcp"
