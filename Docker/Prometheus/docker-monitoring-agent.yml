@@ -18,11 +18,11 @@ services:
     depends_on:
       - "grafana-agent"
     environment:
-      - "API_TOKEN="
-      - "API_SERVER="
+    # - "API_TOKEN="
+      - "API_SERVER=172.17.0.2:9095"
     command:
       - "--api-server-address=${API_SERVER}"
-      - "--api-token=${API_TOKEN}"
+    # - "--api-token=${API_TOKEN}"
       - "--verbose=true"
     ports:
       - "4050:4050/tcp"
