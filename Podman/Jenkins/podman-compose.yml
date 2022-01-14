@@ -1,7 +1,7 @@
 services:
   jenkins:
     container_name: "jenkins-tls"
-    image: "docker.io/jenkins/jenkins:lts"
+    image: "docker.io/jenkins/jenkins:lts-alpine"
     network_mode: "host"
     volumes:
       - "./data:/var/jenkins_home:U"

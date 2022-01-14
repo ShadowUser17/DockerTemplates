@@ -2,7 +2,7 @@ version: "3.8"
 services:
   jenkins:
     container_name: "jenkins-lts"
-    image: "jenkins/jenkins:lts"
+    image: "jenkins/jenkins:lts-alpine"
     network_mode: "bridge"
     volumes:
       - "$PWD/jenkins:/var/jenkins_home:rw"
