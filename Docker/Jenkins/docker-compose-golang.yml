@@ -1,9 +1,12 @@
 version: "3.8"
 services:
   jenkins:
-    container_name: "jenkins-lts"
-    image: "jenkins/jenkins:lts-alpine"
+    container_name: "jenkins-golang"
+    image: "jenkins:golang"
     network_mode: "bridge"
+    build:
+      context: "$PWD"
+      dockerfile: "dockerfile-golang"
     volumes:
       - "$PWD/jenkins:/var/jenkins_home:rw"
     ports:

@@ -1,11 +1,25 @@
 modules:
   http_2xx:
     prober: "http"
-    http:
-      method: "GET"
 
   http_post_2xx:
     prober: "http"
     http:
       method: "POST"
 
+  http_stat:
+    prober: "http"
+    http:
+      fail_if_body_not_matches_regexp:
+      - "^.*\\\"status\\\":(\\\"up\\\").*"
+
+  ssl_test:
+    prober: "tcp"
+    tcp:
+      tls: true
+
+  tcp_connect:
+    prober: "tcp"
+
+  icmp_ping:
+    prober: "icmp"

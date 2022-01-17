@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: "PrometheusJobMissing"
         expr: "absent(up{job=\"prometheus\"})"
-        for: "10s"
+        for: "30s"
         labels:
           severity: "warning"
         annotations:
@@ -12,9 +12,29 @@ groups:
 
       - alert: "PrometheusTargetMissing"
         expr: "up == 0"
-        for: "10s"
+        for: "30s"
         labels:
           severity: "critical"
         annotations:
           summary: "Prometheus target missing (instance {{ $labels.instance }})"
           description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - name: "Blackbox service monitoring"
+    rules:
+      - alert: "BlackboxServiceDown"
+        expr: "probe_success == 0"
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Blackbox target not response: (instance {{ $labels.instance }})"
+          description: ""
+
+      - alert: "SSLExpireMon"
+        expr: "floor((probe_ssl_last_chain_expiry_timestamp_seconds - time()) / 60 / 60 / 24) <= 7"
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "SSL cert is expired coming soon: (instance {{ $labels.instance }})"
+          description: ""

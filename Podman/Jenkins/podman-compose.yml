@@ -1,0 +1,10 @@
+services:
+  jenkins:
+    container_name: "jenkins-tls"
+    image: "docker.io/jenkins/jenkins:lts-alpine"
+    network_mode: "host"
+    volumes:
+      - "./data:/var/jenkins_home:U"
+    ports:
+      - "8080:8080/tcp"
+      - "50000:50000/tcp"
