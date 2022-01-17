@@ -1,0 +1,15 @@
+FROM python:3.9.9-slim-bullseye
+
+RUN apt-get update && apt-get dist-upgrade -y && \
+    apt-get install --no-install-recommends -y openssh-client openssh-server openssh-sftp-server curl && \
+    apt-get clean && usermod root -p '' && mkdir "/run/sshd" && cd "/etc/ssh" && \
+    sed -e 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' -e 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' sshd_config > tmp && \
+    mv sshd_config sshd_default && mv tmp sshd_config
+
+EXPOSE "22/tcp"
+
+WORKDIR "/etc/ssh"
+
+ENTRYPOINT ["/usr/sbin/sshd", "-D", "-f"]
+
+CMD ["sshd_config"]
