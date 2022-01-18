@@ -1,4 +1,4 @@
-FROM python:3.9.9-slim-bullseye
+FROM docker.io/python:3.9.9-slim-bullseye
 
 RUN apt-get update && apt-get dist-upgrade -y && \
     apt-get install --no-install-recommends -y openssh-client openssh-server openssh-sftp-server curl git && \
