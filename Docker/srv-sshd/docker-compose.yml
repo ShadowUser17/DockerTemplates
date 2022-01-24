@@ -8,4 +8,4 @@ services:
       context: "$PWD"
       dockerfile: "dockerfile-python"
     ports:
-      - "22:22/tcp"
+      - "2222:22/tcp"
