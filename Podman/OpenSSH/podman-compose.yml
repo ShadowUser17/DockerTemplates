@@ -2,7 +2,7 @@ services:
   openssh:
     container_name: "srv-openssh"
     image: "localhost/python:openssh-bullseye"
-    network_mode: "bridge"
+    network_mode: "host"
     build:
       context: "$PWD"
       dockerfile: "dockerfile-python"
