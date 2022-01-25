@@ -1,0 +1,12 @@
+volumes:
+  grafana_data:
+
+services:
+  grafana:
+    container_name: "grafana"
+    image: "docker.io/grafana/grafana:8.3.4"
+    network_mode: "host"
+    volumes:
+      - "grafana_data:/var/lib/grafana:U"
+    ports:
+      - "3000:3000/tcp"
