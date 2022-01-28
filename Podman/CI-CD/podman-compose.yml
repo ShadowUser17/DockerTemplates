@@ -1,0 +1,36 @@
+volumes:
+  jenkins_data:
+  persist_data:
+
+networks:
+  jenkins_net:
+
+services:
+  jenkins:
+    container_name: "jenkins-ci"
+    image: "localhost/jenkins:ansible-alpine"
+    build:
+      context: "$PWD"
+      dockerfile: "dockerfile-jenkins"
+    volumes:
+      - "jenkins_data:/var/jenkins_home:U"
+    networks:
+      - "jenkins_net"
+    ports:
+      - "8080:8080/tcp"
+      - "50000:50000/tcp"
+
+  openssh:
+    container_name: "openssh-srv"
+    image: "localhost/python:openssh-bullseye"
+    build:
+      context: "$PWD"
+      dockerfile: "dockerfile-openssh"
+    depends_on:
+      - "jenkins"
+    volumes:
+      - "persist_data:/mnt:U"
+    networks:
+      - "jenkins_net"
+    ports:
+      - "2222:22/tcp"
