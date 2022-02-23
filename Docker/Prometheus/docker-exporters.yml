@@ -24,3 +24,13 @@ services:
       - "$PWD/blackbox-conf:/etc/blackbox_exporter:ro"
     ports:
       - "9115:9115/tcp"
+
+  vector-exporter:
+    image: "timberio/vector:0.20.0-alpine"
+    container_name: "vector-exporter"
+    network_mode: "bridge"
+    volumes:
+      - "$PWD/vector-conf/vector.toml:/etc/vector/vector.toml:ro"
+    ports:
+      - "8383:8383/tcp"
+      - "9500:9500/tcp"

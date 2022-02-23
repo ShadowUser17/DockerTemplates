@@ -1,0 +1,31 @@
+[api]
+enabled = true
+
+[sources.host]
+type = "host_metrics"
+scrape_interval_secs = 30
+
+collectors = [
+    "cpu",
+    "load",
+    "memory",
+#    "disk",
+    "filesystem",
+    "network",
+    "host"
+]
+
+filesystem.mountpoints.includes = ["/"]
+
+
+[sinks.prom_write]
+type = "prometheus_remote_write"
+inputs = ["host"]
+endpoint = "172.17.0.2:9090"
+default_namespace = "service"
+
+#[sinks.prom_export]
+#type = "prometheus_exporter"
+#inputs = ["host"]
+#address = "0.0.0.0:9500"
+#default_namespace = "service"
