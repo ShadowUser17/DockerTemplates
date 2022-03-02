@@ -1,4 +1,9 @@
 version: "3.8"
+volumes:
+  alertmanager_data:
+  prometheus_data:
+  grafana_data:
+
 services:
   prometheus:
     image: "prom/prometheus:v2.33.4"
@@ -6,10 +11,23 @@ services:
     network_mode: "bridge"
     volumes:
       - "$PWD/prometheus-conf:/etc/prometheus:ro"
-      - "$PWD/prometheus:/prometheus:rw"
+      - "prometheus_data:/prometheus:rw"
     ports:
       - "9090:9090/tcp"
   
+  grafana:
+    image: "grafana/grafana:8.4.1"
+    container_name: "grafana"
+    network_mode: "bridge"
+    depends_on:
+      - "prometheus"
+    volumes:
+      - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
+      - "$PWD/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro"
+      - "grafana_data:/var/lib/grafana:rw"
+    ports:
+      - "3000:3000/tcp"
+
 #  alertmanager:
 #    image: "prom/alertmanager:v0.23.0"
 #    container_name: "alertmanager"
@@ -18,20 +36,6 @@ services:
 #      - "prometheus"
 #    volumes:
 #      - "$PWD/alertmanager-conf:/etc/alertmanager:ro"
-#      - "$PWD/alertmanager:/alertmanager:rw"
+#      - "alertmanager_data:/alertmanager:rw"
 #    ports:
 #      - "9093:9093/tcp"
-
-  grafana:
-    image: "grafana/grafana:8.4.1"
-    container_name: "grafana"
-    network_mode: "bridge"
-    depends_on:
-      - "prometheus"
-#      - "alertmanager"
-    volumes:
-      - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
-      - "$PWD/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro"
-      - "$PWD/grafana:/var/lib/grafana:rw"
-    ports:
-      - "3000:3000/tcp"
