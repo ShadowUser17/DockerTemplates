@@ -21,7 +21,7 @@ filesystem.mountpoints.includes = ["/"]
 [sinks.prom_write]
 type = "prometheus_remote_write"
 inputs = ["host"]
-endpoint = "172.17.0.2:9090"
+endpoint = "172.17.0.2:9090/api/v1/write"
 default_namespace = "service"
 
 #[sinks.prom_export]

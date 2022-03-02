@@ -10,17 +10,17 @@ services:
     ports:
       - "9090:9090/tcp"
   
-  alertmanager:
-    image: "prom/alertmanager:v0.23.0"
-    container_name: "alertmanager"
-    network_mode: "bridge"
-    depends_on:
-      - "prometheus"
-    volumes:
-    #  - "$PWD/alertmanager-conf:/etc/alertmanager:ro"
-      - "$PWD/alertmanager:/alertmanager:rw"
-    ports:
-      - "9093:9093/tcp"
+#  alertmanager:
+#    image: "prom/alertmanager:v0.23.0"
+#    container_name: "alertmanager"
+#    network_mode: "bridge"
+#    depends_on:
+#      - "prometheus"
+#    volumes:
+#      - "$PWD/alertmanager-conf:/etc/alertmanager:ro"
+#      - "$PWD/alertmanager:/alertmanager:rw"
+#    ports:
+#      - "9093:9093/tcp"
 
   grafana:
     image: "grafana/grafana:8.4.1"
@@ -28,7 +28,7 @@ services:
     network_mode: "bridge"
     depends_on:
       - "prometheus"
-      - "alertmanager"
+#      - "alertmanager"
     volumes:
       - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
       - "$PWD/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro"
