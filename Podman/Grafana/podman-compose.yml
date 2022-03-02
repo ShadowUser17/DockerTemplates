@@ -4,7 +4,7 @@ volumes:
 services:
   grafana:
     container_name: "grafana"
-    image: "docker.io/grafana/grafana:8.4.1"
+    image: "docker.io/grafana/grafana:8.4.3"
     network_mode: "host"
     volumes:
       - "grafana_data:/var/lib/grafana:U"

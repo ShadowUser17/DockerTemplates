@@ -9,7 +9,7 @@ collectors = [
     "cpu",
     "load",
     "memory",
-#    "disk",
+    "disk",
     "filesystem",
     "network",
     "host"

@@ -9,14 +9,21 @@ services:
     image: "prom/prometheus:v2.33.4"
     container_name: "prometheus"
     network_mode: "bridge"
+    command:
+      - "--web.enable-remote-write-receiver"
+      - "--web.enable-lifecycle"
+      - "--storage.tsdb.path=/prometheus"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
     volumes:
       - "$PWD/prometheus-conf:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
     ports:
       - "9090:9090/tcp"
-  
+
   grafana:
-    image: "grafana/grafana:8.4.1"
+    image: "grafana/grafana:8.4.3"
     container_name: "grafana"
     network_mode: "bridge"
     depends_on:
