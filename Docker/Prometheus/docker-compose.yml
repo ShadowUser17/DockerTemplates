@@ -6,7 +6,7 @@ volumes:
 
 services:
   prometheus:
-    image: "prom/prometheus:v2.33.5"
+    image: "prom/prometheus:v2.34.0"
     container_name: "prometheus"
     network_mode: "bridge"
     command:
@@ -23,7 +23,7 @@ services:
       - "9090:9090/tcp"
 
 #  grafana:
-#    image: "grafana/grafana:8.4.3"
+#    image: "grafana/grafana:8.4.4"
 #    container_name: "grafana"
 #    network_mode: "bridge"
 #    depends_on:
@@ -46,3 +46,17 @@ services:
       - "alertmanager_data:/alertmanager:rw"
     ports:
       - "9093:9093/tcp"
+
+  grafana:
+    image: "grafana/grafana:8.4.4"
+    container_name: "grafana"
+    network_mode: "bridge"
+    depends_on:
+      - "prometheus"
+      - "alertmanager"
+    volumes:
+      - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
+      - "$PWD/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro"
+      - "$PWD/grafana:/var/lib/grafana:rw"
+    ports:
+      - "3000:3000/tcp"

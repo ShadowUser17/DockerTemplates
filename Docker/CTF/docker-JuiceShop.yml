@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   juice-shop:
-    image: "bkimminich/juice-shop:v13.0.3"
+    image: "bkimminich/juice-shop:v13.2.2"
     container_name: "juice-shop"
     network_mode: "bridge"
     ports:
