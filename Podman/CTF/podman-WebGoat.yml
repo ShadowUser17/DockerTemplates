@@ -1,0 +1,10 @@
+services:
+  webgoat:
+    image: "docker.io/webgoat/goatandwolf:v8.2.2"
+    container_name: "webgoat"
+    network_mode: "host"
+    environment:
+      - "TZ=Europe/Kiev"
+    ports:
+      - "8080:8080/tcp"
+      - "9090:9090/tcp"
