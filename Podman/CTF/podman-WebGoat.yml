@@ -2,7 +2,7 @@ services:
   webgoat:
     image: "docker.io/webgoat/goatandwolf:v8.2.2"
     container_name: "webgoat"
-    network_mode: "host"
+    network_mode: "bridge"
     environment:
       - "TZ=Europe/Kiev"
     ports:
