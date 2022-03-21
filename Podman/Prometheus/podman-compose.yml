@@ -6,7 +6,7 @@ services:
   prometheus:
     image: "docker.io/prom/prometheus:v2.34.0"
     container_name: "prometheus"
-    network_mode: "host"
+    network_mode: "bridge"
     volumes:
       - "prom_data:/prometheus:U"
       - "conf_data:/config:ro"
@@ -16,7 +16,7 @@ services:
   vector:
     image: "docker.io/timberio/vector:0.20.0-alpine"
     container_name: "vector"
-    network_mode: "host"
+    network_mode: "bridge"
     volumes:
       - "conf_data:/config:ro"
     ports:
