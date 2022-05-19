@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   vector-exporter:
-    image: "timberio/vector:0.20.0-alpine"
+    image: "timberio/vector:0.21.0-alpine"
     container_name: "vector-exporter"
     network_mode: "bridge"
     volumes:

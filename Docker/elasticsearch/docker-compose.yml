@@ -1,8 +1,8 @@
-version: "3.5"
+version: "3.8"
 services:
   elasticsearch:
     container_name: "srv-esearch"
-    image: "elasticsearch:7.14.2"
+    image: "elasticsearch:8.2.0"
     network_mode: "bridge"
     ulimits:
       memlock:
