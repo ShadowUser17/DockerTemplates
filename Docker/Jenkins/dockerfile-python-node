@@ -1,15 +1,15 @@
 FROM python:3.9.13-slim-bullseye
 
 RUN apt-get update && apt-get dist-upgrade -y && \
-    apt-get install --no-install-recommends -y openssh-client openssh-server openssh-sftp-server curl git vim-tiny && \
+    apt-get install --no-install-recommends -y openssh-client openssh-server openssh-sftp-server openjdk-11-jdk curl git vim-tiny && \
     apt-get clean && usermod root -p '' && mkdir "/run/sshd" && mkdir "/root/.ssh" && cd "/etc/ssh" && \
     sed -e 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' -e 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' sshd_config > tmp && \
     mv sshd_config sshd_default && mv tmp sshd_config
 
 EXPOSE "22/tcp"
 
-WORKDIR "/etc/ssh"
+WORKDIR "/var/jenkins_node"
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D", "-f"]
 
-CMD ["sshd_config"]
+CMD ["/etc/ssh/sshd_config"]
