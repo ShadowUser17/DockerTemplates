@@ -21,20 +21,29 @@ groups:
 
   - name: "Blackbox service monitoring"
     rules:
-      - alert: "BlackboxServiceDown"
-        expr: "probe_success == 0"
-        for: "5m"
+      - alert: BlackboxHTTPErrorCode
+        expr: probe_http_status_code < 100 or probe_http_status_code > 299
+        for: 5m
         labels:
-          severity: "critical"
+          severity: warning
         annotations:
-          summary: "Blackbox target not response: (instance {{ $labels.instance }})"
-          description: ""
+          summary: "Blackbox HTTP probe return error code (instance {{ $labels.instance }})"
+          description: "Blackbox HTTP probe return error code {{ $value }} from (instance {{ $labels.instance }})"
 
-      - alert: "SSLExpireMon"
-        expr: "floor((probe_ssl_last_chain_expiry_timestamp_seconds - time()) / 60 / 60 / 24) <= 7"
-        for: "5m"
+      - alert: BlackboxSSLExpire
+        expr: floor((probe_ssl_earliest_cert_expiry - time()) / 60 / 60 / 24) < 14
+        for: 5m
         labels:
-          severity: "critical"
+          severity: warning
         annotations:
-          summary: "SSL cert is expired coming soon: (instance {{ $labels.instance }})"
-          description: ""
+          summary: "Blackbox target is missing (instance {{ $labels.instance }})"
+          description: "SSL cert expires after {{ $value }} days"
+
+      - alert: BlackboxSSLExpire
+        expr: floor((probe_ssl_earliest_cert_expiry - time()) / 60 / 60 / 24) < 7
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "SSL cert expires coming soon (instance {{ $labels.instance }})"
+          description: "SSL cert expires after {{ $value }} days"

@@ -1,0 +1,32 @@
+version: "3.8"
+volumes:
+  prometheus_data:
+
+services:
+  prometheus:
+    image: "prom/prometheus:v2.35.0"
+    container_name: "prometheus"
+    network_mode: "bridge"
+    command:
+      - "--web.enable-remote-write-receiver"
+      - "--web.enable-lifecycle"
+      - "--storage.tsdb.path=/prometheus"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+    volumes:
+      - "$PWD/prometheus-conf:/etc/prometheus:ro"
+      - "prometheus_data:/prometheus:rw"
+    ports:
+      - "9090:9090/tcp"
+
+  blackbox-exporter:
+    image: "prom/blackbox-exporter:v0.20.0"
+    container_name: "blackbox-exporter"
+    network_mode: "bridge"
+    depends_on:
+      - "prometheus"
+    volumes:
+      - "$PWD/blackbox-conf:/etc/blackbox_exporter:ro"
+    ports:
+      - "9115:9115/tcp"
