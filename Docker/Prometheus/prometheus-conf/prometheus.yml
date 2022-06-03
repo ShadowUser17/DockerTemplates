@@ -28,9 +28,16 @@ scrape_configs:
     static_configs:
       - targets:
         - "172.17.0.5:9100"
-        - "172.17.0.6:9100"
         labels:
           group: "node"
+
+  - job_name: "redis"
+    scrape_interval: "30s"
+    static_configs:
+      - targets:
+        - "172.17.0.6:9121"
+        labels:
+          group: "cache"
 
   - job_name: "blackbox"
     metrics_path: "/probe"
@@ -47,4 +54,4 @@ scrape_configs:
       - source_labels: ["__param_target"]
         target_label: "instance"
       - target_label: "__address__"
-        replacement: "172.17.0.6:9115"
+        replacement: "172.17.0.7:9115"

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   redis:
-    image: "bitnami/redis:6.2.7"
+    image: "bitnami/redis:7.0"
     container_name: "redis"
     network_mode: "bridge"
     environment:
@@ -10,9 +10,11 @@ services:
       - "6379:6379/tcp"
 
   redis-exporter:
-    image: "bitnami/redis-exporter:1.37.0"
+    image: "bitnami/redis-exporter:1.38.0"
     container_name: "redis-exporter"
     network_mode: "bridge"
+    depends_on:
+      - "redis"
     command:
       - "--redis.addr=172.17.0.2:6379"
     ports:
