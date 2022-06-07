@@ -5,17 +5,30 @@ services:
     container_name: "redis"
     network_mode: "bridge"
     environment:
-      - "ALLOW_EMPTY_PASSWORD=yes"
+      - "REDIS_PASSWORD=testing"
     ports:
       - "6379:6379/tcp"
 
   redis-exporter:
-    image: "bitnami/redis-exporter:1.38.0"
+    image: "bitnami/redis-exporter:1.39.0"
     container_name: "redis-exporter"
     network_mode: "bridge"
     depends_on:
       - "redis"
-    command:
-      - "--redis.addr=172.17.0.2:6379"
+    environment:
+      - "REDIS_ADDR=172.17.0.2"
+      - "REDIS_PASSWORD=testing"
     ports:
       - "9121:9121/tcp"
+
+  rq-exporter:
+    image: "mdawar/rq-exporter:v1.9.3"
+    container_name: "rq-exporter"
+    network_mode: "bridge"
+    depends_on:
+      - "redis"
+    environment:
+      - "RQ_REDIS_HOST=172.17.0.2"
+      - "RQ_REDIS_PASS=testing"
+    ports:
+      - "9726:9726/tcp"
