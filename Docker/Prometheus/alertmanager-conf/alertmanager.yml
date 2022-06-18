@@ -13,11 +13,6 @@ receivers:
     webhook_configs:
       - url: 'http://127.0.0.1:5002/'
         send_resolved: true
-        title: '{{ template "web.basic.title" . }}'
-        text: '{{ template "web.basic.text" . }}'
-
-templates:
-  - "alert_basic.tmpl"
 
 inhibit_rules:
   - source_match:
