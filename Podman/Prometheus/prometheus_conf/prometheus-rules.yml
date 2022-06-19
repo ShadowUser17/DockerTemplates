@@ -1,0 +1,49 @@
+groups:
+  - name: "Prometheus self-monitoring"
+    rules:
+      - alert: "PrometheusJobMissing"
+        expr: "absent(up{job=\"prometheus\"})"
+        for: "30s"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Prometheus job missing (instance {{ $labels.instance }})"
+          description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: "PrometheusTargetMissing"
+        expr: "up == 0"
+        for: "30s"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Prometheus target missing (instance {{ $labels.instance }})"
+          description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - name: "Blackbox service monitoring"
+    rules:
+      - alert: BlackboxHTTPErrorCode
+        expr: probe_http_status_code < 100 or probe_http_status_code > 299
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Blackbox HTTP probe return error code (instance {{ $labels.instance }})"
+          description: "Blackbox HTTP probe return error code {{ $value }} from (instance {{ $labels.instance }})"
+
+      - alert: BlackboxSSLExpire
+        expr: floor((probe_ssl_earliest_cert_expiry - time()) / 60 / 60 / 24) < 14
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Blackbox target is missing (instance {{ $labels.instance }})"
+          description: "SSL cert expires after {{ $value }} days"
+
+      - alert: BlackboxSSLExpire
+        expr: floor((probe_ssl_earliest_cert_expiry - time()) / 60 / 60 / 24) < 7
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "SSL cert expires coming soon (instance {{ $labels.instance }})"
+          description: "SSL cert expires after {{ $value }} days"

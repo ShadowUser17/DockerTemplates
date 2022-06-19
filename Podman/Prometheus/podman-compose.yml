@@ -1,23 +1,48 @@
 volumes:
-  prom_data:
-  conf_data:
+  alertmanager_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  prometheus_net:
 
 services:
-  prometheus:
-    image: "docker.io/prom/prometheus:v2.36.1"
-    container_name: "prometheus"
-    network_mode: "bridge"
+  alertmanager:
+    image: "prom/alertmanager:v0.24.0"
+    container_name: "alertmanager"
+    networks:
+      - "prometheus_net"
     volumes:
-      - "prom_data:/prometheus:U"
-      - "conf_data:/config:ro"
+      - "./alertmanager_conf:/etc/alertmanager:ro"
+      - "alertmanager_data:/alertmanager:U"
+    ports:
+      - "9093:9093/tcp"
+
+  prometheus:
+    image: "prom/prometheus:v2.36.1"
+    container_name: "prometheus"
+    networks:
+      - "prometheus_net"
+    command:
+      - "--web.enable-remote-write-receiver"
+      - "--web.enable-lifecycle"
+      - "--storage.tsdb.path=/prometheus"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+    volumes:
+      - "./prometheus_conf:/etc/prometheus:ro"
+      - "prometheus_data:/prometheus:U"
     ports:
       - "9090:9090/tcp"
 
-  vector:
-    image: "docker.io/timberio/vector:0.21.0-alpine"
-    container_name: "vector"
-    network_mode: "bridge"
+  grafana:
+    image: "grafana/grafana:8.5.6"
+    container_name: "grafana"
+    networks:
+      - "prometheus_net"
     volumes:
-      - "conf_data:/config:ro"
+      - "./grafana_datasources:/etc/grafana/provisioning/datasources:ro"
+      - "grafana_data:/var/lib/grafana:U"
     ports:
-      - "8383:8383/tcp"
+      - "3000:3000/tcp"
