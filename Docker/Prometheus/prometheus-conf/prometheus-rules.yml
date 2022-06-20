@@ -9,6 +9,7 @@ groups:
         annotations:
           summary: "Prometheus job missing (instance {{ $labels.instance }})"
           description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          fingerprint: "Prometheus (Instance: {{ $labels.instance }})"
 
       - alert: "PrometheusTargetMissing"
         expr: "up == 0"
@@ -18,32 +19,42 @@ groups:
         annotations:
           summary: "Prometheus target missing (instance {{ $labels.instance }})"
           description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          fingerprint: "Prometheus (Instance: {{ $labels.instance }})"
 
-  - name: "Blackbox service monitoring"
+  - name: "Prometheus testing"
     rules:
-      - alert: BlackboxHTTPErrorCode
-        expr: probe_http_status_code < 100 or probe_http_status_code > 299
+      - alert: TestingWarning
+        expr: prometheus_build_info == 1
         for: 5m
         labels:
           severity: warning
         annotations:
-          summary: "Blackbox HTTP probe return error code (instance {{ $labels.instance }})"
-          description: "Blackbox HTTP probe return error code {{ $value }} from (instance {{ $labels.instance }})"
+          summary: "Prometheus testing summary..."
+          description: "Prometheus testing description..."
+          fingerprint: "Prometheus (Instance: {{ $labels.instance }})"
+          dashboard: "-"
+          docs: "-"
 
-      - alert: BlackboxSSLExpire
-        expr: floor((probe_ssl_earliest_cert_expiry - time()) / 60 / 60 / 24) < 14
+      - alert: TestingError
+        expr: prometheus_build_info == 1
         for: 5m
         labels:
-          severity: warning
+          severity: error
         annotations:
-          summary: "Blackbox target is missing (instance {{ $labels.instance }})"
-          description: "SSL cert expires after {{ $value }} days"
+          summary: "Prometheus testing summary..."
+          description: "Prometheus testing description..."
+          fingerprint: "Prometheus (Instance: {{ $labels.instance }})"
+          dashboard: "-"
+          docs: "-"
 
-      - alert: BlackboxSSLExpire
-        expr: floor((probe_ssl_earliest_cert_expiry - time()) / 60 / 60 / 24) < 7
+      - alert: TestingCritical
+        expr: prometheus_build_info == 1
         for: 5m
         labels:
           severity: critical
         annotations:
-          summary: "SSL cert expires coming soon (instance {{ $labels.instance }})"
-          description: "SSL cert expires after {{ $value }} days"
+          summary: "Prometheus testing summary..."
+          description: "Prometheus testing description..."
+          fingerprint: "Prometheus (Instance: {{ $labels.instance }})"
+          dashboard: "-"
+          docs: "-"
