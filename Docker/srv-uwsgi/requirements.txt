@@ -1,4 +1,0 @@
-uWSGI
-Flask
-mysql-connector-python
-
