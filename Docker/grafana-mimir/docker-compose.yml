@@ -20,6 +20,36 @@ services:
     ports:
       - "9009:9009/tcp"
 
+  vector-01:
+    image: "timberio/vector:0.22.3-alpine"
+    container_name: "vector-01"
+    depends_on:
+      - "mimir"
+    volumes:
+      - "$PWD/vector:/etc/vector:ro"
+    networks:
+      - "network_mimir"
+
+  vector-02:
+    image: "timberio/vector:0.22.3-alpine"
+    container_name: "vector-02"
+    depends_on:
+      - "mimir"
+    volumes:
+      - "$PWD/vector:/etc/vector:ro"
+    networks:
+      - "network_mimir"
+  
+  vector-03:
+    image: "timberio/vector:0.22.3-alpine"
+    container_name: "vector-03"
+    depends_on:
+      - "mimir"
+    volumes:
+      - "$PWD/vector:/etc/vector:ro"
+    networks:
+      - "network_mimir"
+
   prometheus:
     image: "prom/prometheus:v2.36.2"
     container_name: "prometheus"
