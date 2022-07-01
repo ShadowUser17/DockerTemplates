@@ -1,4 +1,6 @@
-version: "3.8"
+networks:
+  network_pga:
+
 volumes:
   alertmanager_data:
   prometheus_data:
@@ -8,17 +10,17 @@ services:
   alertmanager:
     image: "prom/alertmanager:v0.24.0"
     container_name: "alertmanager"
-    network_mode: "bridge"
     volumes:
-      - "$PWD/alertmanager-conf:/etc/alertmanager:ro"
+      - "$PWD/alertmanager:/etc/alertmanager:ro"
       - "alertmanager_data:/alertmanager:rw"
+    networks:
+      - "network_pga"
     ports:
       - "9093:9093/tcp"
 
   prometheus:
     image: "prom/prometheus:v2.36.2"
     container_name: "prometheus"
-    network_mode: "bridge"
     command:
       - "--web.enable-remote-write-receiver"
       - "--web.enable-lifecycle"
@@ -27,23 +29,25 @@ services:
       - "--web.console.templates=/usr/share/prometheus/consoles"
       - "--web.console.libraries=/usr/share/prometheus/console_libraries"
     volumes:
-      - "$PWD/prometheus-conf:/etc/prometheus:ro"
+      - "$PWD/prometheus:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
-    links:
+    depends_on:
       - "alertmanager"
+    networks:
+      - "network_pga"
     ports:
       - "9090:9090/tcp"
 
   grafana:
     image: "grafana/grafana:8.5.6"
     container_name: "grafana"
-    network_mode: "bridge"
-    links:
+    depends_on:
       - "prometheus"
       - "alertmanager"
     volumes:
-      - "$PWD/grafana-datasources:/etc/grafana/provisioning/datasources:ro"
-      - "$PWD/grafana-dashboards:/etc/grafana/provisioning/dashboards:ro"
+      - "$PWD/grafana:/etc/grafana:ro"
       - "grafana_data:/var/lib/grafana:rw"
+    networks:
+      - "network_pga"
     ports:
       - "3000:3000/tcp"
