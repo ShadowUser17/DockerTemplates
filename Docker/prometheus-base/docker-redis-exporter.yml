@@ -1,0 +1,39 @@
+networks:
+  network_pga:
+
+services:
+  redis:
+    image: "bitnami/redis:7.0"
+    container_name: "redis"
+    environment:
+      - "REDIS_PASSWORD=testing"
+    networks:
+      - "network_pga"
+    ports:
+      - "6379:6379/tcp"
+
+  redis-exporter:
+    image: "bitnami/redis-exporter:1.43.0"
+    container_name: "redis-exporter"
+    depends_on:
+      - "redis"
+    environment:
+      - "REDIS_ADDR=redis"
+      - "REDIS_PASSWORD=testing"
+    networks:
+      - "network_pga"
+    ports:
+      - "9121:9121/tcp"
+
+  rq-exporter:
+    image: "mdawar/rq-exporter:v1.9.3"
+    container_name: "rq-exporter"
+    depends_on:
+      - "redis"
+    environment:
+      - "RQ_REDIS_HOST=redis"
+      - "RQ_REDIS_PASS=testing"
+    networks:
+      - "network_pga"
+    ports:
+      - "9726:9726/tcp"

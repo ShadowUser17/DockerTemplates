@@ -1,0 +1,24 @@
+[api]
+enabled = true
+
+[sources.host]
+type = "host_metrics"
+scrape_interval_secs = 30
+
+collectors = [
+    "cpu",
+    "load",
+    "memory",
+    "disk",
+    "filesystem",
+    "network",
+    "host"
+]
+
+filesystem.mountpoints.includes = ["/"]
+
+[sinks.prom_write]
+type = "prometheus_remote_write"
+inputs = ["host"]
+endpoint = "http://prometheus:9090/api/v1/write"
+default_namespace = "service"
