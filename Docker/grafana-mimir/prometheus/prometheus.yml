@@ -7,6 +7,9 @@ remote_write:
     name: "mimir"
 
 alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["alertmanager:9093"]
 
 rule_files:
   - "prometheus-rules.yml"
@@ -26,9 +29,9 @@ scrape_configs:
         labels:
           group: "storage"
 
-#  - job_name: "hypervisor"
-#    scrape_interval: "30s"
-#    static_configs:
-#      - targets: ["node-exporter:9100"]
-#        labels:
-#          group: "node"
+  - job_name: "alertmanager"
+    scrape_interval: "30s"
+    static_configs:
+      - targets: ["alertmanager:9093"]
+        labels:
+          group: "alerts"

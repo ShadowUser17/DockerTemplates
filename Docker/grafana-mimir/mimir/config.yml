@@ -28,10 +28,12 @@ ingester:
       store: "memberlist"
     replication_factor: 1
 
-ruler_storage:
-  backend: "filesystem"
-  filesystem:
-    dir: "/tmp/mimir/rules"
+ruler:
+  alertmanager_url: "http://alertmanager:9093"
+  ruler_storage:
+    backend: "filesystem"
+    filesystem:
+      dir: "/etc/mimir/rules"
 
 server:
   http_listen_port: 9009

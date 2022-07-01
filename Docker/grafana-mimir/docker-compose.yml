@@ -5,11 +5,25 @@ volumes:
   mimir_data:
   grafana_data:
   prometheus_data:
+  alertmanager_data:
 
 services:
+  alertmanager:
+    image: "prom/alertmanager:v0.24.0"
+    container_name: "alertmanager"
+    volumes:
+      - "$PWD/alertmanager:/etc/alertmanager:ro"
+      - "alertmanager_data:/alertmanager:rw"
+    networks:
+      - "network_mimir"
+    ports:
+      - "9093:9093/tcp"
+
   mimir:
     image: "grafana/mimir:2.1.0"
     container_name: "mimir"
+    depends_on:
+      - "alertmanager"
     command:
       - "--config.file=/etc/mimir/config.yml"
     volumes:
@@ -55,6 +69,7 @@ services:
     container_name: "prometheus"
     depends_on:
       - "mimir"
+      - "alertmanager"
     command:
       - "--web.enable-remote-write-receiver"
       - "--web.enable-lifecycle"
@@ -76,6 +91,7 @@ services:
     depends_on:
       - "mimir"
       - "prometheus"
+      - "alertmanager"
     volumes:
       - "$PWD/grafana:/etc/grafana:ro"
       - "grafana_data:/var/lib/grafana:rw"
