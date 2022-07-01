@@ -1,0 +1,55 @@
+networks:
+  network_mimir:
+
+volumes:
+  mimir_data:
+  grafana_data:
+  prometheus_data:
+
+services:
+  mimir:
+    image: "grafana/mimir:2.1.0"
+    container_name: "mimir"
+    command:
+      - "--config.file=/etc/mimir/config.yml"
+    volumes:
+      - "$PWD/mimir:/etc/mimir:ro"
+      - "mimir_data:/tmp/mimir:rw"
+    networks:
+      - "network_mimir"
+    ports:
+      - "9009:9009/tcp"
+
+  prometheus:
+    image: "prom/prometheus:v2.36.2"
+    container_name: "prometheus"
+    depends_on:
+      - "mimir"
+    command:
+      - "--web.enable-remote-write-receiver"
+      - "--web.enable-lifecycle"
+      - "--storage.tsdb.path=/prometheus"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+    volumes:
+      - "$PWD/prometheus:/etc/prometheus:ro"
+      - "prometheus_data:/prometheus:rw"
+    networks:
+      - "network_mimir"
+    ports:
+      - "9090:9090/tcp"
+
+  grafana:
+    image: "grafana/grafana:8.5.6"
+    container_name: "grafana"
+    depends_on:
+      - "mimir"
+      - "prometheus"
+    volumes:
+      - "$PWD/grafana:/etc/grafana:ro"
+      - "grafana_data:/var/lib/grafana:rw"
+    networks:
+      - "network_mimir"
+    ports:
+      - "3000:3000/tcp"
