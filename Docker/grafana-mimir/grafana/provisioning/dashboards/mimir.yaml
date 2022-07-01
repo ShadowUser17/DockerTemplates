@@ -1,0 +1,7 @@
+apiVersion: 1
+providers:
+ - name: 'Mimir'
+   folder: 'Mimir'
+   type: file
+   options:
+     path: "/etc/grafana/mimir"
