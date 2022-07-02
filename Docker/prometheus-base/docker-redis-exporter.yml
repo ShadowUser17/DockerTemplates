@@ -37,3 +37,19 @@ services:
       - "network_pga"
     ports:
       - "9726:9726/tcp"
+
+  vector:
+    image: "timberio/vector:0.22.3-alpine"
+    container_name: "vector-exporter"
+    external_links:
+      - "prometheus"
+    depends_on:
+      - "redis-exporter"
+      - "rq-exporter"
+    volumes:
+      - "$PWD/vector_redis:/etc/vector:ro"
+    networks:
+      - "network_pga"
+    ports:
+      - "8383:8383/tcp"
+      - "9500:9500/tcp"

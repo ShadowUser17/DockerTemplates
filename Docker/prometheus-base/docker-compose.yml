@@ -21,6 +21,8 @@ services:
   prometheus:
     image: "prom/prometheus:v2.36.2"
     container_name: "prometheus"
+    depends_on:
+      - "alertmanager"
     command:
       - "--web.enable-remote-write-receiver"
       - "--web.enable-lifecycle"
@@ -31,8 +33,6 @@ services:
     volumes:
       - "$PWD/prometheus:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
-    depends_on:
-      - "alertmanager"
     networks:
       - "network_pga"
     ports:

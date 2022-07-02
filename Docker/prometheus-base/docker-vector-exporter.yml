@@ -8,7 +8,7 @@ services:
     external_links:
       - "prometheus"
     volumes:
-      - "$PWD/vector/vector.toml:/etc/vector/vector.toml:ro"
+      - "$PWD/vector:/etc/vector:ro"
     networks:
       - "network_pga"
     ports:
