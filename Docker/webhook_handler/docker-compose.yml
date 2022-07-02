@@ -1,0 +1,12 @@
+networks:
+  network_pga:
+
+services:
+  webhook:
+    build: "."
+    image: "webhook_handler"
+    container_name: "webhook_handler"
+    networks:
+      - "network_pga"
+    ports:
+      - "5002:5002/tcp"
