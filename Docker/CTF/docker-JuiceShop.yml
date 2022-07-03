@@ -1,8 +1,11 @@
-version: "3.8"
+networks:
+  network_ctf:
+
 services:
   juice-shop:
-    image: "bkimminich/juice-shop:v14.0.0"
+    image: "bkimminich/juice-shop:v14.0.1"
     container_name: "juice-shop"
-    network_mode: "bridge"
+    networks:
+      - "network_ctf"
     ports:
       - "3000:3000/tcp"
