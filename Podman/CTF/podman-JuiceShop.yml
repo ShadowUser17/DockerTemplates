@@ -1,7 +1,0 @@
-services:
-  juice-shop:
-    image: "docker.io/bkimminich/juice-shop:v14.0.0"
-    container_name: "juice-shop"
-    network_mode: "bridge"
-    ports:
-      - "3000:3000/tcp"
