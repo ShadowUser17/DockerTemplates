@@ -25,19 +25,6 @@ services:
     ports:
       - "9121:9121/tcp"
 
-  rq-exporter:
-    image: "mdawar/rq-exporter:v1.9.3"
-    container_name: "rq-exporter"
-    depends_on:
-      - "redis"
-    environment:
-      - "RQ_REDIS_HOST=redis"
-      - "RQ_REDIS_PASS=testing"
-    networks:
-      - "network_pga"
-    ports:
-      - "9726:9726/tcp"
-
   vector:
     image: "timberio/vector:0.22.3-alpine"
     container_name: "vector-exporter"
@@ -45,9 +32,8 @@ services:
       - "prometheus"
     depends_on:
       - "redis-exporter"
-      - "rq-exporter"
     volumes:
-      - "$PWD/vector_redis:/etc/vector:ro"
+      - "$PWD/vector:/etc/vector:ro"
     networks:
       - "network_pga"
     ports:

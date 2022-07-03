@@ -5,10 +5,7 @@ enabled = true
 scrape_interval_secs = 30
 type = "prometheus_scrape"
 honor_labels = true
-endpoints = [
-    "http://redis-exporter:9121/metrics",
-    "http://rq-exporter:9726/metrics"
-]
+endpoints = ["http://redis-exporter:9121/metrics"]
 
 [sinks.prom_write]
 type = "prometheus_remote_write"
