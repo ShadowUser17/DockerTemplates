@@ -2,8 +2,9 @@
 enabled = true
 
 [sources.redis_exporters]
-scrape_interval_secs = 30
 type = "prometheus_scrape"
+scrape_interval_secs = 30
+instance_tag = "instance"
 honor_labels = true
 endpoints = ["http://redis-exporter:9121/metrics"]
 
