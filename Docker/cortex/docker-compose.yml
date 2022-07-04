@@ -1,0 +1,115 @@
+networks:
+  network_cortex:
+
+volumes:
+  consul_data:
+  cortex_data:
+  grafana_data:
+  prometheus_data:
+  alertmanager_data:
+
+services:
+  alertmanager:
+    image: "prom/alertmanager:v0.24.0"
+    container_name: "alertmanager"
+    volumes:
+      - "$PWD/alertmanager:/etc/alertmanager:ro"
+      - "alertmanager_data:/alertmanager:rw"
+    networks:
+      - "network_cortex"
+    ports:
+      - "9093:9093/tcp"
+
+  consul:
+    image: "bitnami/consul:1.12.2"
+    container_name: "consul"
+    volumes:
+      - "consul_data:/bitnami/consul"
+    networks:
+      - "network_cortex"
+    ports:
+      - '8300:8300/tcp'
+      - '8301:8301/tcp'
+      - '8301:8301/udp'
+      - '8500:8500/tcp'
+      - '8600:8600/tcp'
+      - '8600:8600/udp'
+
+  consul-exporter:
+    image: "bitnami/consul-exporter:0.8.0"
+    container_name: "consul-exporter"
+    depends_on:
+      - "consul"
+    command:
+      - "--consul.server=consul:8500"
+    networks:
+      - "network_cortex"
+    ports:
+      - "9107:9107/tcp"
+
+  cortex:
+    image: "cortexproject/cortex:v1.11.1"
+    container_name: "cortex"
+    depends_on:
+      - "consul"
+    command:
+      - "--config.file=/etc/cortex/config.yml"
+      - "-ring.store=consul"
+      - "-consul.hostname=consul:8500"
+    volumes:
+      - "$PWD/cortex:/etc/cortex:ro"
+      - "cortex_data:/tmp/cortex:rw"
+    networks:
+      - "network_cortex"
+    ports:
+      - "9009:9009/tcp"
+
+  vector-host:
+    image: "timberio/vector:0.22.3-alpine"
+    container_name: "vector-host"
+    depends_on:
+      - "cortex"
+    volumes:
+      - "$PWD/vector:/etc/vector:ro"
+    networks:
+      - "network_cortex"
+    ports:
+      - "8383:8383/tcp"
+      - "9500:9500/tcp"
+
+  prometheus:
+    image: "prom/prometheus:v2.36.2"
+    container_name: "prometheus"
+    depends_on:
+      - "cortex"
+      - "consul-exporter"
+      - "alertmanager"
+    command:
+      - "--web.enable-remote-write-receiver"
+      - "--web.enable-lifecycle"
+      - "--storage.tsdb.path=/prometheus"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+    volumes:
+      - "$PWD/prometheus:/etc/prometheus:ro"
+      - "prometheus_data:/prometheus:rw"
+    networks:
+      - "network_cortex"
+    ports:
+      - "9090:9090/tcp"
+
+  grafana:
+    image: "grafana/grafana:8.5.6"
+    container_name: "grafana"
+    depends_on:
+      - "cortex"
+      - "prometheus"
+      - "alertmanager"
+    volumes:
+      - "$PWD/grafana:/etc/grafana:ro"
+      - "grafana_data:/var/lib/grafana:rw"
+    networks:
+      - "network_cortex"
+    ports:
+      - "3000:3000/tcp"
