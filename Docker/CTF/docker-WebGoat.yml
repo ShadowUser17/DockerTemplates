@@ -5,7 +5,6 @@ services:
   webgoat:
     image: "webgoat/goatandwolf:v8.2.2"
     container_name: "webgoat"
-    network_mode: "bridge"
     environment:
       - "TZ=Europe/Kiev"
     networks:
