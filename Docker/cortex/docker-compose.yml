@@ -65,7 +65,7 @@ services:
       - "9009:9009/tcp"
 
   vector-host:
-    image: "timberio/vector:0.22.3-alpine"
+    image: "timberio/vector:0.23.0-alpine"
     container_name: "vector-host"
     depends_on:
       - "cortex"
@@ -78,7 +78,7 @@ services:
       - "9500:9500/tcp"
 
   prometheus:
-    image: "prom/prometheus:v2.36.2"
+    image: "prom/prometheus:v2.37.0"
     container_name: "prometheus"
     depends_on:
       - "cortex"
