@@ -48,7 +48,7 @@ services:
       - "9107:9107/tcp"
 
   cortex:
-    image: "cortexproject/cortex:v1.11.1"
+    image: "cortexproject/cortex:v1.13.0"
     container_name: "cortex"
     depends_on:
       - "consul"
@@ -100,7 +100,7 @@ services:
       - "9090:9090/tcp"
 
   grafana:
-    image: "grafana/grafana:8.5.6"
+    image: "grafana/grafana:8.5.9"
     container_name: "grafana"
     depends_on:
       - "cortex"
