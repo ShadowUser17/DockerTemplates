@@ -1,4 +1,4 @@
-FROM golang:1.18.3-alpine AS Build
+FROM golang:1.18.4-alpine AS Build
 
 WORKDIR /root
 
