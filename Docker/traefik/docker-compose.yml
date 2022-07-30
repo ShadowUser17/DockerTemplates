@@ -1,0 +1,15 @@
+networks:
+  network_traefik:
+
+services:
+  traefik:
+    image: "traefik:v2.8.1"
+    container_name: "traefik"
+    volumes:
+      - "$PWD/traefik.yml:/etc/traefik/traefik.yml:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - "network_traefik"
+    ports:
+      - "8080:8080/tcp"
+      - "80:80/tcp"
