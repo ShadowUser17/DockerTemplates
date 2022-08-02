@@ -1,0 +1,17 @@
+volumes:
+  registry_data:
+
+networks:
+  network_registry:
+
+services:
+  registry:
+    restart: "on-failure"
+    image: "registry:2.8.1"
+    container_name: "registry"
+    volumes:
+      - "registry_data:/var/lib/registry:rw"
+    networks:
+      - "network_registry"
+    ports:
+      - "5000:5000/tcp"
