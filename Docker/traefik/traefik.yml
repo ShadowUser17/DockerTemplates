@@ -2,10 +2,7 @@ providers:
   docker:
     exposedByDefault: false
     defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
-    endpoint: "unix:////var/run/docker.sock"
-    network: "network_traefik"
-    tls:
-      insecureSkipVerify: true
+    endpoint: "unix:///var/run/docker.sock"
 
 api:
   insecure: true

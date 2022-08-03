@@ -4,6 +4,6 @@
 
 #### Labels:
 - traefik.enable=true
-- traefik.http.routers.<my-container>.rule=Host(\`<domain>\`)
-- traefik.http.routers.<my-container>.service=<name>
-- traefik.http.services.<my-service>.loadbalancer.server.port=<port>
+- traefik.http.routers.my-container.service=name
+- traefik.http.routers.my-container.rule=Host(\`domain\`)
+- traefik.http.services.my-service.loadbalancer.server.port=port

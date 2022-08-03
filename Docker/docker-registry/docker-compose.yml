@@ -16,3 +16,8 @@ services:
       - "network_registry"
     ports:
       - "5000:5000/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.registry.service=docker-registry"
+      - "traefik.http.routers.registry.rule=Host(`registry.docker`)"
+      - "traefik.http.services.docker-registry.loadbalancer.server.port=5000"
