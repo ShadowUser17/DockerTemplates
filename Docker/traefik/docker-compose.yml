@@ -11,5 +11,5 @@ services:
     networks:
       - "network_traefik"
     ports:
-      - "8080:8080/tcp"
       - "80:80/tcp"
+      - "9090:8080/tcp"
