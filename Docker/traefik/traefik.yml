@@ -4,6 +4,19 @@ providers:
     defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
     endpoint: "unix:///var/run/docker.sock"
 
+metrics:
+  prometheus:
+    entryPoint: metrics
+    addRoutersLabels: true
+    addServicesLabels: true
+
+entryPoints:
+  metrics:
+    address: ":8082"
+
+log:
+  level: "INFO"
+
 api:
   insecure: true
   dashboard: true
