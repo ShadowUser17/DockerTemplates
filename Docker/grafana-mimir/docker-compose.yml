@@ -69,7 +69,7 @@ services:
       - "9090:9090/tcp"
 
   grafana:
-    image: "grafana/grafana:8.5.9"
+    image: "grafana/grafana:8.5.10"
     container_name: "grafana"
     depends_on:
       - "mimir"

@@ -20,7 +20,7 @@ services:
       - "3100:3100/tcp"
 
   grafana:
-    image: "grafana/grafana:8.5.9"
+    image: "grafana/grafana:8.5.10"
     container_name: "grafana"
     depends_on:
       - "loki"
