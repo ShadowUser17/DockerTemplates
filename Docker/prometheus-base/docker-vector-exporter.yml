@@ -3,7 +3,7 @@ networks:
 
 services:
   vector:
-    image: "timberio/vector:0.23.0-alpine"
+    image: "timberio/vector:0.23.3-alpine"
     container_name: "vector-exporter"
     external_links:
       - "prometheus"
