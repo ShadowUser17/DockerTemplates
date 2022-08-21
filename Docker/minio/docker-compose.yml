@@ -1,5 +1,6 @@
 networks:
-  network_minio:
+  core_network:
+    external: true
 
 volumes:
   minio_data:
@@ -19,7 +20,7 @@ services:
     volumes:
       - "minio_data:/data:rw"
     networks:
-      - "network_minio"
+      - "core_network"
     ports:
       - "9000:9000/tcp"
       - "9001:9001/tcp"

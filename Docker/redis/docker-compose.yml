@@ -1,5 +1,6 @@
 networks:
-  network_pga:
+  core_network:
+    external: true
 
 services:
   redis:
@@ -8,7 +9,7 @@ services:
     environment:
       - "REDIS_PASSWORD=testing"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "6379:6379/tcp"
 
@@ -21,7 +22,7 @@ services:
       - "REDIS_ADDR=redis"
       - "REDIS_PASSWORD=testing"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "9121:9121/tcp"
 
@@ -35,7 +36,7 @@ services:
     volumes:
       - "$PWD/vector:/etc/vector:ro"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "8383:8383/tcp"
       - "9500:9500/tcp"

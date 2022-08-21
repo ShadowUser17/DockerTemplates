@@ -1,8 +1,14 @@
+networks:
+  core_network:
+    external: true
+
 services:
   whoami:
     image: "traefik/whoami:v1.7.1"
     container_name: "whoami"
     command:
       - "-port=4000"
+    networks:
+      - "core_network"
     ports:
       - "4000:4000/tcp"

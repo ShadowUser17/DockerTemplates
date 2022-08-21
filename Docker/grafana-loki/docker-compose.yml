@@ -1,5 +1,6 @@
 networks:
-  network_loki:
+  core_network:
+    external: true
 
 volumes:
   loki_data:
@@ -15,7 +16,7 @@ services:
       - "$PWD/loki:/etc/loki:ro"
       - "loki_data:/home/loki:rw"
     networks:
-      - "network_loki"
+      - "core_network"
     ports:
       - "3100:3100/tcp"
 
@@ -28,6 +29,6 @@ services:
       - "$PWD/grafana:/etc/grafana:ro"
       - "grafana_data:/var/lib/grafana:rw"
     networks:
-      - "network_loki"
+      - "core_network"
     ports:
       - "3000:3000/tcp"

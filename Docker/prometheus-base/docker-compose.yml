@@ -1,5 +1,6 @@
 networks:
-  network_pga:
+  core_network:
+    external: true
 
 volumes:
   alertmanager_data:
@@ -14,7 +15,7 @@ services:
       - "$PWD/alertmanager:/etc/alertmanager:ro"
       - "alertmanager_data:/alertmanager:rw"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "9093:9093/tcp"
     labels:
@@ -39,7 +40,7 @@ services:
       - "$PWD/prometheus:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "9090:9090/tcp"
     labels:
@@ -58,7 +59,7 @@ services:
       - "$PWD/grafana:/etc/grafana:ro"
       - "grafana_data:/var/lib/grafana:rw"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "3000:3000/tcp"
     labels:

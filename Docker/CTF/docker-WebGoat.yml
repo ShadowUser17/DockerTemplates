@@ -1,5 +1,6 @@
 networks:
-  network_ctf:
+  core_network:
+    external: true
 
 services:
   webgoat:
@@ -8,7 +9,7 @@ services:
     environment:
       - "TZ=Europe/Kiev"
     networks:
-      - "network_ctf"
+      - "core_network"
     ports:
       - "8080:8080/tcp"
       - "9090:9090/tcp"

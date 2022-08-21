@@ -1,11 +1,12 @@
 networks:
-  network_ctf:
+  core_network:
+    external: true
 
 services:
   juice-shop:
     image: "bkimminich/juice-shop:v14.1.1"
     container_name: "juice-shop"
     networks:
-      - "network_ctf"
+      - "core_network"
     ports:
       - "3000:3000/tcp"

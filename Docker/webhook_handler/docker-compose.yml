@@ -1,5 +1,6 @@
 networks:
-  network_pga:
+  core_network:
+    external: true
 
 services:
   webhook:
@@ -7,7 +8,7 @@ services:
     image: "webhook_handler"
     container_name: "webhook_handler"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "5002:5002/tcp"
     labels:

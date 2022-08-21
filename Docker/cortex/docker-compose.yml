@@ -1,5 +1,6 @@
 networks:
-  network_cortex:
+  core_network:
+    external: true
 
 volumes:
   consul_data:
@@ -16,7 +17,7 @@ services:
       - "$PWD/alertmanager:/etc/alertmanager:ro"
       - "alertmanager_data:/alertmanager:rw"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - "9093:9093/tcp"
 
@@ -26,7 +27,7 @@ services:
     volumes:
       - "consul_data:/bitnami/consul"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - '8300:8300/tcp'
       - '8301:8301/tcp'
@@ -43,7 +44,7 @@ services:
     command:
       - "--consul.server=consul:8500"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - "9107:9107/tcp"
 
@@ -60,7 +61,7 @@ services:
       - "$PWD/cortex:/etc/cortex:ro"
       - "cortex_data:/tmp/cortex:rw"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - "9009:9009/tcp"
 
@@ -72,7 +73,7 @@ services:
     volumes:
       - "$PWD/vector:/etc/vector:ro"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - "8383:8383/tcp"
       - "9500:9500/tcp"
@@ -95,7 +96,7 @@ services:
       - "$PWD/prometheus:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - "9090:9090/tcp"
 
@@ -110,6 +111,6 @@ services:
       - "$PWD/grafana:/etc/grafana:ro"
       - "grafana_data:/var/lib/grafana:rw"
     networks:
-      - "network_cortex"
+      - "core_network"
     ports:
       - "3000:3000/tcp"

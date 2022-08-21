@@ -2,7 +2,8 @@ volumes:
   registry_data:
 
 networks:
-  network_registry:
+  core_network:
+    external: true
 
 services:
   registry:
@@ -13,7 +14,7 @@ services:
       - "registry_data:/var/lib/registry:rw"
       - "$PWD/registry:/etc/docker/registry:ro"
     networks:
-      - "network_registry"
+      - "core_network"
     ports:
       - "5000:5000/tcp"
     labels:

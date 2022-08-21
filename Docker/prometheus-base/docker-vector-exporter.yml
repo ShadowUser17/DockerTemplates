@@ -1,5 +1,6 @@
 networks:
-  network_pga:
+  core_network:
+    external: true
 
 services:
   vector:
@@ -10,7 +11,7 @@ services:
     volumes:
       - "$PWD/vector:/etc/vector:ro"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "8383:8383/tcp"
       - "9500:9500/tcp"

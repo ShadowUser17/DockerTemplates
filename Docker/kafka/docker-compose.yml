@@ -1,5 +1,6 @@
 networks:
-  network_pga:
+  core_network:
+    external: true
 
 volumes:
   kafka_data:
@@ -14,7 +15,7 @@ services:
     volumes:
       - "zookeeper_data:/bitnami:rw"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "2181:2181/tcp"
 
@@ -32,7 +33,7 @@ services:
     volumes:
       - "kafka_data:/bitnami:rw"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "9092:9092/tcp"
 
@@ -47,6 +48,6 @@ services:
       - "--kafka.server=kafka:9092"
       - "--kafka.version=3.2.0"
     networks:
-      - "network_pga"
+      - "core_network"
     ports:
       - "9308:9308/tcp"
