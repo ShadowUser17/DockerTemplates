@@ -18,6 +18,20 @@ scrape_configs:
         labels:
           group: "self"
 
+  - job_name: "traefik"
+    scrape_interval: "30s"
+    static_configs:
+      - targets: ["traefik.docker.localhost:9092"]
+        labels:
+          group: "proxy"
+
+  - job_name: "coredns"
+    scrape_interval: "30s"
+    static_configs:
+      - targets: ["coredns.docker.localhost:9153"]
+        labels:
+          group: "dns"
+
   - job_name: "alertmanager"
     scrape_interval: "30s"
     static_configs:
