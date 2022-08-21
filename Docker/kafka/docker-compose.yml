@@ -9,7 +9,7 @@ volumes:
 services:
   zookeeper:
     image: "bitnami/zookeeper:3.8.0"
-    container_name: "zookeeper"
+    container_name: "zookeeper.docker.localhost"
     environment:
       - "ALLOW_ANONYMOUS_LOGIN=yes"
     volumes:
@@ -21,14 +21,14 @@ services:
 
   kafka:
     image: "bitnami/kafka:3.2.0"
-    container_name: "kafka"
+    container_name: "kafka.docker.localhost"
     depends_on:
       - "zookeeper"
     environment:
       - "KAFKA_BROKER_ID=1"
       - "ALLOW_PLAINTEXT_LISTENER=yes"
       - "KAFKA_CFG_LISTENERS=PLAINTEXT://:9092"
-      - "KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181"
+      - "KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper.docker.localhost:2181"
       - "KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092"
     volumes:
       - "kafka_data:/bitnami:rw"
@@ -44,8 +44,8 @@ services:
       - "zookeeper"
       - "kafka"
     command:
-      - "--zookeeper.server=zookeeper:2181"
-      - "--kafka.server=kafka:9092"
+      - "--zookeeper.server=zookeeper.docker.localhost:2181"
+      - "--kafka.server=kafka.docker.localhost:9092"
       - "--kafka.version=3.2.0"
     networks:
       - "core_network"

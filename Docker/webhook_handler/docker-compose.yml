@@ -6,7 +6,7 @@ services:
   webhook:
     build: "."
     image: "webhook_handler"
-    container_name: "webhook_handler"
+    container_name: "webhook.docker.localhost"
     networks:
       - "core_network"
     ports:

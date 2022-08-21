@@ -6,7 +6,7 @@ networks:
 services:
   traefik:
     image: "traefik:v2.8.3"
-    container_name: "traefik"
+    container_name: "traefik.docker.localhost"
     networks:
       - "core_network"
     volumes:
@@ -14,11 +14,11 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     ports:
       - "8082:8082/tcp"
-      - "9090:9090/tcp"
+      - "9092:9092/tcp"
 
   coredns:
     image: "coredns/coredns:1.9.3"
-    container_name: "coredns"
+    container_name: "coredns.docker.localhost"
     command:
       - "-conf=/etc/coredns/Corefile"
     volumes:

@@ -3,6 +3,6 @@ datasources:
   - name: "Cortex"
     type: "prometheus"
     access: "proxy"
-    url: "http://cortex:9009/prometheus"
+    url: "http://cortex.docker.localhost:9009/prometheus"
     jsonData:
       httpMethod: "POST"

@@ -20,5 +20,5 @@ filesystem.mountpoints.includes = ["/"]
 [sinks.prom_write]
 type = "prometheus_remote_write"
 inputs = ["host"]
-endpoint = "http://mimir:9009/api/v1/push"
+endpoint = "http://mimir.docker.localhost:9009/api/v1/push"
 default_namespace = "service"

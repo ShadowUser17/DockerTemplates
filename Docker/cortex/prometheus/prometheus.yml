@@ -3,13 +3,13 @@ global:
   evaluation_interval: "20s"
 
 remote_write:
-  - url: "http://cortex:9009/api/v1/push"
+  - url: "http://cortex.docker.localhost:9009/api/v1/push"
     name: "cortex"
 
 alerting:
   alertmanagers:
     - static_configs:
-        - targets: ["alertmanager:9093"]
+        - targets: ["alertmanager.docker.localhost:9093"]
 
 rule_files:
 
@@ -24,7 +24,7 @@ scrape_configs:
   - job_name: "cortex"
     scrape_interval: "30s"
     static_configs:
-      - targets: ["cortex:9009"]
+      - targets: ["cortex.docker.localhost:9009"]
         labels:
           group: "storage"
 
@@ -38,6 +38,6 @@ scrape_configs:
   - job_name: "alertmanager"
     scrape_interval: "30s"
     static_configs:
-      - targets: ["alertmanager:9093"]
+      - targets: ["alertmanager.docker.localhost:9093"]
         labels:
           group: "alerts"

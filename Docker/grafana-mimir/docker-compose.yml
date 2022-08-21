@@ -11,7 +11,7 @@ volumes:
 services:
   alertmanager:
     image: "prom/alertmanager:v0.24.0"
-    container_name: "alertmanager"
+    container_name: "alertmanager.docker.localhost"
     volumes:
       - "$PWD/alertmanager:/etc/alertmanager:ro"
       - "alertmanager_data:/alertmanager:rw"
@@ -22,7 +22,7 @@ services:
 
   mimir:
     image: "grafana/mimir:2.2.0"
-    container_name: "mimir"
+    container_name: "mimir.docker.localhost"
     depends_on:
       - "alertmanager"
     command:
@@ -50,7 +50,7 @@ services:
 
   prometheus:
     image: "prom/prometheus:v2.38.0"
-    container_name: "prometheus"
+    container_name: "prometheus.docker.localhost"
     depends_on:
       - "mimir"
       - "alertmanager"
@@ -71,7 +71,7 @@ services:
 
   grafana:
     image: "grafana/grafana:8.5.10"
-    container_name: "grafana"
+    container_name: "grafana.docker.localhost"
     depends_on:
       - "mimir"
       - "prometheus"

@@ -9,7 +9,7 @@ volumes:
 services:
   loki:
     image: "grafana/loki:2.6.1"
-    container_name: "loki"
+    container_name: "loki.docker.localhost"
     command:
       - "-config.file=/etc/loki/config.yml"
     volumes:
@@ -22,7 +22,7 @@ services:
 
   grafana:
     image: "grafana/grafana:8.5.10"
-    container_name: "grafana"
+    container_name: "grafana.docker.localhost"
     depends_on:
       - "loki"
     volumes:

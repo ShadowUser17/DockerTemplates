@@ -11,7 +11,7 @@ metrics:
 
 entryPoints:
   traefik:
-    address: ":9090"
+    address: ":9092"
 
   web:
     address: ":8082"

@@ -9,7 +9,7 @@ services:
   registry:
     restart: "on-failure"
     image: "registry:2.8.1"
-    container_name: "registry"
+    container_name: "registry.docker.localhost"
     volumes:
       - "registry_data:/var/lib/registry:rw"
       - "$PWD/registry:/etc/docker/registry:ro"

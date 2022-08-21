@@ -29,7 +29,7 @@ ingester:
     replication_factor: 1
 
 ruler:
-  alertmanager_url: "http://alertmanager:9093"
+  alertmanager_url: "http://alertmanager.docker.localhost:9093"
 
 ruler_storage:
     backend: "filesystem"

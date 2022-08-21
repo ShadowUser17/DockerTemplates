@@ -11,5 +11,5 @@ endpoints = ["http://redis-exporter:9121/metrics"]
 [sinks.prom_write]
 type = "prometheus_remote_write"
 inputs = ["redis_exporters"]
-endpoint = "http://prometheus:9090/api/v1/write"
+endpoint = "http://prometheus.docker.localhost:9090/api/v1/write"
 default_namespace = "service"

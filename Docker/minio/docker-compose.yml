@@ -8,7 +8,7 @@ volumes:
 services:
   minio:
     image: "minio/minio:latest"
-    container_name: "minio"
+    container_name: "minio.docker.localhost"
     environment:
       - "MINIO_ROOT_USER=testing"
       - "MINIO_ROOT_PASSWORD=rwpass128"
