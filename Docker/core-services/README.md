@@ -1,6 +1,10 @@
-#### Documentation:
-- [Traefik](https://doc.traefik.io/traefik/)
+#### Traefik:
+- [Documentation](https://doc.traefik.io/traefik/)
 - [DockerHub](https://hub.docker.com/_/traefik)
+
+#### CoreDNS:
+- [Documentation](https://coredns.io/manual/toc/)
+- [DockerHub](https://hub.docker.com/r/coredns/coredns)
 
 #### Labels:
 - traefik.enable=true
