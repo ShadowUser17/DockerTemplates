@@ -17,7 +17,7 @@ services:
       - "alertmanager_data:/alertmanager:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9093:9093/tcp"
 
   mimir:
@@ -32,7 +32,7 @@ services:
       - "mimir_data:/tmp/mimir:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9009:9009/tcp"
 
   vector-host:
@@ -44,7 +44,7 @@ services:
       - "$PWD/vector:/etc/vector:ro"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "8383:8383/tcp"
       - "9500:9500/tcp"
 
@@ -66,7 +66,7 @@ services:
       - "prometheus_data:/prometheus:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9090:9090/tcp"
 
   grafana:

@@ -16,7 +16,7 @@ services:
       - "zookeeper_data:/bitnami:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "2181:2181/tcp"
 
   kafka:
@@ -49,5 +49,5 @@ services:
       - "--kafka.version=3.2.0"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9308:9308/tcp"

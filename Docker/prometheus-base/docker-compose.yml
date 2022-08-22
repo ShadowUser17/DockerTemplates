@@ -16,7 +16,7 @@ services:
       - "alertmanager_data:/alertmanager:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9093:9093/tcp"
     labels:
       - "traefik.enable=true"
@@ -41,7 +41,7 @@ services:
       - "prometheus_data:/prometheus:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9090:9090/tcp"
     labels:
       - "traefik.enable=true"

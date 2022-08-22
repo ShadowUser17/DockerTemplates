@@ -18,17 +18,17 @@ services:
       - "alertmanager_data:/alertmanager:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9093:9093/tcp"
 
   consul:
     image: "bitnami/consul:1.12.2"
-    container_name: "consul"
+    container_name: "consul.docker.localhost"
     volumes:
       - "consul_data:/bitnami/consul"
     networks:
       - "core_network"
-    ports:
+    expose:
       - '8300:8300/tcp'
       - '8301:8301/tcp'
       - '8301:8301/udp'
@@ -42,10 +42,10 @@ services:
     depends_on:
       - "consul"
     command:
-      - "--consul.server=consul:8500"
+      - "--consul.server=consul.docker.localhost:8500"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9107:9107/tcp"
 
   cortex:
@@ -56,13 +56,13 @@ services:
     command:
       - "--config.file=/etc/cortex/config.yml"
       - "-ring.store=consul"
-      - "-consul.hostname=consul:8500"
+      - "-consul.hostname=consul.docker.localhost:8500"
     volumes:
       - "$PWD/cortex:/etc/cortex:ro"
       - "cortex_data:/tmp/cortex:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9009:9009/tcp"
 
   vector-host:
@@ -74,7 +74,7 @@ services:
       - "$PWD/vector:/etc/vector:ro"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "8383:8383/tcp"
       - "9500:9500/tcp"
 
@@ -97,7 +97,7 @@ services:
       - "prometheus_data:/prometheus:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "9090:9090/tcp"
 
   grafana:

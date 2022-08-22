@@ -12,6 +12,6 @@ services:
       - "$PWD/vector:/etc/vector:ro"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "8383:8383/tcp"
       - "9500:9500/tcp"

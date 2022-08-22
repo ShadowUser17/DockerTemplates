@@ -17,7 +17,7 @@ services:
       - "loki_data:/home/loki:rw"
     networks:
       - "core_network"
-    ports:
+    expose:
       - "3100:3100/tcp"
 
   grafana:
