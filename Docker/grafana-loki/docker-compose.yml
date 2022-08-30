@@ -21,7 +21,7 @@ services:
       - "3100:3100/tcp"
 
   grafana:
-    image: "grafana/grafana:8.5.10"
+    image: "grafana/grafana:8.5.11"
     container_name: "grafana.docker.localhost"
     depends_on:
       - "loki"
