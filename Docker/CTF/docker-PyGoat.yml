@@ -1,0 +1,12 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  pygoat:
+    image: "pygoat/pygoat:latest"
+    container_name: "pygoat.docker.localhost"
+    networks:
+      - "core_network"
+    ports:
+      - "8000:8000/tcp"

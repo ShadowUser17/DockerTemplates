@@ -4,8 +4,8 @@ networks:
 
 services:
   juice-shop:
-    image: "bkimminich/juice-shop:v14.2.0"
-    container_name: "juice-shop"
+    image: "bkimminich/juice-shop:v14.2.1"
+    container_name: "juiceshop.docker.localhost"
     networks:
       - "core_network"
     ports:
