@@ -6,6 +6,10 @@
 - [Documentation](https://coredns.io/manual/toc/)
 - [DockerHub](https://hub.docker.com/r/coredns/coredns)
 
+#### Watchtower:
+- [Documentation](https://containrrr.dev/watchtower/)
+- [DockerHub](https://hub.docker.com/r/containrrr/watchtower)
+
 #### Labels:
 - traefik.enable=true
 - traefik.http.routers.my-container.service=name

@@ -36,3 +36,16 @@ services:
     expose:
       - "9153:9153/tcp"
       - "5300:5300/udp"
+
+  watchtower:
+    restart: "always"
+    image: "containrrr/watchtower:1.4.0"
+    container_name: "watchtower.docker.localhost"
+    command:
+      - "--interval=120"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - "core_network"
+    labels:
+      - "com.centurylinklabs.watchtower.monitor-only=true"
