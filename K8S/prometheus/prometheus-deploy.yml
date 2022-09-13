@@ -19,7 +19,7 @@ spec:
       volumes:
         - name: "prometheus-config"
           configMap:
-            defaultMode: 420
+            defaultMode: 440
             name: "prometheus-config"
 
         - name: "prometheus-storage"

@@ -1,0 +1,28 @@
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  namespace: "monitoring"
+  name: "alertmanager-config"
+  labels:
+    name: "alertmanager-config"
+
+data:
+  alertmanager.yml: |-
+    global:
+      resolve_timeout: 1m
+
+    route:
+      group_by: ['alertname', 'severity']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 1h
+      receiver: 'testing'
+
+    receivers:
+
+    inhibit_rules:
+      - source_match:
+          severity: 'critical'
+        target_match:
+          severity: 'warning'
+        equal: ['alertname', 'instance']

@@ -1,0 +1,37 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  namespace: "monitoring"
+  name: "alertmanager-deploy"
+  labels:
+    app: "alertmanager"
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "alertmanager"
+  template:
+    metadata:
+      labels:
+        app: "alertmanager"
+    spec:
+      volumes:
+        - name: "alertmanager-config"
+          configMap:
+            defaultMode: 440
+            name: "alertmanager-config"
+
+        - name: "alertmanager-storage"
+          emptyDir: {}
+
+      containers:
+        - name: "alertmanager"
+          image: "prom/alertmanager:v0.24.0"
+          ports:
+            - containerPort: 9093
+          volumeMounts:
+            - name: "alertmanager-config"
+              mountPath: "/etc/alertmanager"
+            - name: "alertmanager-storage"
+              mountPath: "/alertmanager"
