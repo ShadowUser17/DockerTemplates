@@ -1,12 +1,12 @@
 apiVersion: "v1"
 kind: "PersistentVolume"
 metadata:
-  name: "storage-nfs"
+  name: "prometheus-data"
   labels:
     type: "remote"
 spec:
   capacity:
-    storage: "12Gi"
+    storage: "10Gi"
   accessModes:
     - "ReadWriteMany"
   nfs:
@@ -19,12 +19,12 @@ spec:
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  name: "default-pvc"
+  name: "prometheus-pvc"
 spec:
   accessModes:
     - "ReadWriteMany"
   storageClassName: ""
   resources:
     requests:
-      storage: "12Gi"
-  volumeName: "storage-nfs"
+      storage: "10Gi"
+  volumeName: "prometheus-data"
