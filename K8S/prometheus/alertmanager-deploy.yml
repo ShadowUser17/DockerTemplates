@@ -19,15 +19,18 @@ spec:
       volumes:
         - name: "alertmanager-config"
           configMap:
-            defaultMode: 440
             name: "alertmanager-config"
 
         - name: "alertmanager-storage"
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: "alertmanager-pvc"
 
       containers:
         - name: "alertmanager"
           image: "prom/alertmanager:v0.24.0"
+          args:
+            - "--config.file=/etc/alertmanager/alertmanager.yml"
+            - "--storage.path=/alertmanager"
           ports:
             - containerPort: 9093
           volumeMounts:
