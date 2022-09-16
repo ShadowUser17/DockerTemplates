@@ -38,3 +38,20 @@ spec:
               mountPath: "/etc/alertmanager"
             - name: "alertmanager-storage"
               mountPath: "/alertmanager"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "monitoring"
+  name: "alertmanager"
+
+spec:
+  selector:
+    app: "alertmanager"
+  type: "LoadBalancer"
+  ports:
+    - name: "http"
+      protocol: "TCP"
+      port: 9093
+      targetPort: 9093
