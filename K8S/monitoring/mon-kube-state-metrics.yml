@@ -131,6 +131,16 @@ rules:
       - "watch"
 
 ---
+apiVersion: "v1"
+kind: "ServiceAccount"
+automountServiceAccountToken: false
+metadata:
+  name: "kube-state-metrics"
+  namespace: "monitoring"
+  labels:
+    app.kubernetes.io/name: "kube-state-metrics"
+
+---
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRoleBinding"
 metadata:
@@ -147,16 +157,6 @@ subjects:
   - kind: "ServiceAccount"
     name: "kube-state-metrics"
     namespace: "monitoring"
-
----
-apiVersion: "v1"
-kind: "ServiceAccount"
-automountServiceAccountToken: false
-metadata:
-  name: "kube-state-metrics"
-  namespace: "monitoring"
-  labels:
-    app.kubernetes.io/name: "kube-state-metrics"
 
 ---
 apiVersion: "apps/v1"

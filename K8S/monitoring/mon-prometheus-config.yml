@@ -1,3 +1,54 @@
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRole"
+metadata:
+  name: "prometheus"
+
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "nodes"
+      - "services"
+      - "endpoints"
+      - "pods"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+
+  - apiGroups:
+      - "extensions"
+    resources:
+      - "ingresses"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+
+---
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  name: "prometheus"
+  namespace: "monitoring"
+
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRoleBinding"
+metadata:
+  name: "prometheus"
+
+roleRef:
+  apiGroup: "rbac.authorization.k8s.io"
+  kind: "ClusterRole"
+  name: "prometheus"
+
+subjects:
+  - kind: "ServiceAccount"
+    namespace: "monitoring"
+    name: "prometheus"
+
+---
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
@@ -39,29 +90,6 @@ data:
           - targets: ["kube-state-metrics.monitoring.svc:8080"]
             labels:
               group: "k8s"
-
-      - job_name: "kubernetes-nodes-cadvisor"
-        scrape_interval: "10s"
-        scrape_timeout: "10s"
-        scheme: "https"
-        tls_config:
-          ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-        bearer_token_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
-        kubernetes_sd_configs:
-          - role: "node"
-        relabel_configs:
-          - action: "labelmap"
-            regex: "__meta_kubernetes_node_label_(.+)"
-          - target_label: "__address__"
-            replacement: "kubernetes.default.svc:443"
-          - source_labels: ["__meta_kubernetes_node_name"]
-            regex: "(.+)"
-            target_label: "__metrics_path__"
-            replacement: "/api/v1/nodes/${1}/proxy/metrics/cadvisor"
-        metric_relabel_configs:
-          - action: "replace"
-            source_labels: ["id"]
-            regex: "^/machine.slice/machine-rkt\\x2d([^\\]+)\\.+/([^/]+).service"
 
       - job_name: "kubernetes-pods"
         kubernetes_sd_configs:
