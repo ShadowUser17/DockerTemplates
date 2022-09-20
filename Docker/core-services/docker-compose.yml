@@ -24,7 +24,7 @@ services:
 
   coredns:
     restart: "always"
-    image: "coredns/coredns:1.9.4"
+    image: "coredns/coredns:1.10.0"
     container_name: "coredns.docker.localhost"
     command:
       - "-conf=/etc/coredns/Corefile"

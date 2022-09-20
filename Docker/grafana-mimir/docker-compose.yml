@@ -21,7 +21,7 @@ services:
       - "9093:9093/tcp"
 
   mimir:
-    image: "grafana/mimir:2.2.0"
+    image: "grafana/mimir:2.3.0"
     container_name: "mimir.docker.localhost"
     depends_on:
       - "alertmanager"
