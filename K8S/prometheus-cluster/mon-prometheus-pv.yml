@@ -1,7 +1,6 @@
 apiVersion: "v1"
 kind: "PersistentVolume"
 metadata:
-  namespace: "monitoring"
   name: "alertmanager-data"
   labels:
     type: "remote"
@@ -20,7 +19,6 @@ spec:
 apiVersion: "v1"
 kind: "PersistentVolume"
 metadata:
-  namespace: "monitoring"
   name: "prometheus-data"
   labels:
     type: "remote"
@@ -39,7 +37,6 @@ spec:
 apiVersion: "v1"
 kind: "PersistentVolume"
 metadata:
-  namespace: "monitoring"
   name: "grafana-data"
   labels:
     type: "remote"

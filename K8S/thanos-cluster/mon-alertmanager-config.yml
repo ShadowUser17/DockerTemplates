@@ -1,0 +1,30 @@
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  namespace: "thanos-cluster"
+  name: "alertmanager-config"
+
+data:
+  alertmanager.yml: |-
+    global:
+      resolve_timeout: 1m
+
+    route:
+      group_by: ['alertname', 'severity']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 1h
+      receiver: 'testing'
+
+    receivers:
+      - name: 'testing'
+        webhook_configs:
+          - url: 'http://127.0.0.1:5002/'
+            send_resolved: true
+
+    inhibit_rules:
+      - source_match:
+          severity: 'critical'
+        target_match:
+          severity: 'warning'
+        equal: ['alertname', 'instance']
