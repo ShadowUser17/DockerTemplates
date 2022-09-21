@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  namespace: "monitoring"
+  namespace: "prometheus-cluster"
   name: "blackbox-config"
 
 data:
@@ -30,7 +30,7 @@ data:
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "monitoring"
+  namespace: "prometheus-cluster"
   name: "blackbox-deploy"
   labels:
     app: "blackbox"
@@ -63,7 +63,7 @@ spec:
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "monitoring"
+  namespace: "prometheus-cluster"
   name: "blackbox"
 
 spec:

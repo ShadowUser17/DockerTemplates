@@ -31,6 +31,6 @@ function delete {
 case "$1" in
     "create") create ;;
     "delete") delete ;;
-      "list") kubectl -n monitoring get all ;;
+      "list") kubectl -n prometheus-cluster get all ;;
            *) echo -e "$0 <create | delete | list>" ;;
 esac

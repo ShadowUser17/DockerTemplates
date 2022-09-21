@@ -2,13 +2,13 @@ apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
   name: "prometheus-sa"
-  namespace: "monitoring"
+  namespace: "prometheus-cluster"
 
 ---
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRole"
 metadata:
-  name: "prometheus-cluster"
+  name: "prometheus-crole"
 
 rules:
   - apiGroups: [""]
@@ -37,23 +37,23 @@ rules:
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRoleBinding"
 metadata:
-  name: "prometheus-cluster"
+  name: "prometheus-binding"
 
 roleRef:
   apiGroup: "rbac.authorization.k8s.io"
   kind: "ClusterRole"
-  name: "prometheus-cluster"
+  name: "prometheus-crole"
 
 subjects:
   - kind: "ServiceAccount"
-    namespace: "monitoring"
+    namespace: "prometheus-cluster"
     name: "prometheus-sa"
 
 ---
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  namespace: "monitoring"
+  namespace: "prometheus-cluster"
   name: "prometheus-config"
 
 data:
@@ -65,7 +65,7 @@ data:
     alerting:
       alertmanagers:
         - static_configs:
-            - targets: ["alertmanager.monitoring.svc:9093"]
+            - targets: ["alertmanager.prometheus-cluster.svc:9093"]
 
     rule_files:
       - "prometheus-rules.yml"
@@ -81,26 +81,14 @@ data:
       - job_name: "alertmanager"
         scrape_interval: "30s"
         static_configs:
-          - targets: ["alertmanager.monitoring.svc:9093"]
+          - targets: ["alertmanager.prometheus-cluster.svc:9093"]
             labels:
               group: "alerts"
 
       - job_name: "kube-state-metrics"
         scrape_interval: "30s"
         static_configs:
-          - targets: ["kube-state-metrics.monitoring.svc:8080"]
-            labels:
-              group: "k8s"
-
-      - job_name: "kube-metrics-server"
-        scrape_interval: "30s"
-        scheme: "https"
-        tls_config:
-          ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-        authorization:
-          credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
-        static_configs:
-          - targets: ["metrics-server.kube-system.svc:4443"]
+          - targets: ["kube-state-metrics.prometheus-cluster.svc:8080"]
             labels:
               group: "k8s"
 
