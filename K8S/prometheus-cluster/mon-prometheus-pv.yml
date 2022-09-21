@@ -12,7 +12,7 @@ spec:
     - "ReadWriteMany"
   nfs:
     server: "192.168.56.10"
-    path: "/var/nfs/alertmanager"
+    path: "/var/nfs/prometheus_cluster/alertmanager"
   mountOptions:
     - "nfsvers=4.0"
 
@@ -31,7 +31,7 @@ spec:
     - "ReadWriteMany"
   nfs:
     server: "192.168.56.10"
-    path: "/var/nfs/prometheus"
+    path: "/var/nfs/prometheus_cluster/prometheus"
   mountOptions:
     - "nfsvers=4.0"
 
@@ -50,7 +50,7 @@ spec:
     - "ReadWriteMany"
   nfs:
     server: "192.168.56.10"
-    path: "/var/nfs/grafana"
+    path: "/var/nfs/prometheus_cluster/grafana"
   mountOptions:
     - "nfsvers=4.0"
 
