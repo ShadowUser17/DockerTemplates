@@ -17,7 +17,7 @@ spec:
         app: "prometheus"
     spec:
       automountServiceAccountToken: true
-      serviceAccountName: "prometheus"
+      serviceAccountName: "prometheus-sa"
 
       volumes:
         - name: "prometheus-config"

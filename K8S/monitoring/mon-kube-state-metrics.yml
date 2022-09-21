@@ -133,7 +133,6 @@ rules:
 ---
 apiVersion: "v1"
 kind: "ServiceAccount"
-automountServiceAccountToken: false
 metadata:
   name: "kube-state-metrics"
   namespace: "monitoring"
