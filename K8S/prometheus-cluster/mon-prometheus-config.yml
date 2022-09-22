@@ -15,6 +15,7 @@ rules:
     resources:
       - "pods"
       - "nodes"
+      - "nodes/proxy"
       - "nodes/metrics"
       - "services"
       - "endpoints"
@@ -92,19 +93,6 @@ data:
             labels:
               group: "k8s"
 
-      # - job_name: "kubernetes-nodes"
-      #   scrape_interval: "30s"
-      #   scheme: "https"
-      #   tls_config:
-      #     ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-      #   authorization:
-      #     credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
-      #   kubernetes_sd_configs:
-      #     - role: "node"
-      #   relabel_configs:
-      #     - action: "labelmap"
-      #       regex: "__meta_kubernetes_node_label_(.+)"
-
       - job_name: "kubernetes-node-exporter"
         scrape_interval: "30s"
         scheme: "http"
@@ -114,6 +102,19 @@ data:
           - source_labels: ["__meta_kubernetes_endpoints_name"]
             regex: "node-exporter"
             action: "keep"
+
+      - job_name: "kubernetes-nodes"
+        scrape_interval: "30s"
+        scheme: "https"
+        tls_config:
+          ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        authorization:
+          credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+        kubernetes_sd_configs:
+          - role: "node"
+        relabel_configs:
+          - action: "labelmap"
+            regex: "__meta_kubernetes_node_label_(.+)"
 
       - job_name: "kubernetes-cadvisor-exporter"
         scrape_interval: "30s"
@@ -126,28 +127,6 @@ data:
           - source_labels: ["__meta_kubernetes_endpoints_name"]
             regex: "cadvisor-exporter"
             action: "keep"
-
-      # - job_name: "kubernetes-pods"
-      #   scrape_interval: "30s"
-      #   scheme: "http"
-      #   kubernetes_sd_configs:
-      #     - role: "pod"
-      #       namespaces:
-      #         names:
-      #           - "default"
-      #           - "kube-system"
-      #   relabel_configs:
-      #     - action: "labelmap"
-      #       regex: "__meta_kubernetes_pod_label_(.+)"
-      #     - source_labels: ["__meta_kubernetes_namespace"]
-      #       action: "replace"
-      #       target_label: "namespace"
-      #     - source_labels: ["__meta_kubernetes_pod_name"]
-      #       action: "replace"
-      #       target_label: "pod"
-      #     - source_labels: ["__meta_kubernetes_pod_annotation_prometheus_io_scrape"]
-      #       action: "keep"
-      #       regex: "true"
 
   prometheus-rules.yml: |-
     groups:

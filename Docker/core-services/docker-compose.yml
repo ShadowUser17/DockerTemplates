@@ -10,7 +10,7 @@ networks:
 services:
   traefik:
     restart: "always"
-    image: "traefik:v2.8.5"
+    image: "traefik:v2.8.7"
     container_name: "traefik.docker.localhost"
     networks:
       core_network:
