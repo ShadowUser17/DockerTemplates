@@ -10,6 +10,7 @@ items=(
     "mon-prometheus-deploy.yml"
     "mon-grafana-deploy.yml"
     "mon-kube-state-metrics.yml"
+    "mon-node-exporter.yml"
 )
 
 function create {
