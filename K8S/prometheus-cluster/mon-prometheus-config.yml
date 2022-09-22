@@ -117,16 +117,15 @@ data:
 
       - job_name: "kubernetes-cadvisor-exporter"
         scrape_interval: "30s"
-        scheme: "https"
-        tls_config:
-          ca_file: /"var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-        authorization:
-          credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+        scheme: "http"
         kubernetes_sd_configs:
-          - role: "node"
+          - role: "endpoints"
         relabel_configs:
           - action: "labelmap"
             regex: "__meta_kubernetes_node_label_(.+)"
+          - source_labels: ["__meta_kubernetes_endpoints_name"]
+            regex: "cadvisor-exporter"
+            action: "keep"
 
       # - job_name: "kubernetes-pods"
       #   scrape_interval: "30s"
