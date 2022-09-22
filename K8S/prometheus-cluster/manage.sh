@@ -11,6 +11,7 @@ items=(
     "mon-grafana-deploy.yml"
     "mon-kube-state-metrics.yml"
     "mon-node-exporter.yml"
+    "mon-cadvisor-exporter.yml"
 )
 
 function create {
