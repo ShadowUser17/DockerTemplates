@@ -4,7 +4,6 @@ networks:
 
 volumes:
   loki_data:
-  grafana_data:
 
 services:
   loki:
@@ -19,16 +18,3 @@ services:
       - "core_network"
     expose:
       - "3100:3100/tcp"
-
-  grafana:
-    image: "grafana/grafana:8.5.11"
-    container_name: "grafana.docker.localhost"
-    depends_on:
-      - "loki"
-    volumes:
-      - "$PWD/grafana:/etc/grafana:ro"
-      - "grafana_data:/var/lib/grafana:rw"
-    networks:
-      - "core_network"
-    ports:
-      - "3000:3000/tcp"

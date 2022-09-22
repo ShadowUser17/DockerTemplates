@@ -1,0 +1,22 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  node-exporter:
+    image: "prom/node-exporter:v1.3.1"
+    container_name: "node-exporter.docker.localhost"
+    command:
+      - "--path.rootfs=/rootfs"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    volumes:
+      - "/:/rootfs:ro"
+    networks:
+      - "core_network"
+    expose:
+      - "9100:9100/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.node-exporter.service=node-exporter"
+      - "traefik.http.routers.node-exporter.rule=Host(`node-exporter.docker.localhost`)"
+      - "traefik.http.services.node-exporter.loadbalancer.server.port=9100"
