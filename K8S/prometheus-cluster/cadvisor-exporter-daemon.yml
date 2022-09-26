@@ -28,9 +28,9 @@ spec:
         - name: "sys"
           hostPath:
             path: "/sys"
-        # - name: "docker"
-        #   hostPath:
-        #     path: "/var/lib/docker"
+        - name: "containerd"
+          hostPath:
+            path: "/var/run/k3s/containerd"
         - name: "disk"
           hostPath:
             path: "/dev/disk"
@@ -47,9 +47,9 @@ spec:
             - name: "sys"
               mountPath: "/sys"
               readOnly: true
-            # - name: "docker"
-            #   mountPath: "/var/lib/docker"
-            #   readOnly: true
+            - name: "containerd"
+              mountPath: "/var/run/containerd"
+              readOnly: true
             - name: "disk"
               mountPath: "/dev/disk"
               readOnly: true
