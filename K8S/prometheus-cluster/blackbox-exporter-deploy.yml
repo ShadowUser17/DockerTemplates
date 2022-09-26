@@ -1,0 +1,27 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  namespace: "prometheus-cluster"
+  name: "blackbox-deploy"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "blackbox-exporter"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "blackbox-exporter"
+    spec:
+      volumes:
+        - name: "blackbox-config"
+          configMap:
+            name: "blackbox-config"
+      containers:
+        - name: "blackbox-exporter"
+          image: "prom/blackbox-exporter:v0.22.0"
+          ports:
+            - containerPort: 9115
+          volumeMounts:
+            - name: "blackbox-config"
+              mountPath: "/etc/blackbox_exporter"

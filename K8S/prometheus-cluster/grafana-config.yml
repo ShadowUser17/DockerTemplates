@@ -3,7 +3,6 @@ kind: "ConfigMap"
 metadata:
   namespace: "prometheus-cluster"
   name: "grafana-datasources"
-
 data:
   prometheus.yml: |-
     apiVersion: 1

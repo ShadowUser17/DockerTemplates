@@ -9,7 +9,6 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRole"
 metadata:
   name: "prom-ksm-crole"
-
 rules:
   - apiGroups:
       - ""
@@ -30,7 +29,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "apps"
     resources:
@@ -41,7 +39,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "batch"
     resources:
@@ -50,7 +47,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "autoscaling"
     resources:
@@ -58,21 +54,18 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "authentication.k8s.io"
     resources:
       - "tokenreviews"
     verbs:
       - "create"
-
   - apiGroups:
       - "authorization.k8s.io"
     resources:
       - "subjectaccessreviews"
     verbs:
       - "create"
-
   - apiGroups:
       - "policy"
     resources:
@@ -80,7 +73,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "certificates.k8s.io"
     resources:
@@ -88,7 +80,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "storage.k8s.io"
     resources:
@@ -97,7 +88,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "admissionregistration.k8s.io"
     resources:
@@ -106,7 +96,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "networking.k8s.io"
     resources:
@@ -115,7 +104,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "coordination.k8s.io"
     resources:
@@ -123,7 +111,6 @@ rules:
     verbs:
       - "list"
       - "watch"
-
   - apiGroups:
       - "rbac.authorization.k8s.io"
     resources:
@@ -140,88 +127,11 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRoleBinding"
 metadata:
   name: "prom-ksm-binding"
-
 roleRef:
   apiGroup: "rbac.authorization.k8s.io"
   kind: "ClusterRole"
   name: "prom-ksm-crole"
-
 subjects:
   - kind: "ServiceAccount"
     name: "prom-ksm-sa"
     namespace: "prometheus-cluster"
-
----
-apiVersion: "apps/v1"
-kind: "Deployment"
-metadata:
-  name: "kube-state-metrics"
-  namespace: "prometheus-cluster"
-  labels:
-    app: "kube-state-metrics"
-
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: "kube-state-metrics"
-  template:
-    metadata:
-      labels:
-        app: "kube-state-metrics"
-      annotations:
-        prometheus.io/scrape: "true"
-    spec:
-      automountServiceAccountToken: true
-      serviceAccountName: "prom-ksm-sa"
-
-      containers:
-        - name: "kube-state-metrics"
-          image: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.6.0"
-          ports:
-            - name: "http-metrics"
-              containerPort: 8080
-            - name: "telemetry"
-              containerPort: 8081
-
-          livenessProbe:
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-            httpGet:
-              path: "/healthz"
-              port: 8080
-
-          readinessProbe:
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-            httpGet:
-              path: "/"
-              port: 8081
-
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            runAsUser: 65534
-            capabilities:
-              drop: ["ALL"]
-
----
-apiVersion: "v1"
-kind: "Service"
-metadata:
-  namespace: "prometheus-cluster"
-  name: "kube-state-metrics"
-
-spec:
-  selector:
-    app: "kube-state-metrics"
-  ports:
-    - name: "http-metrics"
-      protocol: "TCP"
-      port: 8080
-      targetPort: 8080
-
-    - name: "telemetry"
-      protocol: "TCP"
-      port: 8081
-      targetPort: 8081

@@ -1,0 +1,46 @@
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  name: "prometheus-sa"
+  namespace: "prometheus-cluster"
+
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRole"
+metadata:
+  name: "prometheus-crole"
+rules:
+  - apiGroups: [""]
+    resources:
+      - "pods"
+      - "nodes"
+      - "nodes/proxy"
+      - "nodes/metrics"
+      - "services"
+      - "endpoints"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - nonResourceURLs: ["/metrics"]
+    verbs: ["get"]
+
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRoleBinding"
+metadata:
+  name: "prometheus-binding"
+roleRef:
+  apiGroup: "rbac.authorization.k8s.io"
+  kind: "ClusterRole"
+  name: "prometheus-crole"
+subjects:
+  - kind: "ServiceAccount"
+    namespace: "prometheus-cluster"
+    name: "prometheus-sa"

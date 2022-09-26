@@ -3,7 +3,6 @@ kind: "ConfigMap"
 metadata:
   namespace: "prometheus-cluster"
   name: "alertmanager-config"
-
 data:
   alertmanager.yml: |-
     global:

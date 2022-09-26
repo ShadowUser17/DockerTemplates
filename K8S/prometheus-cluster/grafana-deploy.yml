@@ -3,28 +3,23 @@ kind: "Deployment"
 metadata:
   namespace: "prometheus-cluster"
   name: "grafana-deploy"
-  labels:
-    app: "grafana"
-
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "grafana"
+      app.kubernetes.io/name: "grafana"
   template:
     metadata:
       labels:
-        app: "grafana"
+        app.kubernetes.io/name: "grafana"
     spec:
       volumes:
         - name: "grafana-storage"
           persistentVolumeClaim:
             claimName: "grafana-pvc"
-
         - name: "grafana-datasources"
           configMap:
             name: "grafana-datasources"
-
       containers:
         - name: "grafana"
           image: "grafana/grafana:9.1.6"
@@ -33,23 +28,5 @@ spec:
           volumeMounts:
             - name: "grafana-storage"
               mountPath: "/var/lib/grafana"
-
             - name: "grafana-datasources"
               mountPath: "/etc/grafana/provisioning/datasources"
-
----
-apiVersion: "v1"
-kind: "Service"
-metadata:
-  namespace: "prometheus-cluster"
-  name: "grafana"
-
-spec:
-  selector:
-    app: "grafana"
-  type: "LoadBalancer"
-  ports:
-    - name: "http"
-      protocol: "TCP"
-      port: 3000
-      targetPort: 3000

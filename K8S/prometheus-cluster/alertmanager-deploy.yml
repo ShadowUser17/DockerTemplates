@@ -3,30 +3,23 @@ kind: "Deployment"
 metadata:
   namespace: "prometheus-cluster"
   name: "alertmanager-deploy"
-  labels:
-    app: "alertmanager"
-
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "alertmanager"
+      app.kubernetes.io/name: "alertmanager"
   template:
     metadata:
       labels:
-        app: "alertmanager"
-      annotations:
-        prometheus.io/scrape: "true"
+        app.kubernetes.io/name: "alertmanager"
     spec:
       volumes:
         - name: "alertmanager-config"
           configMap:
             name: "alertmanager-config"
-
         - name: "alertmanager-storage"
           persistentVolumeClaim:
             claimName: "alertmanager-pvc"
-
       containers:
         - name: "alertmanager"
           image: "prom/alertmanager:v0.24.0"
@@ -40,20 +33,3 @@ spec:
               mountPath: "/etc/alertmanager"
             - name: "alertmanager-storage"
               mountPath: "/alertmanager"
-
----
-apiVersion: "v1"
-kind: "Service"
-metadata:
-  namespace: "prometheus-cluster"
-  name: "alertmanager"
-
-spec:
-  selector:
-    app: "alertmanager"
-  type: "LoadBalancer"
-  ports:
-    - name: "http"
-      protocol: "TCP"
-      port: 9093
-      targetPort: 9093

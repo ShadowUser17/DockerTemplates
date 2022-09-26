@@ -3,29 +3,24 @@ kind: "DaemonSet"
 metadata:
   namespace: "prometheus-cluster"
   name: "node-exporter-daemon"
-  labels:
-    app: "node-exporter"
-
+  annotations:
+    prometheus.io/scrape: "true"
 spec:
   selector:
     matchLabels:
-      app: "node-exporter"
+      app.kubernetes.io/name: "node-exporter"
   template:
     metadata:
       labels:
-        app: "node-exporter"
-      annotations:
-         prometheus.io/scrape: "true"
+        app.kubernetes.io/name: "node-exporter"
     spec:
       hostPID: true
       hostIPC: true
       hostNetwork: true
-
       volumes:
         - name: "rootfs"
           hostPath:
             path: "/"
-
       containers:
         - name: "node-exporter"
           securityContext:
@@ -40,19 +35,3 @@ spec:
             - name: "rootfs"
               mountPath: "/rootfs"
               readOnly: true
-
----
-apiVersion: "v1"
-kind: "Service"
-metadata:
-  namespace: "prometheus-cluster"
-  name: "node-exporter"
-
-spec:
-  selector:
-    app: "node-exporter"
-  ports:
-  - name: "http"
-    protocol: "TCP"
-    port: 9100
-    targetPort: 9100
