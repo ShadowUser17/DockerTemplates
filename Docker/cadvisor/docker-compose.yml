@@ -7,10 +7,9 @@ services:
     image: "gcr.io/cadvisor/cadvisor:v0.45.0"
     container_name: "cadvisor.docker.localhost"
     volumes:
-      - "/:/rootfs:ro"
       - "/var/run:/var/run:rw"
       - "/sys:/sys:ro"
-      - "/var/lib/docker:/var/lib/docker:ro"
+      - "/:/rootfs:ro"
     networks:
       - "core_network"
     expose:

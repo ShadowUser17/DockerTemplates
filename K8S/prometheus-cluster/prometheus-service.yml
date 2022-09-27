@@ -4,6 +4,7 @@ metadata:
   namespace: "prometheus-cluster"
   name: "prometheus"
 spec:
+  type: "LoadBalancer"
   selector:
     app.kubernetes.io/name: "prometheus"
   ports:

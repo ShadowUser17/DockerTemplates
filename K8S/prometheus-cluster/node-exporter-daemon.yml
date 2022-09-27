@@ -14,11 +14,11 @@ spec:
       labels:
         app.kubernetes.io/name: "node-exporter"
     spec:
+      hostNetwork: true
       hostPID: true
       hostIPC: true
-      hostNetwork: true
       volumes:
-        - name: "rootfs"
+        - name: "root"
           hostPath:
             path: "/"
       containers:
@@ -28,12 +28,10 @@ spec:
             - "--path.rootfs=/rootfs"
             - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"'
           volumeMounts:
-            - name: "rootfs"
+            - name: "root"
               mountPath: "/rootfs"
               readOnly: true
           ports:
             - name: "http"
               protocol: "TCP"
               containerPort: 9100
-          securityContext:
-            privileged: true

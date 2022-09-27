@@ -15,22 +15,21 @@ spec:
       labels:
         app.kubernetes.io/name: "cadvisor-exporter"
     spec:
-      terminationGracePeriodSeconds: 30
       automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
       serviceAccountName: "cadvisor-sa"
+      hostNetwork: true
+      hostPID: true
       volumes:
-        - name: "rootfs"
+        - name: "root"
           hostPath:
             path: "/"
-        - name: "var-run"
-          hostPath:
-            path: "/var/run"
-        - name: "sys"
-          hostPath:
-            path: "/sys"
         - name: "containerd"
           hostPath:
             path: "/var/run/k3s/containerd"
+        - name: "sys"
+          hostPath:
+            path: "/sys"
         - name: "disk"
           hostPath:
             path: "/dev/disk"
@@ -40,17 +39,14 @@ spec:
           args:
             - "--port=8085"
           volumeMounts:
-            - name: "rootfs"
+            - name: "root"
               mountPath: "/rootfs"
-              readOnly: true
-            - name: "var-run"
-              mountPath: "/var/run"
-              readOnly: true
-            - name: "sys"
-              mountPath: "/sys"
               readOnly: true
             - name: "containerd"
               mountPath: "/var/run/containerd"
+              readOnly: true
+            - name: "sys"
+              mountPath: "/sys"
               readOnly: true
             - name: "disk"
               mountPath: "/dev/disk"
@@ -59,5 +55,3 @@ spec:
             - name: "http"
               protocol: "TCP"
               containerPort: 8085
-          securityContext:
-            privileged: true
