@@ -21,7 +21,9 @@ spec:
         - name: "blackbox-exporter"
           image: "prom/blackbox-exporter:v0.22.0"
           ports:
-            - containerPort: 9115
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 9115
           volumeMounts:
             - name: "blackbox-config"
               mountPath: "/etc/blackbox_exporter"

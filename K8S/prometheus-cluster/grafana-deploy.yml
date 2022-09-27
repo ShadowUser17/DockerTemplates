@@ -24,7 +24,9 @@ spec:
         - name: "grafana"
           image: "grafana/grafana:9.1.6"
           ports:
-            - containerPort: 3000
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 3000
           volumeMounts:
             - name: "grafana-storage"
               mountPath: "/var/lib/grafana"

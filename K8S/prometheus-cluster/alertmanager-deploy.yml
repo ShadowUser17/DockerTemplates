@@ -27,7 +27,9 @@ spec:
             - "--config.file=/etc/alertmanager/alertmanager.yml"
             - "--storage.path=/alertmanager"
           ports:
-            - containerPort: 9093
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 9093
           volumeMounts:
             - name: "alertmanager-config"
               mountPath: "/etc/alertmanager"
