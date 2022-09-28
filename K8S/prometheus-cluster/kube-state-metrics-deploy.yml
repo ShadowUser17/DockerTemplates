@@ -15,7 +15,6 @@ spec:
       labels:
         app.kubernetes.io/name: "kube-state-metrics"
     spec:
-      automountServiceAccountToken: true
       serviceAccountName: "prom-ksm-sa"
       containers:
         - name: "kube-state-metrics"
@@ -27,6 +26,13 @@ spec:
             - name: "telemetry"
               protocol: "TCP"
               containerPort: 8081
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
+            requests:
+              cpu: "100m"
+              memory: "50Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

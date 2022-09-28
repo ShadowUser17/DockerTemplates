@@ -5,6 +5,8 @@ metadata:
   name: "alertmanager-deploy"
 spec:
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "alertmanager"
@@ -35,6 +37,13 @@ spec:
             - name: "http"
               protocol: "TCP"
               containerPort: 9093
+          resources:
+            limits:
+              cpu: "10m"
+              memory: "50Mi"
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

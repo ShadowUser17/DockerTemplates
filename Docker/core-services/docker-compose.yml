@@ -9,9 +9,15 @@ networks:
 
 services:
   traefik:
-    restart: "always"
     image: "traefik:v2.8.7"
+    restart: "always"
     container_name: "traefik.docker.localhost"
+    deploy:
+      resources:
+        limits:
+          memory: "60M"
+        reservations:
+          memory: "30M"
     networks:
       core_network:
         ipv4_address: "172.30.0.1"
@@ -23,9 +29,15 @@ services:
       - "9092:9092/tcp"
 
   coredns:
-    restart: "always"
     image: "coredns/coredns:1.10.0"
     container_name: "coredns.docker.localhost"
+    restart: "always"
+    deploy:
+      resources:
+        limits:
+          memory: "40M"
+        reservations:
+          memory: "20M"
     command:
       - "-conf=/etc/coredns/Corefile"
     volumes:

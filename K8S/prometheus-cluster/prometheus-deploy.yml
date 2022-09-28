@@ -5,6 +5,8 @@ metadata:
   name: "prometheus-deploy"
 spec:
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "prometheus"
@@ -13,7 +15,6 @@ spec:
       labels:
         app.kubernetes.io/name: "prometheus"
     spec:
-      automountServiceAccountToken: true
       serviceAccountName: "prometheus-sa"
       volumes:
         - name: "prometheus-config"
@@ -39,6 +40,13 @@ spec:
             - name: "http"
               protocol: "TCP"
               containerPort: 9090
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "1000Mi"
+            requests:
+              cpu: "200m"
+              memory: "1000Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

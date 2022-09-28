@@ -5,6 +5,8 @@ metadata:
   name: "grafana-deploy"
 spec:
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "grafana"
@@ -32,6 +34,13 @@ spec:
             - name: "http"
               protocol: "TCP"
               containerPort: 3000
+          resources:
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5
