@@ -24,6 +24,7 @@ spec:
       containers:
         - name: "node-exporter"
           image: "prom/node-exporter:v1.4.0"
+          imagePullPolicy: "IfNotPresent"
           args:
             - "--path.rootfs=/rootfs"
             - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"'

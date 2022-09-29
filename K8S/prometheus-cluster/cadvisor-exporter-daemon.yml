@@ -16,7 +16,6 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       hostNetwork: true
-      hostPID: true
       volumes:
         - name: "root"
           hostPath:
@@ -33,7 +32,14 @@ spec:
       containers:
         - name: "cadvisor"
           image: "gcr.io/cadvisor/cadvisor:v0.45.0"
+          imagePullPolicy: "IfNotPresent"
           args:
+            - "--allow_dynamic_housekeeping=true"
+            - "--global_housekeeping_interval=30s"
+            - "--max_housekeeping_interval=35s"
+            - "--housekeeping_interval=30s"
+            - "--storage_duration=1m0s"
+            - "--docker_only=true"
             - "--port=8085"
           volumeMounts:
             - name: "root"
@@ -60,14 +66,8 @@ spec:
               cpu: "100m"
               memory: "100Mi"
           livenessProbe:
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             timeoutSeconds: 5
             httpGet:
               path: "/healthz"
-              port: 8085
-          readinessProbe:
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-            httpGet:
-              path: "/containers"
               port: 8085

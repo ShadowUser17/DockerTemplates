@@ -20,6 +20,7 @@ spec:
       containers:
         - name: "blackbox-exporter"
           image: "prom/blackbox-exporter:v0.22.0"
+          imagePullPolicy: "IfNotPresent"
           volumeMounts:
             - name: "blackbox-config"
               mountPath: "/etc/blackbox_exporter"

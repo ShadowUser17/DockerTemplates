@@ -6,6 +6,14 @@ services:
   cadvisor:
     image: "gcr.io/cadvisor/cadvisor:v0.45.0"
     container_name: "cadvisor.docker.localhost"
+    command:
+      - "--allow_dynamic_housekeeping=true"
+      - "--global_housekeeping_interval=30s"
+      - "--max_housekeeping_interval=35s"
+      - "--housekeeping_interval=30s"
+      - "--storage_duration=1m0s"
+      - "--docker_only=true"
+      - "--port=8085"
     volumes:
       - "/var/run:/var/run:rw"
       - "/sys:/sys:ro"
@@ -13,9 +21,9 @@ services:
     networks:
       - "core_network"
     expose:
-      - "8080:8080/tcp"
+      - "8085:8085/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cadvisor.service=cadvisor"
       - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.docker.localhost`)"
-      - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
+      - "traefik.http.services.cadvisor.loadbalancer.server.port=8085"

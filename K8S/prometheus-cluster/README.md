@@ -25,4 +25,7 @@ volumes:
   - name: "containerd"
     hostPath:
       path: "/var/run/containerd"
+  - name: "docker"
+    hostPath:
+      path: "/var/run/docker"
 ```

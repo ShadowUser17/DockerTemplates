@@ -15,6 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: "prometheus"
     spec:
+      terminationGracePeriodSeconds: 30
       serviceAccountName: "prometheus-sa"
       volumes:
         - name: "prometheus-config"
@@ -26,6 +27,7 @@ spec:
       containers:
         - name: "prometheus"
           image: "prom/prometheus:v2.38.0"
+          imagePullPolicy: "IfNotPresent"
           args:
             - "--web.enable-remote-write-receiver"
             - "--web.enable-lifecycle"
@@ -48,13 +50,13 @@ spec:
               cpu: "200m"
               memory: "1000Mi"
           livenessProbe:
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             timeoutSeconds: 5
             httpGet:
               path: "/-/healthy"
               port: 9090
           readinessProbe:
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             timeoutSeconds: 5
             httpGet:
               path: "/-/ready"
