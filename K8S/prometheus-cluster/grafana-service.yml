@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "grafana"
 spec:
   type: "LoadBalancer"

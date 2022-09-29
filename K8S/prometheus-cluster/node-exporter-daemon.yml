@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "DaemonSet"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "node-exporter-daemon"
   annotations:
     prometheus.io/scrape: "true"

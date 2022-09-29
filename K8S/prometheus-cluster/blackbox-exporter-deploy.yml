@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "blackbox-deploy"
 spec:
   replicas: 1
@@ -30,7 +30,7 @@ spec:
           resources:
             limits:
               cpu: "10m"
-              memory: "30Mi"
+              memory: "40Mi"
             requests:
               cpu: "10m"
-              memory: "30Mi"
+              memory: "40Mi"

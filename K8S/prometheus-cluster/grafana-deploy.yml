@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "grafana-deploy"
 spec:
   replicas: 1
@@ -37,10 +37,10 @@ spec:
           resources:
             limits:
               cpu: "50m"
-              memory: "100Mi"
+              memory: "150Mi"
             requests:
               cpu: "50m"
-              memory: "100Mi"
+              memory: "150Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

@@ -1,10 +1,8 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "kube-state-metrics"
-  annotations:
-    prometheus.io/scrape: "true"
 spec:
   replicas: 1
   selector:
@@ -20,7 +18,7 @@ spec:
         - name: "kube-state-metrics"
           image: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.6.0"
           ports:
-            - name: "http-metrics"
+            - name: "metrics"
               protocol: "TCP"
               containerPort: 8080
             - name: "telemetry"
@@ -29,10 +27,10 @@ spec:
           resources:
             limits:
               cpu: "100m"
-              memory: "50Mi"
+              memory: "60Mi"
             requests:
               cpu: "100m"
-              memory: "50Mi"
+              memory: "60Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

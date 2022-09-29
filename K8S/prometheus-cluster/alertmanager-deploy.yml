@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "alertmanager-deploy"
 spec:
   replicas: 1
@@ -40,10 +40,10 @@ spec:
           resources:
             limits:
               cpu: "10m"
-              memory: "50Mi"
+              memory: "60Mi"
             requests:
               cpu: "10m"
-              memory: "50Mi"
+              memory: "60Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

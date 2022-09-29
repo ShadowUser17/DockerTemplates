@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  namespace: "prometheus-cluster"
+  namespace: "monitoring"
   name: "blackbox-config"
 data:
   config.yml: |-
