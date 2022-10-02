@@ -35,12 +35,13 @@ spec:
           imagePullPolicy: "IfNotPresent"
           args:
             - "--allow_dynamic_housekeeping=true"
+            - "--store_container_labels=true"
+            - "--docker_only=true"
+            - "--port=8085"
             - "--global_housekeeping_interval=30s"
             - "--max_housekeeping_interval=35s"
             - "--housekeeping_interval=30s"
             - "--storage_duration=1m0s"
-            - "--docker_only=true"
-            - "--port=8085"
           volumeMounts:
             - name: "root"
               mountPath: "/rootfs"
