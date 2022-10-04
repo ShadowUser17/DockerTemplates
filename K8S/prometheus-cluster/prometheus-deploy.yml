@@ -26,7 +26,7 @@ spec:
             claimName: "prometheus-pvc"
       containers:
         - name: "prometheus"
-          image: "prom/prometheus:v2.38.0"
+          image: "prom/prometheus:v2.39.0"
           imagePullPolicy: "IfNotPresent"
           args:
             - "--web.enable-remote-write-receiver"
