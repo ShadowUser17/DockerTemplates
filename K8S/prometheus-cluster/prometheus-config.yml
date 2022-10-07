@@ -46,22 +46,19 @@ data:
             labels:
               group: "k8s"
 
-      - job_name: "cadvisor-exporter"
+      - job_name: "kubernetes-cadvisor"
         scrape_interval: "30s"
-        honor_timestamps: true
+        metrics_path: "/metrics/cadvisor"
+        scheme: "https"
         kubernetes_sd_configs:
           - role: "node"
+        tls_config:
+          ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        authorization:
+          credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
         relabel_configs:
-          - separator: ";"
-            regex: "__meta_kubernetes_node_label_(.+)"
-            replacement: "$1"
+          - regex: "__meta_kubernetes_node_label_(.+)"
             action: "labelmap"
-          - source_labels: ["__address__"]
-            separator: ";"
-            regex: "([^:]+)(?::\\d+)?"
-            target_label: "__address__"
-            replacement: "$1:8085"
-            action: "replace"
 
       - job_name: "node-exporter"
         scrape_interval: "30s"
@@ -69,12 +66,9 @@ data:
         kubernetes_sd_configs:
           - role: "node"
         relabel_configs:
-          - separator: ";"
-            regex: "__meta_kubernetes_node_label_(.+)"
-            replacement: "$1"
+          - regex: "__meta_kubernetes_node_label_(.+)"
             action: "labelmap"
           - source_labels: ["__address__"]
-            separator: ";"
             regex: "([^:]+)(?::\\d+)?"
             target_label: "__address__"
             replacement: "$1:9100"
