@@ -4,7 +4,6 @@ metadata:
   namespace: "monitoring"
   name: "grafana"
 spec:
-  type: "LoadBalancer"
   selector:
     app.kubernetes.io/name: "grafana"
   ports:
