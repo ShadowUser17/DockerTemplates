@@ -1,0 +1,4 @@
+resources:
+  - "grafana-config.yml"
+  - "grafana-service.yml"
+  - "grafana-deploy.yml"

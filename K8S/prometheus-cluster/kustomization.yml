@@ -1,0 +1,10 @@
+resources:
+  - "base/namespace.yml"
+  - "base/volumes.yml"
+  - "base/ingress.yml"
+  - "node-exporter"
+  - "kube-state-metrics"
+  - "blackbox-exporter"
+  - "alertmanager"
+  - "grafana"
+  - "prometheus"

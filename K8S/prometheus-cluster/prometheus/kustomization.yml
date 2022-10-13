@@ -1,0 +1,5 @@
+resources:
+  - "prometheus-access.yml"
+  - "prometheus-config.yml"
+  - "prometheus-service.yml"
+  - "prometheus-deploy.yml"

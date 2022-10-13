@@ -1,0 +1,4 @@
+resources:
+  - "kube-state-metrics-access.yml"
+  - "kube-state-metrics-service.yml"
+  - "kube-state-metrics-deploy.yml"

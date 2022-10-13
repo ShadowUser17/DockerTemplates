@@ -1,0 +1,4 @@
+resources:
+  - "blackbox-exporter-config.yml"
+  - "blackbox-exporter-service.yml"
+  - "blackbox-exporter-deploy.yml"

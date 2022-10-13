@@ -1,0 +1,4 @@
+resources:
+  - "alertmanager-config.yml"
+  - "alertmanager-service.yml"
+  - "alertmanager-deploy.yml"
