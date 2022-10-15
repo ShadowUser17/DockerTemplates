@@ -1,5 +1,11 @@
 resources:
   - "prometheus-access.yml"
-  - "prometheus-config.yml"
   - "prometheus-service.yml"
   - "prometheus-deploy.yml"
+
+configMapGenerator:
+  - name: "prometheus-config"
+    namespace: "monitoring"
+    files:
+      - "config/prometheus.yml"
+      - "config/prometheus-rules.yml"

@@ -1,4 +1,10 @@
 resources:
-  - "grafana-config.yml"
   - "grafana-service.yml"
   - "grafana-deploy.yml"
+
+configMapGenerator:
+  - name: "grafana-datasources"
+    namespace: "monitoring"
+    files:
+      - "datasources/alertmanager.yml"
+      - "datasources/prometheus.yml"

@@ -1,4 +1,9 @@
 resources:
-  - "blackbox-exporter-config.yml"
   - "blackbox-exporter-service.yml"
   - "blackbox-exporter-deploy.yml"
+
+configMapGenerator:
+  - name: "blackbox-config"
+    namespace: "monitoring"
+    files:
+      - "config/config.yml"

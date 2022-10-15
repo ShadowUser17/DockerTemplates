@@ -1,4 +1,10 @@
 resources:
-  - "alertmanager-config.yml"
   - "alertmanager-service.yml"
   - "alertmanager-deploy.yml"
+
+configMapGenerator:
+  - name: "alertmanager-config"
+    namespace: "monitoring"
+    files:
+      - "config/alertmanager.yml"
+      - "config/alert-tmpl.yml"
