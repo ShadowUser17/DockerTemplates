@@ -9,3 +9,5 @@ configMapGenerator:
     files:
       - "config/prometheus.yml"
       - "config/prometheus-rules.yml"
+      - "config/prometheus-pod-rules.yml"
+      - "config/prometheus-node-rules.yml"

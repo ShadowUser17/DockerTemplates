@@ -1,1 +1,12 @@
 groups:
+  - name: "Prometheus self-monitoring"
+    rules:
+      - alert: "PrometheusTargetMissing"
+        expr: "up == 0"
+        for: "30s"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Prometheus target missing (instance {{ $labels.instance }})"
+          description: "A Prometheus target has disappeared. An exporter might be crashed.\nValue: {{ $value }}\nLabels: {{ $labels }}"
+          fingerprint: "Prometheus (Instance: {{ $labels.instance }})"

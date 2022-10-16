@@ -9,6 +9,8 @@ alerting:
 
 rule_files:
   - "prometheus-rules.yml"
+  - "prometheus-pod-rules.yml"
+  - "prometheus-node-rules.yml"
 
 scrape_configs:
   - job_name: "prometheus"
