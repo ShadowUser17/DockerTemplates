@@ -41,9 +41,9 @@ spec:
               protocol: "TCP"
               containerPort: 9100
           resources:
-            limits:
-              cpu: "10m"
-              memory: "50Mi"
             requests:
+              cpu: "10m"
+              memory: "30Mi"
+            limits:
               cpu: "10m"
               memory: "50Mi"

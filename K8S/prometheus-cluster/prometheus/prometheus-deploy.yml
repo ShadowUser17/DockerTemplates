@@ -43,12 +43,12 @@ spec:
               protocol: "TCP"
               containerPort: 9090
           resources:
-            limits:
-              cpu: "200m"
-              memory: "1000Mi"
             requests:
-              cpu: "200m"
-              memory: "1000Mi"
+              cpu: "100m"
+              memory: "300Mi"
+            limits:
+              cpu: "100m"
+              memory: "500Mi"
           livenessProbe:
             initialDelaySeconds: 10
             timeoutSeconds: 5

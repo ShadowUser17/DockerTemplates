@@ -36,12 +36,12 @@ spec:
               protocol: "TCP"
               containerPort: 3000
           resources:
-            limits:
-              cpu: "50m"
-              memory: "200Mi"
             requests:
               cpu: "50m"
-              memory: "200Mi"
+              memory: "150Mi"
+            limits:
+              cpu: "50m"
+              memory: "250Mi"
           livenessProbe:
             initialDelaySeconds: 10
             timeoutSeconds: 5

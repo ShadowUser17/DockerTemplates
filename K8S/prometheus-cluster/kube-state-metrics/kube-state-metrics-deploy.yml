@@ -26,10 +26,10 @@ spec:
               protocol: "TCP"
               containerPort: 8081
           resources:
-            limits:
+            requests:
               cpu: "100m"
               memory: "60Mi"
-            requests:
+            limits:
               cpu: "100m"
               memory: "60Mi"
           livenessProbe:
