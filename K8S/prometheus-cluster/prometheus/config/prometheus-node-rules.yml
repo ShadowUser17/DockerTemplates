@@ -59,13 +59,13 @@ groups:
           description: "CPU usage of {{ $labels.instance }} is {{ $value | humanize }} %"
 
       - alert: "CPU iowait of node"
-        expr: 'avg(rate(node_cpu_seconds_total{mode="iowait"}[5m])) by(instance) * 100 > 5'
+        expr: 'avg(rate(node_cpu_seconds_total{mode="iowait"}[5m])) by(instance) * 100 > 10'
         for: "2m"
         labels:
           severity: "warning"
         annotations:
-          summary: "CPU high iowait of (instance {{ $labels.instance }})"
-          description: "CPU iowait > 5%. A high iowait means that you are disk or network bound."
+          summary: "CPU high iowait of (instance {{ $labels.instance }}) is {{ $value | humanize }} %"
+          description: "CPU iowait is {{ $value | humanize }} %. A high iowait means that you are disk or network bound."
 
       - alert: "Available memory of node"
         expr: '(node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100) < 30'
