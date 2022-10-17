@@ -1,62 +1,122 @@
 groups:
+  - name: "KubeStateMetric rules"
+    rules:
+      - alert: "Kubernetes node ready"
+        expr: 'kube_node_status_condition{condition="Ready", status="true"} == 0'
+        for: "10m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Kubernetes Node is not ready (instance {{ $labels.node }})"
+          description: "Kubernetes node {{ $labels.node }} has been unready for a long time."
+
+      - alert: "Kubernetes memory pressure"
+        expr: 'kube_node_status_condition{condition="MemoryPressure", status="true"} == 1'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Kubernetes memory pressure (instance {{ $labels.node }})"
+          description: "Kubernetes node {{ $labels.node }} has MemoryPressure condition."
+
+      - alert: "Kubernetes disk pressure"
+        expr: 'kube_node_status_condition{condition="DiskPressure", status="true"} == 1'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Kubernetes disk pressure (instance {{ $labels.node }})"
+          description: "Kubernetes node {{ $labels.node }} has DiskPressure condition."
+
+      - alert: "Kubernetes out of disk"
+        expr: 'kube_node_status_condition{condition="OutOfDisk", status="true"} == 1'
+        for: "2m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Kubernetes out of disk (instance {{ $labels.node }})"
+          description: "Kubernetes node {{ $labels.node }} has OutOfDisk condition."
+
+      - alert: "Kubernetes Job failed"
+        expr: "kube_job_status_failed == 1"
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Kubernetes job failed (instance {{ $labels.namespace }}/{{ $labels.job_name }})"
+          description: "Kubernetes job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete."
+
+      - alert: "Kubernetes Cronjob suspended"
+        expr: 'kube_cronjob_spec_suspend != 0'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Kubernetes CronJob suspended (instance {{ $labels.namespace }}/{{ $labels.cronjob }})"
+          description: "Kubernetes CronJob {{ $labels.namespace }}/{{ $labels.cronjob }} is suspended."
+
+      - alert: "Kubernetes Persistentvolumeclaim pending"
+        expr: 'kube_persistentvolumeclaim_status_phase{phase="Pending"} == 1'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Kubernetes PersistentVolumeClaim pending (instance {{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }})"
+          description: "Kubernetes PersistentVolumeClaim {{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} is pending."
+
+
   - name: "NodeExporter rules"
     rules:
       # - alert: "CPU usage"
       #   expr: '(node_load5 * 100) > 70'
-      #   for: "5m"
+      #   for: "2m"
       #   labels:
       #     severity: "warning"
       #   annotations:
       #     summary: "CPU usage is {{ $value | humanize }} %"
       #     description: "CPU usage of {{ $labels.instance }} is {{ $value | humanize }} %"
-      #     fingerprint: "NodeExporter (Instance: {{ $labels.instance }})"
 
       # - alert: "CPU usage"
       #   expr: '(node_load5 * 100) > 85'
-      #   for: "5m"
+      #   for: "2m"
       #   labels:
       #     severity: "error"
       #   annotations:
       #     summary: "CPU usage is {{ $value | humanize }} %"
       #     description: "CPU usage of {{ $labels.instance }} is {{ $value | humanize }} %"
-      #     fingerprint: "NodeExporter (Instance: {{ $labels.instance }})"
 
-      - alert: "Memory usage"
+      - alert: "Available memory"
         expr: 'floor(node_memory_MemFree_bytes / 1024 / 1024) < 1024'
-        for: "5m"
+        for: "2m"
         labels:
           severity: "warning"
         annotations:
           summary: "Available memory is {{ $value | humanize }} MB"
           description: "Available memory of {{ $labels.instance }} is {{ $value | humanize }} MB"
-          fingerprint: "NodeExporter (Instance: {{ $labels.instance }})"
 
-      - alert: "Memory usage"
+      - alert: "Available memory"
         expr: 'floor(node_memory_MemFree_bytes / 1024 / 1024) < 512'
-        for: "5m"
+        for: "2m"
         labels:
           severity: "error"
         annotations:
           summary: "Available memory is {{ $value | humanize }} MB"
           description: "Available memory of {{ $labels.instance }} is {{ $value | humanize }} MB"
-          fingerprint: "NodeExporter (Instance: {{ $labels.instance }})"
 
-      - alert: "Disk usage"
+      - alert: "Available disk space"
         expr: 'floor(node_filesystem_free_bytes{fstype="ext4"} / 1024 / 1024) < 5120'
-        for: "5m"
+        for: "2m"
         labels:
           severity: "warning"
         annotations:
           summary: "Available disk space is {{ $value | humanize }} MB"
           description: "Available disk space of {{ $labels.mountpoint }} is {{ $value | humanize }} MB"
-          fingerprint: "NodeExporter (Instance: {{ $labels.instance }}) (Disk: {{ $labels.mountpoint }})"
 
-      - alert: "Disk usage"
+      - alert: "Available disk space"
         expr: 'floor(node_filesystem_free_bytes{fstype="ext4"} / 1024 / 1024) < 2048'
-        for: "5m"
+        for: "2m"
         labels:
           severity: "error"
         annotations:
           summary: "Available disk space is {{ $value | humanize }} MB"
           description: "Available disk space of {{ $labels.mountpoint }} is {{ $value | humanize }} MB"
-          fingerprint: "NodeExporter (Instance: {{ $labels.instance }}) (Disk: {{ $labels.mountpoint }})"
