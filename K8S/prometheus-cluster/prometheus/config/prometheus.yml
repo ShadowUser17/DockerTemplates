@@ -9,6 +9,7 @@ alerting:
 
 rule_files:
   - "prometheus-rules.yml"
+  - "prometheus-k8s-rules.yml"
   - "prometheus-pod-rules.yml"
   - "prometheus-node-rules.yml"
 
