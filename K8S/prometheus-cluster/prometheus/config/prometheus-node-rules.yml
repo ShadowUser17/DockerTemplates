@@ -40,7 +40,7 @@ groups:
 
   - name: "NodeExporter rules"
     rules:
-      - alert: "CPU usage"
+      - alert: "CPU usage of node"
         expr: '(100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) by(instance) * 100)) > 75'
         for: "2m"
         labels:
@@ -49,7 +49,7 @@ groups:
           summary: "CPU usage is {{ $value | humanize }} %"
           description: "CPU usage of {{ $labels.instance }} is {{ $value | humanize }} %"
 
-      - alert: "CPU usage"
+      - alert: "CPU usage of node"
         expr: '(100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) by(instance) * 100)) > 85'
         for: "2m"
         labels:
@@ -58,7 +58,16 @@ groups:
           summary: "CPU usage is {{ $value | humanize }} %"
           description: "CPU usage of {{ $labels.instance }} is {{ $value | humanize }} %"
 
-      - alert: "Available memory"
+      - alert: "CPU iowait of node"
+        expr: 'avg(rate(node_cpu_seconds_total{mode="iowait"}[5m])) by(instance) * 100 > 5'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "CPU high iowait of (instance {{ $labels.instance }})"
+          description: "CPU iowait > 5%. A high iowait means that you are disk or network bound."
+
+      - alert: "Available memory of node"
         expr: '(node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100) < 30'
         for: "2m"
         labels:
@@ -67,7 +76,7 @@ groups:
           summary: "Available memory is {{ $value | humanize }} %"
           description: "Available memory of {{ $labels.instance }} is {{ $value | humanize }} %"
 
-      - alert: "Available memory"
+      - alert: "Available memory of node"
         expr: '(node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100) < 20'
         for: "2m"
         labels:
@@ -76,7 +85,25 @@ groups:
           summary: "Available memory is {{ $value | humanize }} %"
           description: "Available memory of {{ $labels.instance }} is {{ $value | humanize }} %"
 
-      - alert: "Available disk space"
+      - alert: "Swap usage of node"
+        expr: '(1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Swap usage is {{ $value | humanize }} %"
+          description: "Swap usage of {{ $labels.instance }} is {{ $value | humanize }} %"
+
+      - alert: "OOM detected of node"
+        expr: 'increase(node_vmstat_oom_kill[1m]) > 0'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "OOM kill detected of (instance {{ $labels.instance }})"
+          description: "OOM kill detected of {{ $labels.instance }}"
+
+      - alert: "Available disk space of node"
         expr: '((node_filesystem_avail_bytes{fstype="ext4"} * 100) / node_filesystem_size_bytes{fstype="ext4"}) < 30'
         for: "2m"
         labels:
@@ -85,7 +112,7 @@ groups:
           summary: "Available disk space is {{ $value | humanize }} %"
           description: "Available disk space of {{ $labels.mountpoint }} is {{ $value | humanize }} %"
 
-      - alert: "Available disk space"
+      - alert: "Available disk space of node"
         expr: '((node_filesystem_avail_bytes{fstype="ext4"} * 100) / node_filesystem_size_bytes{fstype="ext4"}) < 20'
         for: "2m"
         labels:
@@ -94,7 +121,7 @@ groups:
           summary: "Available disk space is {{ $value | humanize }} %"
           description: "Available disk space of {{ $labels.mountpoint }} is {{ $value | humanize }} %"
 
-      - alert: "Available disk files"
+      - alert: "Available disk files of node"
         expr: '(node_filesystem_files_free{fstype="ext4"} / node_filesystem_files{fstype="ext4"} * 100) < 10'
         for: "2m"
         labels:

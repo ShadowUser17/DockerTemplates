@@ -1,1 +1,38 @@
 groups:
+  - name: "cAdvisor pod rules"
+    rules:
+      - alert: "Container cpu usage"
+        expr: '(sum(rate(container_cpu_usage_seconds_total{name!=""}[2m])) by(instance, namespace, pod, container) * 100) > 70'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "CPU usage is {{ $value | humanize }} %"
+          description: "CPU usage of {{ $labels.instance }}/{{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.container }} is {{ $value | humanize }} %"
+
+      - alert: "Container cpu usage"
+        expr: '(sum(rate(container_cpu_usage_seconds_total{name!=""}[2m])) by(instance, namespace, pod, container) * 100) > 80'
+        for: "2m"
+        labels:
+          severity: "error"
+        annotations:
+          summary: "CPU usage is {{ $value | humanize }} %"
+          description: "CPU usage of {{ $labels.instance }}/{{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.container }} is {{ $value | humanize }} %"
+
+  #     - alert: "Container memory usage"
+  #       expr: ''
+  #       for: "2m"
+  #       labels:
+  #         severity: "warning"
+  #       annotations:
+  #         summary: "Memory usage is {{ $value | humanize }} %"
+  #         description: "Memory usage of {{ $labels.instance }}/{{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.container }} is {{ $value | humanize }} %"
+
+  #     - alert: "Container memory usage"
+  #       expr: ''
+  #       for: "2m"
+  #       labels:
+  #         severity: "error"
+  #       annotations:
+  #         summary: "Memory usage is {{ $value | humanize }} %"
+  #         description: "Memory usage of {{ $labels.instance }}/{{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.container }} is {{ $value | humanize }} %"
