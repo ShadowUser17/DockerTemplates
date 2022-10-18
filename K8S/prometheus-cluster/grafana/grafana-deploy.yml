@@ -45,13 +45,13 @@ spec:
               cpu: "50m"
               memory: "250Mi"
           livenessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             timeoutSeconds: 5
             httpGet:
               path: "/healthz"
               port: 3000
           readinessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             timeoutSeconds: 5
             httpGet:
               path: "/"
