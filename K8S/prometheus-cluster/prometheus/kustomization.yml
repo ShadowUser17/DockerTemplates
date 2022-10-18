@@ -5,7 +5,7 @@ resources:
 
 configMapGenerator:
   - name: "prometheus-config"
-    namespace: "monitoring"
+    namespace: "prometheus"
     files:
       - "config/prometheus.yml"
       - "config/prometheus-rules.yml"

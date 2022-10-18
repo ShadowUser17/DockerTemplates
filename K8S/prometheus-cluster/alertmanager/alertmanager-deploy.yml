@@ -1,8 +1,8 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "monitoring"
-  name: "alertmanager-deploy"
+  namespace: "prometheus"
+  name: "alertmanager"
 spec:
   replicas: 1
   strategy:
@@ -14,14 +14,16 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "alertmanager"
+      annotations:
+        prometheus.io/scrape: "true"
     spec:
       volumes:
         - name: "alertmanager-config"
           configMap:
             name: "alertmanager-config"
-        - name: "alertmanager-storage"
+        - name: "alertmanager-data"
           persistentVolumeClaim:
-            claimName: "alertmanager-pvc"
+            claimName: "alertmanager-data"
       containers:
         - name: "alertmanager"
           image: "prom/alertmanager:v0.24.0"
@@ -32,7 +34,7 @@ spec:
           volumeMounts:
             - name: "alertmanager-config"
               mountPath: "/etc/alertmanager"
-            - name: "alertmanager-storage"
+            - name: "alertmanager-data"
               mountPath: "/alertmanager"
           ports:
             - name: "http"
@@ -44,7 +46,7 @@ spec:
               memory: "30Mi"
             limits:
               cpu: "10m"
-              memory: "30Mi"
+              memory: "50Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

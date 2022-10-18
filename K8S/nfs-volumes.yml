@@ -55,8 +55,8 @@ spec:
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  namespace: "monitoring"
-  name: "alertmanager-pvc"
+  namespace: "prometheus"
+  name: "alertmanager-data"
 spec:
   accessModes:
     - "ReadWriteMany"
@@ -70,8 +70,8 @@ spec:
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  namespace: "monitoring"
-  name: "prometheus-pvc"
+  namespace: "prometheus"
+  name: "prometheus-data"
 spec:
   accessModes:
     - "ReadWriteMany"
@@ -85,8 +85,8 @@ spec:
 apiVersion: "v1"
 kind: "PersistentVolumeClaim"
 metadata:
-  namespace: "monitoring"
-  name: "grafana-pvc"
+  namespace: "prometheus"
+  name: "grafana-data"
 spec:
   accessModes:
     - "ReadWriteMany"

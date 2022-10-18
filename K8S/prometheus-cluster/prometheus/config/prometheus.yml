@@ -5,7 +5,7 @@ global:
 alerting:
   alertmanagers:
     - static_configs:
-        - targets: ["alertmanager.monitoring.svc:9093"]
+        - targets: ["alertmanager.prometheus.svc:9093"]
 
 rule_files:
   - "prometheus-rules.yml"
@@ -14,35 +14,7 @@ rule_files:
   - "prometheus-node-rules.yml"
 
 scrape_configs:
-  - job_name: "prometheus"
-    scrape_interval: "30s"
-    static_configs:
-      - targets: ["127.0.0.1:9090"]
-        labels:
-          group: "self"
-
-  - job_name: "alertmanager"
-    scrape_interval: "30s"
-    static_configs:
-      - targets: ["alertmanager.monitoring.svc:9093"]
-        labels:
-          group: "alerts"
-
-  - job_name: "grafana"
-    scrape_interval: "30s"
-    static_configs:
-      - targets: ["grafana.monitoring.svc:3000"]
-        labels:
-          group: "web-ui"
-
-  - job_name: "kube-state-metrics"
-    scrape_interval: "30s"
-    static_configs:
-      - targets: ["kube-state-metrics.monitoring.svc:8080"]
-        labels:
-          group: "k8s"
-
-  - job_name: "kubernetes-endpoints"
+  - job_name: "k8s-apiserver"
     scrape_interval: "30s"
     scheme: "https"
     kubernetes_sd_configs:
@@ -56,7 +28,20 @@ scrape_configs:
         regex: "default;kubernetes;https"
         action: "keep"
 
-  - job_name: "kubernetes-cadvisor"
+  - job_name: "k8s-kubelet"
+    scrape_interval: "30s"
+    scheme: "https"
+    kubernetes_sd_configs:
+      - role: "node"
+    tls_config:
+      ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+    authorization:
+      credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
+    relabel_configs:
+      - regex: "__meta_kubernetes_node_label_(.+)"
+        action: "labelmap"
+
+  - job_name: "k8s-cadvisor"
     scrape_interval: "30s"
     metrics_path: "/metrics/cadvisor"
     scheme: "https"
@@ -70,7 +55,7 @@ scrape_configs:
       - regex: "__meta_kubernetes_node_label_(.+)"
         action: "labelmap"
 
-  - job_name: "node-exporter"
+  - job_name: "k8s-nodes"
     scrape_interval: "30s"
     honor_timestamps: true
     kubernetes_sd_configs:
@@ -84,7 +69,7 @@ scrape_configs:
         replacement: "$1:9100"
         action: "replace"
 
-  - job_name: "kubernetes-pods"
+  - job_name: "k8s-pods"
     scrape_interval: "30s"
     kubernetes_sd_configs:
       - role: "pod"
@@ -110,7 +95,7 @@ scrape_configs:
         action: "replace"
         target_label: "pod"
 
-  - job_name: "kubernetes-services"
+  - job_name: "k8s-services"
     scrape_interval: "30s"
     metrics_path: "/probe"
     params:
@@ -124,7 +109,7 @@ scrape_configs:
       - source_labels: ["__address__"]
         target_label: "__param_target"
       - target_label: "__address__"
-        replacement: "blackbox-exporter.monitoring.svc:9115"
+        replacement: "blackbox-exporter.prometheus.svc:9115"
       - source_labels: ["__param_target"]
         target_label: "instance"
       - action: "labelmap"

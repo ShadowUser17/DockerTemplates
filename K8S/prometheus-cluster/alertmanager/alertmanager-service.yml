@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "monitoring"
+  namespace: "prometheus"
   name: "alertmanager"
 spec:
   selector:

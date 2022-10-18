@@ -1,8 +1,8 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "monitoring"
-  name: "prometheus-deploy"
+  namespace: "prometheus"
+  name: "prometheus"
 spec:
   replicas: 1
   strategy:
@@ -14,16 +14,18 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "prometheus"
+      annotations:
+        prometheus.io/scrape: "true"
     spec:
       terminationGracePeriodSeconds: 30
-      serviceAccountName: "prometheus-sa"
+      serviceAccountName: "prometheus"
       volumes:
         - name: "prometheus-config"
           configMap:
             name: "prometheus-config"
-        - name: "prometheus-storage"
+        - name: "prometheus-data"
           persistentVolumeClaim:
-            claimName: "prometheus-pvc"
+            claimName: "prometheus-data"
       containers:
         - name: "prometheus"
           image: "prom/prometheus:v2.39.1"
@@ -36,7 +38,7 @@ spec:
           volumeMounts:
             - name: "prometheus-config"
               mountPath: "/etc/prometheus"
-            - name: "prometheus-storage"
+            - name: "prometheus-data"
               mountPath: "/prometheus"
           ports:
             - name: "http"

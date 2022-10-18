@@ -1,10 +1,8 @@
 apiVersion: "apps/v1"
 kind: "DaemonSet"
 metadata:
-  namespace: "monitoring"
-  name: "node-exporter-daemon"
-  annotations:
-    prometheus.io/scrape: "true"
+  namespace: "prometheus"
+  name: "node-exporter"
 spec:
   selector:
     matchLabels:

@@ -4,6 +4,6 @@ resources:
 
 configMapGenerator:
   - name: "blackbox-config"
-    namespace: "monitoring"
+    namespace: "prometheus"
     files:
       - "config/config.yml"

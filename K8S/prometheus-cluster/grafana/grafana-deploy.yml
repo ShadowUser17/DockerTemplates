@@ -1,8 +1,8 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "monitoring"
-  name: "grafana-deploy"
+  namespace: "prometheus"
+  name: "grafana"
 spec:
   replicas: 1
   strategy:
@@ -14,11 +14,13 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "grafana"
+      annotations:
+        prometheus.io/scrape: "true"
     spec:
       volumes:
-        - name: "grafana-storage"
+        - name: "grafana-data"
           persistentVolumeClaim:
-            claimName: "grafana-pvc"
+            claimName: "grafana-data"
         - name: "grafana-datasources"
           configMap:
             name: "grafana-datasources"
@@ -27,7 +29,7 @@ spec:
           image: "grafana/grafana:9.1.8"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
-            - name: "grafana-storage"
+            - name: "grafana-data"
               mountPath: "/var/lib/grafana"
             - name: "grafana-datasources"
               mountPath: "/etc/grafana/provisioning/datasources"

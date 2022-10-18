@@ -1,8 +1,8 @@
 apiVersion: "networking.k8s.io/v1"
 kind: "Ingress"
 metadata:
-  namespace: "monitoring"
-  name: "prometheus-cluster"
+  namespace: "prometheus"
+  name: "prometheus-services"
 spec:
   rules:
     - host: "alertmanager.k3s"
