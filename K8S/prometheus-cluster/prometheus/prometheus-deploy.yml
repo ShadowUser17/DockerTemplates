@@ -14,8 +14,6 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "prometheus"
-      annotations:
-        prometheus.io/scrape: "true"
     spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: "prometheus"

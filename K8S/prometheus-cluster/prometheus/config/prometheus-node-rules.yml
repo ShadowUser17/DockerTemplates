@@ -129,3 +129,21 @@ groups:
         annotations:
           summary: "Available disk files is {{ $value | humanize }} %"
           description: "Available disk files of {{ $labels.mountpoint }} is {{ $value | humanize }} %"
+
+      - alert: "Disk read rate of node"
+        expr: 'sum(rate(node_disk_read_bytes_total[2m])) by(instance, device) / 1024 / 1024 > 50'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Disk read rate is {{ $value | humanize }} MB"
+          description: "Disk read rate of {{ $labels.instance }}/{{ $labels.device }} is {{ $value | humanize }} MB"
+
+      - alert: "Disk write rate of node"
+        expr: 'sum(rate(node_disk_written_bytes_total[2m])) by(instance, device) / 1024 / 1024 > 50'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Disk write rate is {{ $value | humanize }} MB"
+          description: "Disk write rate of {{ $labels.instance }}/{{ $labels.device }} is {{ $value | humanize }} MB"
