@@ -140,10 +140,28 @@ groups:
           description: "Blackbox probe took more than 1s to complete.\nValue: {{ $value }}\nLabels: {{ $labels }}"
 
       - alert: "Blackbox probe failure"
-        expr: 'probe_http_status_code < 200 or probe_http_status_code > 399'
+        expr: 'probe_http_status_code < 100 or probe_http_status_code > 299'
         for: "1m"
         labels:
           severity: "error"
         annotations:
           summary: "Blackbox probe HTTP failure (instance {{ $labels.instance }})"
-          description: "HTTP status code is not 200-399.\nValue: {{ $value }}\nLabels: {{ $labels }}"
+          description: "HTTP status code is not 100-299.\nValue: {{ $value }}\nLabels: {{ $labels }}"
+
+      - alert: "Blackbox SSL certificate will expire soon"
+        expr: '(probe_ssl_earliest_cert_expiry - time()) < (86400 * 15)'
+        for: "1m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Blackbox SSL certificate will expire soon (instance {{ $labels.instance }})"
+          description: "SSL certificate expires in 15 days.\nValue: {{ $value }}\nLabels: {{ $labels }}"
+
+      - alert: "Blackbox SSL certificate will expire soon"
+        expr: '(probe_ssl_earliest_cert_expiry - time()) < (86400 * 7)'
+        for: "1m"
+        labels:
+          severity: "error"
+        annotations:
+          summary: "Blackbox SSL certificate will expire soon (instance {{ $labels.instance }})"
+          description: "SSL certificate expires in 7 days.\nValue: {{ $value }}\nLabels: {{ $labels }}"
