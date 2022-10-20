@@ -8,3 +8,7 @@ configMapGenerator:
     files:
       - "config/alertmanager.yml"
       - "config/alerts.tmpl"
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: "alertmanager"

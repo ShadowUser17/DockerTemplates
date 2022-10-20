@@ -7,3 +7,7 @@ configMapGenerator:
     namespace: "prometheus"
     files:
       - "config/config.yml"
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: "blackbox-exporter"

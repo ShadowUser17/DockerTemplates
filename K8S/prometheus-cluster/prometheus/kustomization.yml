@@ -12,3 +12,7 @@ configMapGenerator:
       - "config/prometheus-k8s-rules.yml"
       - "config/prometheus-pod-rules.yml"
       - "config/prometheus-node-rules.yml"
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: "prometheus"

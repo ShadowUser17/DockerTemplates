@@ -18,3 +18,7 @@ configMapGenerator:
     namespace: "prometheus"
     files:
       - "dashboards/grafana-k8s-pods.json"
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: "grafana"

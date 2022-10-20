@@ -8,3 +8,9 @@ resources:
   - "alertmanager"
   - "grafana"
   - "prometheus"
+
+namespace: "prometheus"
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"
