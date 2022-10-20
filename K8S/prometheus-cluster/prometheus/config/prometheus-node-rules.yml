@@ -86,7 +86,7 @@ groups:
           description: "Available memory of {{ $labels.instance }} is {{ $value | humanize }} %"
 
       - alert: "Swap usage of node"
-        expr: '(1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80'
+        expr: '(1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 30'
         for: "2m"
         labels:
           severity: "warning"
