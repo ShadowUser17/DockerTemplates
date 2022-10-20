@@ -1,0 +1,32 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  namespace: "default"
+  name: "whoami"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "whoami"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "whoami"
+    spec:
+      containers:
+        - name: "whoami"
+          image: "traefik/whoami:v1.8.7"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "-port=4000"
+          ports:
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 4000
+          resources:
+            requests:
+              cpu: "5m"
+              memory: "5Mi"
+            limits:
+              cpu: "5m"
+              memory: "5Mi"
