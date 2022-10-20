@@ -8,3 +8,13 @@ configMapGenerator:
     files:
       - "datasources/alertmanager.yml"
       - "datasources/prometheus.yml"
+
+  - name: "grafana-dashboards"
+    namespace: "prometheus"
+    files:
+      - "dashboards/dashboards.yml"
+
+  - name: "grafana-k8s-pods"
+    namespace: "prometheus"
+    files:
+      - "dashboards/grafana-k8s-pods.json"

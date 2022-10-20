@@ -12,10 +12,6 @@ spec:
       labels:
         app.kubernetes.io/name: "node-exporter"
     spec:
-      tolerations:
-        - key: "node.k3s.io/master"
-          operator: "Exists"
-          effect: "NoSchedule"
       hostNetwork: true
       hostPID: true
       hostIPC: true
@@ -41,7 +37,13 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "30Mi"
+              memory: "50Mi"
             limits:
               cpu: "10m"
               memory: "50Mi"
+      nodeSelector:
+        kubernetes.io/os: "linux"
+      tolerations:
+        - key: "node.k3s.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"

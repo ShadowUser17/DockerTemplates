@@ -47,7 +47,7 @@ spec:
               cpu: "100m"
               memory: "300Mi"
             limits:
-              cpu: "100m"
+              cpu: "150m"
               memory: "600Mi"
           livenessProbe:
             initialDelaySeconds: 10

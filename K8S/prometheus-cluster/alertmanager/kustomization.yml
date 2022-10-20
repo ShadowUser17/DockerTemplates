@@ -7,4 +7,4 @@ configMapGenerator:
     namespace: "prometheus"
     files:
       - "config/alertmanager.yml"
-      - "config/alert-tmpl.yml"
+      - "config/alerts.tmpl"
