@@ -4,6 +4,12 @@ metadata:
   namespace: "prometheus"
   name: "prometheus-services"
 spec:
+  tls:
+    - hosts:
+        - "alertmanager.k3s"
+        - "grafana.k3s"
+        - "prometheus.k3s"
+      secretName: "prometheus-ingress-cert"
   rules:
     - host: "alertmanager.k3s"
       http:

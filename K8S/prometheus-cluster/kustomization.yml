@@ -1,6 +1,7 @@
 resources:
   - "base/namespace.yml"
   - "base/volumes.yml"
+  - "base/certificate.yml"
   - "base/ingress.yml"
   - "node-exporter"
   - "kube-state-metrics"
