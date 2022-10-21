@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "default"
+  namespace: "whoami"
   name: "whoami"
 spec:
   replicas: 1
@@ -29,4 +29,4 @@ spec:
               memory: "5Mi"
             limits:
               cpu: "5m"
-              memory: "5Mi"
+              memory: "10Mi"

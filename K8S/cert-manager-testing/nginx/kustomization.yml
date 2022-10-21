@@ -1,16 +1,7 @@
 resources:
   - "nginx-service.yml"
   - "nginx-deploy.yml"
-  - "nginx-cert.yml"
   - "nginx-ingress.yml"
-
-secretGenerator:
-  - name: "nginx-cert"
-    type: "kubernetes.io/tls"
-    namespace: "cert-manager-testing"
-    files:
-      - "config/tls.crt"
-      - "config/tls.key"
 
 configMapGenerator:
   - name: "nginx-config"

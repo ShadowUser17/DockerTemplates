@@ -1,0 +1,31 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Issuer"
+metadata:
+  name: "whoami-issuer"
+  namespace: "whoami"
+spec:
+  selfSigned: {}
+
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "whoami"
+  name: "whoami"
+  annotations:
+    cert-manager.io/issuer: "whoami-issuer"
+spec:
+  tls:
+    - hosts: ["testing.k3s"]
+      secretName: "whoami-cert"
+  rules:
+    - host: "testing.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "whoami"
+                port:
+                  number: 4000

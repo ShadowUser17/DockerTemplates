@@ -3,6 +3,8 @@ kind: "Ingress"
 metadata:
   namespace: "cert-manager-testing"
   name: "nginx"
+  annotations:
+    cert-manager.io/issuer: "test-ss-issuer"
 spec:
   tls:
     - hosts: ["testing.k3s"]

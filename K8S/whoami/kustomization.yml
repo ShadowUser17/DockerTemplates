@@ -1,3 +1,7 @@
 resources:
+  - "whoami-ns.yml"
   - "whoami-service.yml"
+  - "whoami-ingress.yml"
   - "whoami-deploy.yml"
+
+namespace: "whoami"
