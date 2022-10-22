@@ -3,12 +3,9 @@ kind: "PersistentVolumeClaim"
 metadata:
   namespace: "prometheus"
   name: "alertmanager-data"
-  annotations:
-    volumeType: "local"
 spec:
-  accessModes:
-    - "ReadWriteOnce"
-  storageClassName: "local-path"
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: "nfs-client"
   resources:
     requests:
       storage: "1Gi"
@@ -19,12 +16,9 @@ kind: "PersistentVolumeClaim"
 metadata:
   namespace: "prometheus"
   name: "prometheus-data"
-  annotations:
-    volumeType: "local"
 spec:
-  accessModes:
-    - "ReadWriteOnce"
-  storageClassName: "local-path"
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: "nfs-client"
   resources:
     requests:
       storage: "6Gi"
@@ -35,12 +29,9 @@ kind: "PersistentVolumeClaim"
 metadata:
   namespace: "prometheus"
   name: "grafana-data"
-  annotations:
-    volumeType: "local"
 spec:
-  accessModes:
-    - "ReadWriteOnce"
-  storageClassName: "local-path"
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: "nfs-client"
   resources:
     requests:
       storage: "2Gi"
