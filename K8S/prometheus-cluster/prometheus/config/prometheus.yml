@@ -42,7 +42,7 @@ scrape_configs:
         regex: "default;kubernetes;https"
         action: "keep"
 
-  - job_name: "k8s-kubelet"
+  - job_name: "k8s-kubelet-metrics"
     scrape_interval: "30s"
     scheme: "https"
     kubernetes_sd_configs:
@@ -55,7 +55,7 @@ scrape_configs:
       - regex: "__meta_kubernetes_node_label_(.+)"
         action: "labelmap"
 
-  - job_name: "k8s-cadvisor"
+  - job_name: "k8s-cadvisor-metrics"
     scrape_interval: "30s"
     metrics_path: "/metrics/cadvisor"
     scheme: "https"
@@ -69,7 +69,7 @@ scrape_configs:
       - regex: "__meta_kubernetes_node_label_(.+)"
         action: "labelmap"
 
-  - job_name: "k8s-nodes"
+  - job_name: "k8s-node-metrics"
     scrape_interval: "30s"
     honor_timestamps: true
     kubernetes_sd_configs:
@@ -83,7 +83,7 @@ scrape_configs:
         replacement: "$1:9100"
         action: "replace"
 
-  - job_name: "k8s-pods"
+  - job_name: "k8s-pod-metrics"
     scrape_interval: "30s"
     kubernetes_sd_configs:
       - role: "pod"
@@ -109,7 +109,37 @@ scrape_configs:
         action: "replace"
         target_label: "pod"
 
-  - job_name: "k8s-services"
+  - job_name: "k8s-service-metrics"
+    scrape_interval: "30s"
+    kubernetes_sd_configs:
+      - role: "endpoints"
+    relabel_configs:
+      - source_labels: ["__meta_kubernetes_service_annotation_prometheus_io_scrape"]
+        action: "keep"
+        regex: "true"
+      - source_labels: ["__meta_kubernetes_service_annotation_prometheus_io_path"]
+        action: "replace"
+        target_label: "__metrics_path__"
+        regex: "(.+)"
+      - source_labels: ["__address__", "__meta_kubernetes_service_annotation_prometheus_io_port"]
+        action: "replace"
+        regex: '([^:]+)(?::\d+)?;(\d+)'
+        replacement: "$1:$2"
+        target_label: "__address__"
+      - source_labels: ["__meta_kubernetes_service_annotation_prometheus_io_scheme"]
+        action: "replace"
+        target_label: "__scheme__"
+        regex: "(https?)"
+      - action: "labelmap"
+        regex: "__meta_kubernetes_service_label_(.+)"
+      - source_labels: ["__meta_kubernetes_namespace"]
+        action: "replace"
+        target_label: "namespace"
+      - source_labels: ["__meta_kubernetes_service_name"]
+        action: "replace"
+        target_label: "service"
+
+  - job_name: "k8s-service-probe"
     scrape_interval: "30s"
     metrics_path: "/probe"
     params:
@@ -133,7 +163,7 @@ scrape_configs:
       - source_labels: ["__meta_kubernetes_service_name"]
         target_label: "service"
 
-  - job_name: "k8s-ingresses"
+  - job_name: "k8s-ingresse-probe"
     scrape_interval: "30s"
     metrics_path: "/probe"
     params:
@@ -141,6 +171,9 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: "ingress"
     relabel_configs:
+      - source_labels: ["__meta_kubernetes_ingress_annotation_prometheus_blackbox_probe"]
+        action: "keep"
+        regex: "true"
       - source_labels: ["__meta_kubernetes_ingress_scheme", "__address__", "__meta_kubernetes_ingress_path"]
         regex: '(.+);(.+);(.+)'
         replacement: "${1}://${2}${3}"

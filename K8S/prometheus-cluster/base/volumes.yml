@@ -5,7 +5,7 @@ metadata:
   name: "alertmanager-data"
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: "nfs-client"
+  storageClassName: "local-path"
   resources:
     requests:
       storage: "1Gi"
@@ -18,7 +18,7 @@ metadata:
   name: "prometheus-data"
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: "nfs-client"
+  storageClassName: "local-path"
   resources:
     requests:
       storage: "6Gi"
@@ -31,7 +31,7 @@ metadata:
   name: "grafana-data"
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: "nfs-client"
+  storageClassName: "local-path"
   resources:
     requests:
       storage: "2Gi"
