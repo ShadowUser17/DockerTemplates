@@ -13,6 +13,7 @@ rule_files:
   - "prometheus-pod-rules.yml"
   - "prometheus-node-rules.yml"
   - "prometheus-mesh-rules.yml"
+  - "prometheus-ingress-rules.yml"
 
 scrape_configs:
   - job_name: "prometheus"
