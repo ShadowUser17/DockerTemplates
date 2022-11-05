@@ -6,6 +6,7 @@ metadata:
   annotations:
     cert-manager.io/issuer: "test-ss-issuer"
 spec:
+  ingressClassName: "nginx"
   tls:
     - hosts: ["testing.k3s"]
       secretName: "nginx-cert"

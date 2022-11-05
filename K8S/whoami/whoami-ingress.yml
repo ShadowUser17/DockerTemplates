@@ -15,6 +15,7 @@ metadata:
   annotations:
     cert-manager.io/issuer: "whoami-issuer"
 spec:
+  ingressClassName: "nginx"
   tls:
     - hosts: ["testing.k3s"]
       secretName: "whoami-cert"

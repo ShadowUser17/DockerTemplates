@@ -12,6 +12,7 @@ rule_files:
   - "prometheus-k8s-rules.yml"
   - "prometheus-pod-rules.yml"
   - "prometheus-node-rules.yml"
+  - "prometheus-mesh-rules.yml"
 
 scrape_configs:
   - job_name: "prometheus"
