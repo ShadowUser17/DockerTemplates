@@ -4,7 +4,7 @@ networks:
 
 services:
   webgoat:
-    image: "webgoat/goatandwolf:v8.2.2"
+    image: "webgoat/goatandwolf:latest"
     container_name: "webgoat.docker.localhost"
     environment:
       - "TZ=Europe/Kiev"

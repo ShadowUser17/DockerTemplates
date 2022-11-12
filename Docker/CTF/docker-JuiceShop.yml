@@ -4,7 +4,7 @@ networks:
 
 services:
   juice-shop:
-    image: "bkimminich/juice-shop:v14.3.0"
+    image: "bkimminich/juice-shop:latest"
     container_name: "juiceshop.docker.localhost"
     networks:
       - "core_network"
