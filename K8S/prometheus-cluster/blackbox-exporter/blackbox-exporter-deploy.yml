@@ -19,7 +19,7 @@ spec:
             name: "blackbox-config"
       containers:
         - name: "blackbox-exporter"
-          image: "prom/blackbox-exporter:v0.22.0"
+          image: "prom/blackbox-exporter:v0.23.0"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
             - name: "blackbox-config"
