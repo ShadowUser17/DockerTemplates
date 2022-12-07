@@ -1,12 +1,3 @@
-apiVersion: "cert-manager.io/v1"
-kind: "Issuer"
-metadata:
-  name: "whoami-issuer"
-  namespace: "whoami"
-spec:
-  selfSigned: {}
-
----
 apiVersion: "networking.k8s.io/v1"
 kind: "Ingress"
 metadata:

@@ -1,7 +1,11 @@
 resources:
   - "whoami-ns.yml"
+  - "whoami-issuer.yml"
   - "whoami-service.yml"
   - "whoami-ingress.yml"
   - "whoami-deploy.yml"
 
 namespace: "whoami"
+images:
+  - name: "traefik/whoami"
+    newTag: "v1.8.7"
