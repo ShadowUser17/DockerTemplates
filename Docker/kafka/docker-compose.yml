@@ -20,7 +20,7 @@ services:
       - "2181:2181/tcp"
 
   kafka:
-    image: "bitnami/kafka:3.2.0"
+    image: "bitnami/kafka:3.3.1"
     container_name: "kafka.docker.localhost"
     depends_on:
       - "zookeeper"
@@ -38,7 +38,7 @@ services:
       - "9092:9092/tcp"
 
   kafka-exporter:
-    image: "danielqsj/kafka-exporter:v1.4.2"
+    image: "danielqsj/kafka-exporter:v1.6.0"
     container_name: "kafka-exporter"
     depends_on:
       - "zookeeper"
