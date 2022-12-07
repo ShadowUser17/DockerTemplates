@@ -1,6 +1,0 @@
-resources:
-  - "base/namespace.yml"
-  - "base/issuer.yml"
-  - "nginx"
-
-namespace: "cert-manager-testing"
