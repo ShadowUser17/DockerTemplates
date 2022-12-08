@@ -1,0 +1,17 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  runner:
+    build: "."
+    image: "github-runner:latest"
+    container_name: "runner.docker.localhost"
+    environment:
+      RUNNER_NAME: ""
+      RUNNER_REPOSITORY: ""
+      RUNNER_TOKEN: ""
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - "core_network"
