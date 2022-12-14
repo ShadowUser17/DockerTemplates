@@ -1,0 +1,15 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "jenkins"
+  name: "jenkins"
+spec:
+  selector:
+    app.kubernetes.io/name: "jenkins"
+  ports:
+    - name: "http"
+      port: 8080
+      targetPort: 8080
+    - name: "jnpl"
+      port: 50000
+      targetPort: 50000
