@@ -31,6 +31,9 @@ spec:
         - name: "jenkins"
           image: "jenkins/jenkins:lts"
           imagePullPolicy: "IfNotPresent"
+          env:
+            - name: "JAVA_OPTS"
+              value: "-Xmx512m"
           volumeMounts:
             - name: "jenkins-data"
               mountPath: "/var/jenkins_home"
