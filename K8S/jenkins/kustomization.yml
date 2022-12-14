@@ -3,5 +3,4 @@ resources:
   - "base/access.yml"
   - "base/volumes.yml"
   - "base/service.yml"
-  - "base/ingress.yml"
   - "base/deploy.yml"
