@@ -1,5 +1,6 @@
 #### URLs:
 - [kubernetes-installing](https://www.jenkins.io/doc/book/installing/kubernetes/)
+- [jenkins-docker](https://github.com/jenkinsci/docker/blob/master/README.md)
 - [kubernetes-plugin](https://plugins.jenkins.io/kubernetes/)
 
 #### Deploy:
@@ -8,4 +9,9 @@ kubectl apply -k .
 ```
 ```bash
 kubectl exec -n jenkins -it svc/jenkins-http -- cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+#### Access:
+```bash
+kubectl port-forward -n jenkins svc/jenkins-http 8080
 ```
