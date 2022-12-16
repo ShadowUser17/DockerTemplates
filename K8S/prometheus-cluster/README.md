@@ -1,4 +1,9 @@
-#### Deploy:
+Manual deploy:
 ```bash
 kubectl apply -k .
+```
+
+#### Automatic deploy:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus-cluster/fluxcd-deploy.yml"
 ```
