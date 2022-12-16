@@ -20,3 +20,8 @@ kubectl exec -n jenkins -it svc/jenkins-http -- cat /var/jenkins_home/secrets/in
 ```bash
 kubectl port-forward -n jenkins svc/jenkins-http 8080
 ```
+
+#### Create ingress:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/ingress-test.yml"
+```
