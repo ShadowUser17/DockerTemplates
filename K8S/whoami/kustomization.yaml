@@ -1,9 +1,9 @@
 resources:
-  - "whoami-ns.yml"
-  - "whoami-issuer.yml"
-  - "whoami-service.yml"
-  - "whoami-ingress.yml"
-  - "whoami-deploy.yml"
+  - "base/whoami-ns.yml"
+  - "base/whoami-issuer.yml"
+  - "base/whoami-service.yml"
+  - "base/whoami-ingress.yml"
+  - "base/whoami-deploy.yml"
 
 namespace: "whoami"
 images:
