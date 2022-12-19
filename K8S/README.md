@@ -1,7 +1,7 @@
 #### URLs of documentations:
 - [k8s](https://kubernetes.io/docs/home/)
-- [k3s](https://rancher.com/docs/k3s/latest/en/)
-- [helm](https://helm.sh/docs/)
-- [kubectl](https://kubectl.docs.kubernetes.io/references/)
+- [kubectl](https://kubectl.docs.kubernetes.io/references/kubectl/)
+- [kustomize](https://kubectl.docs.kubernetes.io/references/kustomize/)
+- [minikube](https://minikube.sigs.k8s.io/docs/)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/)
 - [datree](https://hub.datree.io/)
-- [nerdctl](https://github.com/containerd/nerdctl/blob/master/README.md)
