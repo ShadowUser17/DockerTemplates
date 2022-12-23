@@ -26,7 +26,7 @@ spec:
             claimName: "alertmanager-data"
       containers:
         - name: "alertmanager"
-          image: "prom/alertmanager:v0.24.0"
+          image: "prom/alertmanager:v0.25.0"
           imagePullPolicy: "IfNotPresent"
           args:
             - "--config.file=/etc/alertmanager/alertmanager.yml"
