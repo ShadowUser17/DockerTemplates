@@ -3,9 +3,13 @@ resources:
   - "base/service.yml"
   - "base/deploy.yml"
 
-namespace: "prometheus"
-
 configMapGenerator:
   - name: "loki-config"
     files:
       - "config/loki.yaml"
+
+namespace: "prometheus"
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

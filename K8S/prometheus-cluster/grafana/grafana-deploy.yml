@@ -34,6 +34,13 @@ spec:
         - name: "grafana"
           image: "grafana/grafana:9.2.8"
           imagePullPolicy: "IfNotPresent"
+          env:
+            - name: "GF_AUTH_ANONYMOUS_ENABLED"
+              value: "true"
+            - name: "GF_AUTH_DISABLE_LOGIN_FORM"
+              value: "true"
+            - name: "GF_AUTH_OAUTH_AUTO_LOGIN"
+              value: "true"
           volumeMounts:
             - name: "grafana-data"
               mountPath: "/var/lib/grafana"

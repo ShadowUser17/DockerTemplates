@@ -12,7 +12,6 @@ configMapGenerator:
       - "config/prometheus-k8s-rules.yml"
       - "config/prometheus-pod-rules.yml"
       - "config/prometheus-node-rules.yml"
-      - "config/prometheus-mesh-rules.yml"
       - "config/prometheus-ingress-rules.yml"
 
 labels:
