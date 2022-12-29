@@ -1,8 +1,8 @@
 resources:
   - "base/volumes.yml"
-  - "base/service.yml"
-  - "base/loki.yml"
+  - "base/services.yml"
   - "base/access.yml"
+  - "base/loki.yml"
   - "base/promtail.yml"
 
 configMapGenerator:

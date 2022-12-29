@@ -49,7 +49,6 @@ spec:
               path: "/ready"
               port: 80
           securityContext:
-            privileged: true
             runAsUser: 0
       tolerations:
         - key: "node-role.kubernetes.io/master"

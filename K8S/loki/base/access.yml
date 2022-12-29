@@ -12,7 +12,6 @@ metadata:
 rules:
   - apiGroups: [""]
     resources:
-      - "endpoints"
       - "services"
       - "nodes"
       - "pods"
