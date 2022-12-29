@@ -2,16 +2,17 @@ auth_enabled: false
 
 server:
   http_listen_port: 3100
+  grpc_listen_port: 0
 
 common:
   path_prefix: "/tmp/loki"
+  replication_factor: 1
   storage:
     filesystem:
       chunks_directory: "/tmp/loki/chunks"
       rules_directory: "/tmp/loki/rules"
-  replication_factor: 1
   ring:
-    instance_addr: "127.0.0.1"
+    instance_addr: "0.0.0.0"
     kvstore:
       store: "inmemory"
 
@@ -27,3 +28,5 @@ schema_config:
 
 ruler:
   alertmanager_url: "http://alertmanager.prometheus.svc:9093"
+  enable_api: true
+  enable_alertmanager_v2: true
