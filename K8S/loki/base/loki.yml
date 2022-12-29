@@ -42,11 +42,11 @@ spec:
               containerPort: 3100
           resources:
             requests:
-              cpu: "100m"
+              cpu: "50m"
               memory: "100Mi"
             limits:
-              cpu: "200m"
-              memory: "160Mi"
+              cpu: "50m"
+              memory: "150Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

@@ -1,4 +1,4 @@
-Manual deploy:
+#### Manual deploy:
 ```bash
 kubectl apply -k .
 ```

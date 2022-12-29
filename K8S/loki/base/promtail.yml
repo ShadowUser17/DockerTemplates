@@ -17,7 +17,7 @@ spec:
         - name: "promtail-config"
           configMap:
             name: "promtail-config"
-        - name: "var-log"
+        - name: "logs"
           hostPath:
             path: "/var/log"
       containers:
@@ -29,27 +29,19 @@ spec:
           volumeMounts:
             - name: "promtail-config"
               mountPath: "/etc/promtail"
-            - name: "var-log"
+            - name: "logs"
               mountPath: "/var/log"
           ports:
             - name: "http"
               protocol: "TCP"
-              containerPort: 80
+              containerPort: 9080
           resources:
             requests:
               cpu: "30m"
-              memory: "50Mi"
+              memory: "60Mi"
             limits:
               cpu: "30m"
-              memory: "50Mi"
-          livenessProbe:
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-            httpGet:
-              path: "/ready"
-              port: 80
-          securityContext:
-            runAsUser: 0
+              memory: "60Mi"
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
