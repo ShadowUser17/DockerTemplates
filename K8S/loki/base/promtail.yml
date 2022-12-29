@@ -1,0 +1,60 @@
+apiVersion: "apps/v1"
+kind: "DaemonSet"
+metadata:
+  namespace: "prometheus"
+  name: "promtail"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "promtail"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "promtail"
+    spec:
+      serviceAccount: "promtail"
+      volumes:
+        - name: "promtail-config"
+          configMap:
+            name: "promtail-config"
+        - name: "var-log"
+          hostPath:
+            path: "/var/log"
+      containers:
+        - name: "promtail"
+          image: "grafana/promtail:2.7.1"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "-config.file=/etc/promtail/promtail.yaml"
+          volumeMounts:
+            - name: "promtail-config"
+              mountPath: "/etc/promtail"
+            - name: "var-log"
+              mountPath: "/var/log"
+          ports:
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 80
+          resources:
+            requests:
+              cpu: "30m"
+              memory: "50Mi"
+            limits:
+              cpu: "30m"
+              memory: "50Mi"
+          livenessProbe:
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/ready"
+              port: 80
+          securityContext:
+            privileged: true
+            runAsUser: 0
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"

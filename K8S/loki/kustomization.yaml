@@ -1,12 +1,15 @@
 resources:
   - "base/volumes.yml"
   - "base/service.yml"
-  - "base/deploy.yml"
+  - "base/loki.yml"
+  - "base/access.yml"
+  - "base/promtail.yml"
 
 configMapGenerator:
   - name: "loki-config"
-    files:
-      - "config/loki.yaml"
+    files: ["config/loki.yaml"]
+  - name: "promtail-config"
+    files: ["config/promtail.yaml"]
 
 namespace: "prometheus"
 labels:
