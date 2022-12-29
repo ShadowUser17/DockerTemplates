@@ -1,0 +1,11 @@
+resources:
+  - "base/volumes.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+namespace: "prometheus"
+
+configMapGenerator:
+  - name: "loki-config"
+    files:
+      - "config/loki.yaml"
