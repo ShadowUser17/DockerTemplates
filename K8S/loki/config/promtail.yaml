@@ -13,14 +13,17 @@ scrape_configs:
   - job_name: "pod-logs"
     kubernetes_sd_configs:
       - role: "pod"
-        selectors:
-          - role: "pod"
-            field: ""
     pipeline_stages:
       - cri: {}
     relabel_configs:
+      - source_labels: ["__meta_kubernetes_pod_annotation_promtail_io_collect"]
+        action: "keep"
+        regex: "true"
       - action: "labelmap"
         regex: "__meta_kubernetes_pod_label_(.+)"
+      - source_labels: ["__meta_kubernetes_pod_node_name"]
+        action: "replace"
+        target_label: "node"
       - source_labels: ["__meta_kubernetes_namespace"]
         action: "replace"
         target_label: "namespace"
@@ -30,7 +33,7 @@ scrape_configs:
       - source_labels: ["__meta_kubernetes_pod_container_name"]
         action: "replace"
         target_label: "container"
-      - replacement: "/var/log/pods/*$1/*.log"
+      - source_labels: ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
+        replacement: "/var/log/pods/*$1/*.log"
         separator: "/"
-        source_labels: ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
         target_label: "__path__"

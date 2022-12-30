@@ -15,6 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: "jenkins"
       annotations:
+        promtail.io/collect: "true"
         prometheus.io/scrape: "true"
         prometheus.io/port: "8080"
         prometheus.io/path: "/prometheus/"
