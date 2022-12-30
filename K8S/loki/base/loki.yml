@@ -16,7 +16,6 @@ spec:
         app.kubernetes.io/name: "loki"
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "3100"
     spec:
       volumes:
         - name: "loki-config"
@@ -42,11 +41,11 @@ spec:
               containerPort: 3100
           resources:
             requests:
-              cpu: "60m"
-              memory: "100Mi"
-            limits:
-              cpu: "60m"
+              cpu: "100m"
               memory: "150Mi"
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5
