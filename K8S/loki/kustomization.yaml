@@ -1,6 +1,6 @@
 resources:
   - "base/volumes.yml"
-  - "base/services.yml"
+  - "base/service.yml"
   - "base/access.yml"
   - "base/loki.yml"
   - "base/promtail.yml"

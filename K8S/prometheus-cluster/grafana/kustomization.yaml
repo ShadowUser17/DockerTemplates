@@ -8,6 +8,7 @@ configMapGenerator:
     files:
       - "datasources/alertmanager.yml"
       - "datasources/prometheus.yml"
+      - "datasources/loki.yml"
 
   - name: "grafana-dashboards"
     namespace: "prometheus"
