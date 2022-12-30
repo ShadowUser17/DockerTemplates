@@ -25,6 +25,8 @@ spec:
           image: "grafana/promtail:2.7.1"
           imagePullPolicy: "IfNotPresent"
           args:
+            - "--dry-run"
+            - "--inspect"
             - "-config.file=/etc/promtail/promtail.yaml"
           volumeMounts:
             - name: "promtail-config"
@@ -37,11 +39,14 @@ spec:
               containerPort: 9080
           resources:
             requests:
-              cpu: "30m"
-              memory: "60Mi"
+              cpu: "60m"
+              memory: "100Mi"
             limits:
-              cpu: "30m"
-              memory: "60Mi"
+              cpu: "60m"
+              memory: "100Mi"
+          securityContext:
+            privileged: true
+            runAsUser: 0
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
