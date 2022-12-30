@@ -19,7 +19,9 @@ spec:
   ingressClassName: "nginx"
   tls:
     - secretName: "loki-ingress-cert"
-      hosts: ["loki.k3s"]
+      hosts:
+        - "loki.k3s"
+        - "promtail.k3s"
   rules:
     - host: "loki.k3s"
       http:
@@ -28,6 +30,16 @@ spec:
             pathType: "Prefix"
             backend:
               service:
-                name: "http"
+                name: "loki"
                 port:
                   number: 3100
+    - host: "promtail.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "promtail"
+                port:
+                  number: 9080

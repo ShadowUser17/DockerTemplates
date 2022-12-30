@@ -10,5 +10,5 @@ kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki/ingress-loki.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki/ingress-test.yml"
 ```
