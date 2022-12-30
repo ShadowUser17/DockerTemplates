@@ -7,3 +7,8 @@ kubectl apply -k .
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki/fluxcd-deploy.yml"
 ```
+
+#### Create ingress:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki/ingress-loki.yml"
+```

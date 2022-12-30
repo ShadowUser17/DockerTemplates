@@ -1,0 +1,33 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Issuer"
+metadata:
+  namespace: "prometheus"
+  name: "loki-issuer"
+spec:
+  selfSigned: {}
+
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "prometheus"
+  name: "loki"
+  annotations:
+    cert-manager.io/issuer: "loki-issuer"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - secretName: "loki-ingress-cert"
+      hosts: ["loki.k3s"]
+  rules:
+    - host: "loki.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "http"
+                port:
+                  number: 3100
