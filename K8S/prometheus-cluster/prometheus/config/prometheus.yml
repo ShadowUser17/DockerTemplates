@@ -12,7 +12,8 @@ rule_files:
   - "prometheus-k8s-rules.yml"
   - "prometheus-pod-rules.yml"
   - "prometheus-node-rules.yml"
-  - "prometheus-mesh-rules.yml"
+  - "prometheus-loki-rules.yml"
+  - "prometheus-promtail-rules.yml"
   - "prometheus-ingress-rules.yml"
 
 scrape_configs:
