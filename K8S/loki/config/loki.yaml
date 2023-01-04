@@ -2,6 +2,12 @@ auth_enabled: false
 
 server:
   http_listen_port: 3100
+  grpc_listen_port: 9095
+
+memberlist:
+  join_members:
+    - "loki-write.prometheus.svc"
+    - "loki-read.prometheus.svc"
 
 common:
   path_prefix: "/loki"
