@@ -16,6 +16,7 @@ spec:
         app.kubernetes.io/name: "loki-read"
       annotations:
         prometheus.io/scrape: "true"
+        prometheus.io/port: "3100"
     spec:
       volumes:
         - name: "loki-config"

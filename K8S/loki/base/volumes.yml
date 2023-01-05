@@ -4,8 +4,8 @@ metadata:
   namespace: "prometheus"
   name: "loki-data"
 spec:
-  accessModes: ["ReadWriteOnce"]
-  storageClassName: "local-path"
+  accessModes: ["ReadWriteMany"]
+  storageClassName: "nfs-client"
   resources:
     requests:
       storage: "10Gi"
