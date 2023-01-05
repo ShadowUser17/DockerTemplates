@@ -4,11 +4,14 @@ resources:
   - "base/services.yml"
   - "base/loki-read.yml"
   - "base/loki-write.yml"
+  - "base/gateway.yml"
   - "base/promtail.yml"
 
 configMapGenerator:
   - name: "loki-config"
     files: ["config/loki.yaml"]
+  - name: "nginx-config"
+    files: ["config/nginx.conf"]
   - name: "promtail-config"
     files: ["config/promtail.yaml"]
 

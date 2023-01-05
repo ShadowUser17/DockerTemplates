@@ -11,14 +11,14 @@ spec:
       protocol: "TCP"
       port: 3100
       name: "http"
-    - targetPort: 7946
-      protocol: "TCP"
-      port: 7946
-      name: "join"
     - targetPort: 9095
       protocol: "TCP"
       port: 9095
       name: "grpc"
+    - targetPort: 7946
+      protocol: "TCP"
+      port: 7946
+      name: "join"
 
 ---
 apiVersion: "v1"
@@ -34,11 +34,26 @@ spec:
       protocol: "TCP"
       port: 3100
       name: "http"
-    - targetPort: 7946
-      protocol: "TCP"
-      port: 7946
-      name: "join"
     - targetPort: 9095
       protocol: "TCP"
       port: 9095
       name: "grpc"
+    - targetPort: 7946
+      protocol: "TCP"
+      port: 7946
+      name: "join"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "prometheus"
+  name: "loki-gateway"
+spec:
+  selector:
+    app.kubernetes.io/name: "loki-gateway"
+  ports:
+    - targetPort: 80
+      protocol: "TCP"
+      port: 80
+      name: "http"
