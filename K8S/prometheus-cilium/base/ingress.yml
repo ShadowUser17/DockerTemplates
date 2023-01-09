@@ -1,0 +1,43 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Issuer"
+metadata:
+  namespace: "prometheus-cilium"
+  name: "prometheus-issuer"
+spec:
+  selfSigned: {}
+
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "prometheus-cilium"
+  name: "prometheus-services"
+  annotations:
+    cert-manager.io/issuer: "prometheus-issuer"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - secretName: "prometheus-ingress-cert"
+      hosts: ["grafana.k3s", "prometheus.k3s"]
+  rules:
+    - host: "grafana.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana"
+                port:
+                  number: 3000
+    - host: "prometheus.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "prometheus"
+                port:
+                  number: 9090
