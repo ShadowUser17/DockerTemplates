@@ -1,0 +1,18 @@
+resources:
+  - "../base/access.yml"
+  - "../base/promtail.yml"
+  - "volumes.yml"
+  - "services.yml"
+  - "loki.yml"
+
+configMapGenerator:
+  - name: "loki-config"
+    files: ["config/loki.yaml"]
+  - name: "promtail-config"
+    files: ["config/promtail.yaml"]
+
+namespace: "prometheus"
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

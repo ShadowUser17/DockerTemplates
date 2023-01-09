@@ -4,7 +4,7 @@ metadata:
   namespace: "flux-system"
   name: "loki"
 spec:
-  path: "./K8S/loki"
+  path: "./K8S/loki/scalable"
   prune: true
   interval: "1m0s"
   sourceRef:
