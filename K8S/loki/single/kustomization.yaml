@@ -1,9 +1,9 @@
 resources:
-  - "../base/access.yml"
-  - "../base/promtail.yml"
-  - "volumes.yml"
-  - "services.yml"
-  - "loki.yml"
+  - "base/access.yml"
+  - "base/volumes.yml"
+  - "base/services.yml"
+  - "base/loki.yml"
+  - "base/promtail.yml"
 
 configMapGenerator:
   - name: "loki-config"
