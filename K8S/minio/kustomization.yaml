@@ -1,0 +1,16 @@
+resources:
+  - "base/namespace.yml"
+  - "base/secret.yml"
+  - "base/access.yml"
+  - "base/volumes.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+images:
+  - name: "minio/minio"
+    newTag: "latest"
+
+namespace: "minio"
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: "kustomize"
