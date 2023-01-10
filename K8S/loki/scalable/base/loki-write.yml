@@ -22,9 +22,9 @@ spec:
         - name: "loki-config"
           configMap:
             name: "loki-config"
-        - name: "loki-data"
-          persistentVolumeClaim:
-            claimName: "loki-data"
+        # - name: "loki-data"
+        #   persistentVolumeClaim:
+        #     claimName: "loki-data"
       containers:
         - name: "loki-write"
           image: "grafana/loki:2.7.1"
@@ -35,8 +35,8 @@ spec:
           volumeMounts:
             - name: "loki-config"
               mountPath: "/etc/loki"
-            - name: "loki-data"
-              mountPath: "/loki"
+            # - name: "loki-data"
+            #   mountPath: "/loki"
           ports:
             - containerPort: 3100
               protocol: "TCP"

@@ -1,6 +1,7 @@
 resources:
   - "base/access.yml"
-  - "base/volumes.yml"
+# Currently using Minio!
+#  - "base/volumes.yml"
   - "base/services.yml"
   - "base/loki-read.yml"
   - "base/loki-write.yml"
