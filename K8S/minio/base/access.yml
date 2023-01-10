@@ -4,8 +4,10 @@ metadata:
   name: "allow-from-all"
   namespace: "minio"
 spec:
-  podSelector: {}
-  policyTypes:
-    - "Ingress"
+  policyTypes: ["Ingress"]
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: "minio"
   ingress:
-    - {}
+    - from:
+        - namespaceSelector: {}
