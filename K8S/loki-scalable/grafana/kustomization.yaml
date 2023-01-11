@@ -1,0 +1,7 @@
+resources:
+  - "grafana-service.yml"
+  - "grafana-deploy.yml"
+
+configMapGenerator:
+  - name: "grafana-datasources"
+    files: ["datasources/loki.yml"]

@@ -1,6 +1,8 @@
 resources:
   - "base/namespace.yml"
+  - "base/ingress.yml"
   - "minio"
+  - "grafana"
   - "loki"
 
 namespace: "loki"
