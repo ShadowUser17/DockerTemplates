@@ -1,6 +1,11 @@
-Manual deploy:
+#### Manual deploy:
 ```bash
 kubectl apply -k .
+```
+
+#### Get access:
+```bash
+kubectl -n testing port-forward svc/prometheus-testing 9090
 ```
 
 #### Automatic deploy:
