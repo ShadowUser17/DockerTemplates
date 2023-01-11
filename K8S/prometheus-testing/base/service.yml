@@ -1,0 +1,13 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "testing"
+  name: "prometheus-testing"
+spec:
+  selector:
+    app.kubernetes.io/name: "prometheus-testing"
+  ports:
+    - name: "http"
+      protocol: "TCP"
+      port: 9090
+      targetPort: 9090
