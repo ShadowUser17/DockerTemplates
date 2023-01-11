@@ -8,10 +8,10 @@ server:
   log_level: "info"
 
 common:
-  compactor_address: "http://loki-write.prometheus.svc:3100"
+  compactor_address: "http://loki-write.loki.svc:3100"
   storage:
     s3:
-      endpoint: "minio.minio.svc:9000"
+      endpoint: "minio.loki.svc:9000"
       insecure: true
       bucketnames: "loki-data"
       access_key_id: "testing"
@@ -20,8 +20,8 @@ common:
 
 memberlist:
   join_members:
-    - "loki-write.prometheus.svc:7946"
-    - "loki-read.prometheus.svc:7946"
+    - "loki-write.loki.svc:7946"
+    - "loki-read.loki.svc:7946"
   bind_addr: ["0.0.0.0"]
   bind_port: 7946
   gossip_to_dead_nodes_time: "15s"
@@ -102,12 +102,12 @@ compactor:
   working_directory: "/tmp/compactor"
   shared_store: "s3"
 
-ruler:
-  enable_api: true
-  alertmanager_url: "http://alertmanager.prometheus.svc:9093"
-  enable_alertmanager_v2: true
-  rule_path: "/tmp/rules/fake"
-  storage:
-    type: "local"
-    local:
-      directory: "/loki/rules"
+# ruler:
+#   enable_api: true
+#   alertmanager_url: "http://alertmanager.prometheus.svc:9093"
+#   enable_alertmanager_v2: true
+#   rule_path: "/tmp/rules/fake"
+#   storage:
+#     type: "local"
+#     local:
+#       directory: "/loki/rules"

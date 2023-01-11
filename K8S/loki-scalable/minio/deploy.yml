@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "minio"
+  namespace: "loki"
   name: "minio"
 spec:
   replicas: 1
@@ -23,7 +23,7 @@ spec:
           imagePullPolicy: "IfNotPresent"
           envFrom:
             - secretRef:
-                name: "root"
+                name: "minio-root"
           args:
             - "server"
             - "/data"

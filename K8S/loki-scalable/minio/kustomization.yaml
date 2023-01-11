@@ -1,0 +1,5 @@
+resources:
+  - "volume.yml"
+  - "service.yml"
+  - "secret.yml"
+  - "deploy.yml"

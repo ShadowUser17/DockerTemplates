@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus"
+  namespace: "loki"
   name: "loki-gateway"
 spec:
   replicas: 1
@@ -27,7 +27,7 @@ spec:
             - name: "nginx-config"
               mountPath: "/etc/nginx"
           ports:
-            - containerPort: 80
+            - containerPort: 3100
               protocol: "TCP"
           resources:
             requests:

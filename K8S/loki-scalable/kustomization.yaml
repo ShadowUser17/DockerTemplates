@@ -1,0 +1,10 @@
+resources:
+  - "base/namespace.yml"
+  - "minio"
+  - "loki"
+
+namespace: "loki"
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

@@ -1,7 +1,5 @@
 resources:
   - "base/access.yml"
-# Currently using Minio!
-#  - "base/volumes.yml"
   - "base/services.yml"
   - "base/loki-read.yml"
   - "base/loki-write.yml"
@@ -15,9 +13,3 @@ configMapGenerator:
     files: ["config/nginx.conf"]
   - name: "promtail-config"
     files: ["config/promtail.yaml"]
-
-namespace: "prometheus"
-labels:
-  - pairs:
-      app.kubernetes.io/part-of: "cluster-monitoring"
-      app.kubernetes.io/managed-by: "kustomize"

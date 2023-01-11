@@ -1,19 +1,19 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus"
-  name: "loki-write"
+  namespace: "loki"
+  name: "loki-read"
 spec:
   replicas: 1
   strategy:
     type: "Recreate"
   selector:
     matchLabels:
-      app.kubernetes.io/name: "loki-write"
+      app.kubernetes.io/name: "loki-read"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "loki-write"
+        app.kubernetes.io/name: "loki-read"
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "3100"
@@ -22,21 +22,16 @@ spec:
         - name: "loki-config"
           configMap:
             name: "loki-config"
-        # - name: "loki-data"
-        #   persistentVolumeClaim:
-        #     claimName: "loki-data"
       containers:
-        - name: "loki-write"
+        - name: "loki-read"
           image: "grafana/loki:2.7.1"
           imagePullPolicy: "IfNotPresent"
           args:
             - "-config.file=/etc/loki/loki.yaml"
-            - "-target=write"
+            - "-target=read"
           volumeMounts:
             - name: "loki-config"
               mountPath: "/etc/loki"
-            # - name: "loki-data"
-            #   mountPath: "/loki"
           ports:
             - containerPort: 3100
               protocol: "TCP"
