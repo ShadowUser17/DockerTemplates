@@ -17,13 +17,23 @@ spec:
         - name: "minio-data"
           persistentVolumeClaim:
             claimName: "minio-data"
+      initContainers:
+        - name: "make-bucketnames"
+          image: "busybox:1.36.0"
+          command:
+            - "sh"
+            - "-c"
+            - 'mkdir -p /data/loki-data && mkdir -p /data/loki-ruler'
+          volumeMounts:
+            - name: "minio-data"
+              mountPath: "/data"
       containers:
         - name: "minio"
           image: "minio/minio:latest"
           imagePullPolicy: "IfNotPresent"
           envFrom:
-            - secretRef:
-                name: "minio-root"
+            - configMapRef:
+                name: "minio-config"
           args:
             - "server"
             - "/data"
