@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "loki"
+  namespace: "testing"
   name: "minio"
 spec:
   replicas: 1
@@ -17,16 +17,6 @@ spec:
         - name: "minio-data"
           persistentVolumeClaim:
             claimName: "minio-data"
-      initContainers:
-        - name: "make-bucketnames"
-          image: "busybox:1.36.0"
-          command:
-            - "sh"
-            - "-c"
-            - 'mkdir -p /data/loki-data && mkdir -p /data/loki-ruler && mkdir -p /data/loki-admin'
-          volumeMounts:
-            - name: "minio-data"
-              mountPath: "/data"
       containers:
         - name: "minio"
           image: "minio/minio:latest"
@@ -54,8 +44,8 @@ spec:
               cpu: "50m"
               memory: "100Mi"
             limits:
-              cpu: "65m"
-              memory: "180Mi"
+              cpu: "50m"
+              memory: "160Mi"
           livenessProbe:
             initialDelaySeconds: 90
             periodSeconds: 10
