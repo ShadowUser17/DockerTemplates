@@ -1,0 +1,33 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Issuer"
+metadata:
+  namespace: "testing"
+  name: "minio-issuer"
+spec:
+  selfSigned: {}
+
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "testing"
+  name: "minio-console"
+  annotations:
+    cert-manager.io/issuer: "minio-issuer"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - secretName: "minio-ingress-cert"
+      hosts: ["minio.k3s"]
+  rules:
+    - host: "minio.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "minio"
+                port:
+                  number: 9001
