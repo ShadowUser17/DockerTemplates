@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "minio"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9000"
+        prometheus.io/path: "/minio/v2/metrics/cluster"
     spec:
       volumes:
         - name: "minio-data"

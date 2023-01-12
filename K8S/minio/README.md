@@ -1,3 +1,7 @@
+#### URLs:
+- [minio](https://github.com/minio/minio/blob/master/README.md)
+- [DockerHub](https://hub.docker.com/r/minio/minio)
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .
