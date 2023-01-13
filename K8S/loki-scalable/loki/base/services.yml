@@ -5,20 +5,13 @@ metadata:
   name: "loki-read"
 spec:
   selector:
-    app.kubernetes.io/name: "loki-read"
+    app.kubernetes.io/name: "loki"
+    app.kubernetes.io/role: "read"
   ports:
     - targetPort: 3100
       protocol: "TCP"
       port: 3100
       name: "http"
-    - targetPort: 9095
-      protocol: "TCP"
-      port: 9095
-      name: "grpc"
-    - targetPort: 7946
-      protocol: "TCP"
-      port: 7946
-      name: "join"
 
 ---
 apiVersion: "v1"
@@ -28,20 +21,13 @@ metadata:
   name: "loki-write"
 spec:
   selector:
-    app.kubernetes.io/name: "loki-write"
+    app.kubernetes.io/name: "loki"
+    app.kubernetes.io/role: "write"
   ports:
     - targetPort: 3100
       protocol: "TCP"
       port: 3100
       name: "http"
-    - targetPort: 9095
-      protocol: "TCP"
-      port: 9095
-      name: "grpc"
-    - targetPort: 7946
-      protocol: "TCP"
-      port: 7946
-      name: "join"
 
 ---
 apiVersion: "v1"
@@ -51,9 +37,24 @@ metadata:
   name: "loki-gateway"
 spec:
   selector:
-    app.kubernetes.io/name: "loki-gateway"
+    app.kubernetes.io/name: "gateway"
   ports:
     - targetPort: 3100
       protocol: "TCP"
       port: 3100
       name: "http"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "loki"
+  name: "loki-memberlist"
+spec:
+  selector:
+    app.kubernetes.io/name: "loki"
+  ports:
+    - targetPort: 7946
+      protocol: "TCP"
+      port: 7946
+      name: "join"

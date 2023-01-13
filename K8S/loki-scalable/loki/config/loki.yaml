@@ -12,7 +12,7 @@ common:
   replication_factor: 2
   storage:
     s3:
-      endpoint: "minio.loki.svc:9000"
+      endpoint: "minio.testing.svc:9000"
       bucketnames: "loki-data"
       access_key_id: "testing"
       secret_access_key: "1qaz!QAZ"
@@ -22,9 +22,7 @@ common:
 memberlist:
   bind_addr: ["0.0.0.0"]
   bind_port: 7946
-  join_members:
-    - "loki-write.loki.svc:7946"
-    - "loki-read.loki.svc:7946"
+  join_members: ["loki-memberlist.loki.svc:7946"]
 
 schema_config:
   configs:

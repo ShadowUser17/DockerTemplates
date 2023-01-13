@@ -9,11 +9,11 @@ spec:
     type: "Recreate"
   selector:
     matchLabels:
-      app.kubernetes.io/name: "loki-gateway"
+      app.kubernetes.io/name: "gateway"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "loki-gateway"
+        app.kubernetes.io/name: "gateway"
     spec:
       volumes:
         - name: "nginx-config"

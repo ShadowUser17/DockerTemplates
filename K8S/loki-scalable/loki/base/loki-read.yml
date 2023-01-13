@@ -9,11 +9,14 @@ spec:
     type: "Recreate"
   selector:
     matchLabels:
-      app.kubernetes.io/name: "loki-read"
+      app.kubernetes.io/name: "loki"
+      app.kubernetes.io/role: "read"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "loki-read"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/role: "read"
+        required.storage: "s3"
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "3100"
