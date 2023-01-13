@@ -1,3 +1,5 @@
+### Warning! Loki using storage: filesystem in standalone mode!
+
 #### Manual single deploy:
 ```bash
 kubectl apply -k .

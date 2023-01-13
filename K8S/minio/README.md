@@ -1,19 +1,10 @@
-#### URLs:
-- [minio](https://github.com/minio/minio/blob/master/README.md)
-- [DockerHub](https://hub.docker.com/r/minio/minio)
-
 #### Access from namespaces:
+Support types are `minio` or `s3`
 ```yaml
 template:
   metadata:
     labels:
       required.storage: "minio"
-```
-```yaml
-template:
-  metadata:
-    labels:
-      required.storage: "s3"
 ```
 
 #### Manual deploy:
