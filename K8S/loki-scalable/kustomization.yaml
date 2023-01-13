@@ -1,10 +1,11 @@
 resources:
   - "base/namespace.yml"
+  - "base/services.yml"
   - "base/ingress.yml"
-# Used testing/minio
-#  - "minio"
-  - "grafana"
+  - "gateway"
   - "loki"
+  - "grafana"
+  - "promtail"
 
 namespace: "loki"
 labels:

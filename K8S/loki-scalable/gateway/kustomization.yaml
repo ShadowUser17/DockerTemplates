@@ -1,0 +1,6 @@
+resources:
+  - "gateway-deploy.yml"
+
+configMapGenerator:
+  - name: "nginx-config"
+    files: ["config/nginx.conf"]

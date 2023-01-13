@@ -13,6 +13,7 @@ spec:
         app.kubernetes.io/name: "promtail"
       annotations:
         prometheus.io/scrape: "true"
+        prometheus.io/port: "9080"
     spec:
       serviceAccount: "promtail"
       securityContext:
@@ -52,7 +53,7 @@ spec:
               memory: "80Mi"
             limits:
               cpu: "100m"
-              memory: "100Mi"
+              memory: "120Mi"
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
