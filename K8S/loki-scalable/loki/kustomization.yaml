@@ -1,6 +1,6 @@
 resources:
-  - "base/loki-read.yml"
-  - "base/loki-write.yml"
+  - "loki-reader.yml"
+  - "loki-writer.yml"
 
 configMapGenerator:
   - name: "loki-config"

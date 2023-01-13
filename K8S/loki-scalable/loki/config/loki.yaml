@@ -9,7 +9,7 @@ server:
 
 common:
   path_prefix: "/var/loki"
-  replication_factor: 3
+  replication_factor: 2
   storage:
     s3:
       endpoint: "minio.testing.svc:9000"
