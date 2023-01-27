@@ -12,6 +12,13 @@ configMapGenerator:
     files: ["config/promtail.yaml"]
 
 namespace: "prometheus"
+
+images:
+  - name: "grafana/loki"
+    newTag: "2.7.2"
+  - name: "grafana/promtail"
+    newTag: "2.7.2"
+
 labels:
   - pairs:
       app.kubernetes.io/part-of: "cluster-monitoring"

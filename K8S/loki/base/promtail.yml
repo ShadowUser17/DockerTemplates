@@ -27,7 +27,7 @@ spec:
             path: "/var/log"
       containers:
         - name: "promtail"
-          image: "grafana/promtail:2.7.1"
+          image: "grafana/promtail:latest"
           imagePullPolicy: "IfNotPresent"
           args:
             - "-config.file=/etc/promtail/promtail.yaml"
