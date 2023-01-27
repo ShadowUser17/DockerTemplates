@@ -21,7 +21,7 @@ spec:
             path: "/"
       containers:
         - name: "node-exporter"
-          image: "prom/node-exporter:v1.4.1"
+          image: "prom/node-exporter:latest"
           imagePullPolicy: "IfNotPresent"
           args:
             - "--path.rootfs=/rootfs"

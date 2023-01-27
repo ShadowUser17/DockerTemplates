@@ -15,7 +15,3 @@ configMapGenerator:
       - "config/prometheus-loki-rules.yml"
       - "config/prometheus-promtail-rules.yml"
       - "config/prometheus-ingress-rules.yml"
-
-labels:
-  - pairs:
-      app.kubernetes.io/name: "prometheus"

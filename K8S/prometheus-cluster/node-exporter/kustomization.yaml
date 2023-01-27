@@ -1,6 +1,2 @@
 resources:
   - "node-exporter-daemon.yml"
-
-labels:
-  - pairs:
-      app.kubernetes.io/name: "node-exporter"
