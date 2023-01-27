@@ -4,3 +4,12 @@ resources:
   - "base/service.yml"
   - "base/config.yml"
   - "base/deploy.yml"
+
+# images:
+#   - name: "minio/minio"
+#     newTag: "latest"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "storage"
+      app.kubernetes.io/managed-by: "kustomize"

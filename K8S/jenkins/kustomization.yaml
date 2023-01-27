@@ -4,3 +4,14 @@ resources:
   - "base/volumes.yml"
   - "base/service.yml"
   - "base/deploy.yml"
+
+namespace: "jenkins"
+
+images:
+  - name: "jenkins/jenkins"
+    newTag: "2.375.2-lts"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "ci/cd"
+      app.kubernetes.io/managed-by: "kustomize"
