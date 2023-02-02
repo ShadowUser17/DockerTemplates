@@ -21,6 +21,9 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "3100"
     spec:
+      serviceAccount: "loki"
+      securityContext:
+        allowPrivilegeEscalation: false
       volumes:
         - name: "loki-config"
           configMap:

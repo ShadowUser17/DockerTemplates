@@ -1,3 +1,10 @@
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  name: "minio"
+  namespace: "minio"
+
+---
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
@@ -17,6 +24,7 @@ spec:
         prometheus.io/port: "9000"
         prometheus.io/path: "/minio/v2/metrics/cluster"
     spec:
+      serviceAccount: "minio"
       volumes:
         - name: "minio-data"
           persistentVolumeClaim:
@@ -49,7 +57,7 @@ spec:
               memory: "150Mi"
             limits:
               cpu: "100m"
-              memory: "200Mi"
+              memory: "250Mi"
           livenessProbe:
             initialDelaySeconds: 90
             periodSeconds: 10

@@ -1,3 +1,10 @@
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  name: "grafana"
+  namespace: "prometheus"
+
+---
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
@@ -17,6 +24,9 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
     spec:
+      serviceAccount: "grafana"
+      securityContext:
+        allowPrivilegeEscalation: false
       volumes:
         - name: "grafana-data"
           persistentVolumeClaim:

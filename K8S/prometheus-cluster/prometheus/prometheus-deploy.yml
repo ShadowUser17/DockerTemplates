@@ -17,6 +17,8 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: "prometheus"
+      securityContext:
+        allowPrivilegeEscalation: false
       volumes:
         - name: "prometheus-config"
           configMap:

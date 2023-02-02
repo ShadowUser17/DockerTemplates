@@ -1,4 +1,5 @@
 resources:
+  - "loki-access.yml"
   - "loki-reader.yml"
   - "loki-writer.yml"
 

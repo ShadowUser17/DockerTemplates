@@ -5,6 +5,13 @@ metadata:
   namespace: "prometheus"
 
 ---
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  name: "loki"
+  namespace: "prometheus"
+
+---
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRole"
 metadata:
