@@ -23,8 +23,11 @@ spec:
     spec:
       serviceAccount: "loki"
       securityContext:
+        readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "loki-config"
           configMap:
             name: "loki-config"
@@ -38,6 +41,8 @@ spec:
             - "-config.file=/etc/loki/loki.yaml"
             - "-target=read"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "loki-config"
               mountPath: "/etc/loki"
             - name: "loki-data"

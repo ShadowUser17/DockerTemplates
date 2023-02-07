@@ -26,8 +26,11 @@ spec:
     spec:
       serviceAccount: "grafana"
       securityContext:
+        readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "grafana-data"
           persistentVolumeClaim:
             claimName: "grafana-data"
@@ -45,6 +48,8 @@ spec:
           image: "grafana/grafana:latest"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "grafana-data"
               mountPath: "/var/lib/grafana"
             - name: "grafana-datasources"

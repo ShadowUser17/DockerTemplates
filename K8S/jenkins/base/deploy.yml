@@ -24,7 +24,11 @@ spec:
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "jenkins-data"
           persistentVolumeClaim:
             claimName: "jenkins-data"
@@ -36,6 +40,8 @@ spec:
             - name: "JAVA_OPTS"
               value: "-Xmx512m"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "jenkins-data"
               mountPath: "/var/jenkins_home"
           ports:

@@ -17,7 +17,13 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
     spec:
+      serviceAccount: "grafana"
+      securityContext:
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "grafana-data"
           emptyDir: {}
         - name: "grafana-datasources"
@@ -28,6 +34,8 @@ spec:
           image: "grafana/grafana:9.2.10"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "grafana-data"
               mountPath: "/var/lib/grafana"
             - name: "grafana-datasources"

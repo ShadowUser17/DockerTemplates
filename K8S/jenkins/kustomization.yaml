@@ -13,5 +13,5 @@ images:
 
 labels:
   - pairs:
-      app.kubernetes.io/part-of: "ci/cd"
+      app.kubernetes.io/part-of: "ci-cd"
       app.kubernetes.io/managed-by: "kustomize"

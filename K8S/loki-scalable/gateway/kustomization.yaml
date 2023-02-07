@@ -1,4 +1,5 @@
 resources:
+  - "gateway-access.yml"
   - "gateway-deploy.yml"
 
 configMapGenerator:

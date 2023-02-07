@@ -26,8 +26,11 @@ spec:
     spec:
       serviceAccount: "alertmanager"
       securityContext:
+        readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "alertmanager-config"
           configMap:
             name: "alertmanager-config"
@@ -42,6 +45,8 @@ spec:
             - "--config.file=/etc/alertmanager/alertmanager.yml"
             - "--storage.path=/alertmanager"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "alertmanager-config"
               mountPath: "/etc/alertmanager"
             - name: "alertmanager-data"

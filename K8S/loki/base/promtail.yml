@@ -16,9 +16,12 @@ spec:
     spec:
       serviceAccount: "promtail"
       securityContext:
-        runAsGroup: 0
         runAsUser: 0
+        runAsGroup: 0
+        readOnlyRootFilesystem: true
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "promtail-config"
           configMap:
             name: "promtail-config"
@@ -37,6 +40,8 @@ spec:
                 fieldRef:
                   fieldPath: "spec.nodeName"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "promtail-config"
               mountPath: "/etc/promtail"
             - name: "logs"

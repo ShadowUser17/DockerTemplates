@@ -18,8 +18,11 @@ spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: "prometheus"
       securityContext:
+        readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "prometheus-config"
           configMap:
             name: "prometheus-config"
@@ -36,6 +39,8 @@ spec:
             - "--storage.tsdb.path=/prometheus"
             - "--config.file=/etc/prometheus/prometheus.yml"
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "prometheus-config"
               mountPath: "/etc/prometheus"
             - name: "prometheus-data"

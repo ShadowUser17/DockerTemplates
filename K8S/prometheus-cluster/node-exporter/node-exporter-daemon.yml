@@ -24,6 +24,8 @@ spec:
       hostPID: true
       hostIPC: true
       volumes:
+        - name: "tmp"
+          emptyDir: {}
         - name: "root"
           hostPath:
             path: "/"
@@ -35,6 +37,8 @@ spec:
             - "--path.rootfs=/rootfs"
             - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($|/)"'
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
             - name: "root"
               mountPath: "/rootfs"
               readOnly: true
@@ -49,6 +53,8 @@ spec:
             limits:
               cpu: "10m"
               memory: "50Mi"
+      securityContext:
+        readOnlyRootFilesystem: true
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"

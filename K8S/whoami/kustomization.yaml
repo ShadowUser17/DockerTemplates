@@ -1,5 +1,6 @@
 resources:
   - "base/whoami-ns.yml"
+  - "base/whoami-access.yml"
   - "base/whoami-issuer.yml"
   - "base/whoami-service.yml"
   - "base/whoami-ingress.yml"

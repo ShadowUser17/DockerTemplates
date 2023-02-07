@@ -1,4 +1,5 @@
 resources:
+  - "grafana-access.yml"
   - "grafana-service.yml"
   - "grafana-deploy.yml"
 
