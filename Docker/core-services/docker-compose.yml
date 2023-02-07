@@ -29,7 +29,7 @@ services:
       - "9092:9092/tcp"
 
   coredns:
-    image: "coredns/coredns:1.9.4"
+    image: "coredns/coredns:1.10.1"
     container_name: "coredns.docker.localhost"
     restart: "always"
     deploy:
@@ -51,7 +51,7 @@ services:
 
   # watchtower:
   #   restart: "always"
-  #   image: "containrrr/watchtower:1.5.1"
+  #   image: "containrrr/watchtower:1.5.3"
   #   container_name: "watchtower.docker.localhost"
   #   command:
   #     - "--interval=3600"
