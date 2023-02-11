@@ -1,0 +1,8 @@
+resources:
+  - "base/access.yml"
+  - "base/deploy.yml"
+
+namespace: "testing"
+images:
+  - name: "grafana/k6"
+    newTag: "0.42.0"
