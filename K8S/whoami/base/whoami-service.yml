@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "whoami"
+  namespace: "testing"
   name: "whoami"
 spec:
   selector:

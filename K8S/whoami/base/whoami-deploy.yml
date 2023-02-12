@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "whoami"
+  namespace: "testing"
   name: "whoami"
 spec:
   replicas: 1
@@ -36,7 +36,7 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "10Mi"
+              memory: "15Mi"
             limits:
-              cpu: "10m"
-              memory: "25Mi"
+              cpu: "20m"
+              memory: "30Mi"
