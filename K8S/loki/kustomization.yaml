@@ -15,9 +15,9 @@ namespace: "prometheus"
 
 images:
   - name: "grafana/loki"
-    newTag: "2.7.3"
+    newTag: "2.7.4"
   - name: "grafana/promtail"
-    newTag: "2.7.3"
+    newTag: "2.7.4"
 
 labels:
   - pairs:
