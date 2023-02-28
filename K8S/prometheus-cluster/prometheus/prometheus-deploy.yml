@@ -51,11 +51,11 @@ spec:
               containerPort: 9090
           resources:
             requests:
-              cpu: "150m"
-              memory: "600Mi"
+              cpu: "100m"
+              memory: "500Mi"
             limits:
-              cpu: "200m"
-              memory: "1024Mi"
+              cpu: "100m"
+              memory: "700Mi"
           livenessProbe:
             initialDelaySeconds: 10
             timeoutSeconds: 5

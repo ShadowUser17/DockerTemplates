@@ -53,7 +53,7 @@ spec:
               memory: "150Mi"
             limits:
               cpu: "100m"
-              memory: "200Mi"
+              memory: "250Mi"
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5
