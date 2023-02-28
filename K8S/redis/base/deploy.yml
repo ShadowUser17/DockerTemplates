@@ -5,7 +5,7 @@ metadata:
   namespace: "testing"
 spec:
   serviceName: "redis"
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: "redis"
@@ -15,6 +15,7 @@ spec:
         app.kubernetes.io/name: "redis"
       annotations:
         prometheus.io/scrape: "true"
+        prometheus.io/port: "9121"
     spec:
       serviceAccount: "redis"
       securityContext:
@@ -53,6 +54,13 @@ spec:
             failureThreshold: 5
             exec:
               command: ["redis-cli", "ping"]
+        - name: "exporter"
+          image: "bitnami/redis-exporter:latest"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 9121
+              protocol: "TCP"
+              name: "metrics"
   volumeClaimTemplates:
     - metadata:
         name: "redis-data"
