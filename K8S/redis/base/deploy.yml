@@ -61,6 +61,10 @@ spec:
             - containerPort: 9121
               protocol: "TCP"
               name: "metrics"
+          resources:
+            requests:
+              cpu: "30m"
+              memory: "50Mi"
   volumeClaimTemplates:
     - metadata:
         name: "redis-data"
