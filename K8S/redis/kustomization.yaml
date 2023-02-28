@@ -1,0 +1,14 @@
+resources:
+  - "base/access.yml"
+  - "base/policy.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+images:
+  - name: "bitnami/redis"
+    newTag: "7.0.8"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "storage"
+      app.kubernetes.io/managed-by: "kustomize"
