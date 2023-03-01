@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "postgres"
+      annotations:
+        promtail.io/collect: "true"
     spec:
       serviceAccount: "postgres"
       securityContext:
@@ -46,13 +48,6 @@ spec:
             limits:
               cpu: "100m"
               memory: "1024Mi"
-          livenessProbe:
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-            exec:
-              command: ["pg_isready"]
   volumeClaimTemplates:
     - metadata:
         name: "postgres-data"
