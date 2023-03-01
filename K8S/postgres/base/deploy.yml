@@ -32,6 +32,8 @@ spec:
               value: "testing"
             - name: "POSTGRESQL_PASSWORD"
               value: "testing"
+            - name: "POSTGRESQL_DATABASE"
+              value: "testing"
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"

@@ -4,6 +4,7 @@ metadata:
   namespace: "testing"
   name: "postgres"
 spec:
+  # type: "LoadBalancer"
   selector:
     app.kubernetes.io/name: "postgres"
   ports:

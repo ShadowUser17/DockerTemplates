@@ -10,6 +10,14 @@ template:
       required.cache: "redis"
 ```
 
+#### Get access:
+```bash
+kubectl -n testing port-forward svc/redis 6379
+```
+```bash
+kubectl -n testing port-forward svc/redis-exporter 9121
+```
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .

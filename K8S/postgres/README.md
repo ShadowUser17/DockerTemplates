@@ -1,6 +1,5 @@
 #### URLs:
 - [postgresql](https://hub.docker.com/r/bitnami/postgresql)
-- [postgresql-exporter](https://hub.docker.com/r/bitnami/postgresql-exporter)
 
 #### Access from namespaces:
 ```yaml
@@ -8,6 +7,11 @@ template:
   metadata:
     labels:
       required.db: "psql"
+```
+
+#### Get access:
+```bash
+kubectl -n testing port-forward svc/postgresql 5432
 ```
 
 #### Manual deploy:
