@@ -1,5 +1,8 @@
+#### URLs:
+- [redis](https://hub.docker.com/r/bitnami/redis)
+- [redis-exporter](https://hub.docker.com/r/bitnami/redis-exporter)
+
 #### Access from namespaces:
-Support type is `redis`
 ```yaml
 template:
   metadata:
