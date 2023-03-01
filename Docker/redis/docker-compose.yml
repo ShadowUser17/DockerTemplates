@@ -4,7 +4,7 @@ networks:
 
 services:
   redis:
-    image: "bitnami/redis:7.0.5"
+    image: "bitnami/redis:7.0.8"
     container_name: "redis"
     environment:
       - "REDIS_PASSWORD=testing"
@@ -14,7 +14,7 @@ services:
       - "6379:6379/tcp"
 
   redis-exporter:
-    image: "bitnami/redis-exporter:1.45.0"
+    image: "bitnami/redis-exporter:1.47.0"
     container_name: "redis-exporter"
     depends_on:
       - "redis"
@@ -27,7 +27,7 @@ services:
       - "9121:9121/tcp"
 
   vector:
-    image: "timberio/vector:0.26.0-alpine"
+    image: "timberio/vector:0.28.0-alpine"
     container_name: "vector-exporter"
     external_links:
       - "prometheus"
