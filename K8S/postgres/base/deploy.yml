@@ -34,6 +34,8 @@ spec:
               value: "testing"
             - name: "POSTGRESQL_DATABASE"
               value: "testing"
+            # - name: "ALLOW_EMPTY_PASSWORD"
+            #   value: "yes"
             - name: "POSTGRESQL_LOG_CONNECTIONS"
               value: "yes"
           volumeMounts:
