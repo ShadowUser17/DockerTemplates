@@ -14,6 +14,11 @@ template:
 kubectl -n testing port-forward svc/postgresql 5432
 ```
 
+#### Exec command:
+```bash
+kubectl -n testing exec -it postgres-0 -- psql -d testing -U testing -W
+```
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .
