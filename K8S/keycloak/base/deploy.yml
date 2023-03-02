@@ -1,0 +1,54 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  namespace: "testing"
+  name: "keycloak"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "keycloak"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "keycloak"
+    spec:
+      serviceAccount: "keycloak"
+      # securityContext:
+      #   readOnlyRootFilesystem: false
+      #   allowPrivilegeEscalation: false
+      volumes:
+        - name: "tmp"
+          emptyDir: {}
+      containers:
+        - name: "keycloak"
+          image: "quay.io/keycloak/keycloak:latest"
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: "KEYCLOAK_ADMIN"
+              value: "admin"
+            - name: "KEYCLOAK_ADMIN_PASSWORD"
+              value: "admin"
+            - name: "KC_PROXY"
+              value: "edge"
+            - name: "DB_VENDOR"
+              value: "postgres"
+            - name: "DB_SCHEMA"
+              value: "public"
+            - name: "DB_ADDR"
+              value: "postgres.testing.svc"
+            - name: "DB_PORT"
+              value: "5432"
+            - name: "DB_DATABASE"
+              value: "keycloak"
+            - name: "DB_USER"
+              value: "testing"
+            - name: "DB_PASSWORD"
+              value: "testing"
+          volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
+          ports:
+            - containerPort: 8080
+              protocol: "TCP"
+              name: "http"

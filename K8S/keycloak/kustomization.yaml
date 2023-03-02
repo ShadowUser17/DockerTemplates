@@ -1,0 +1,13 @@
+resources:
+  - "base/access.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+images:
+  - name: "quay.io/keycloak/keycloak"
+    newTag: "12.0.4"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "security"
+      app.kubernetes.io/managed-by: "kustomize"
