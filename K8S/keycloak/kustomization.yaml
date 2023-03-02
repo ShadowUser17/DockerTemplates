@@ -1,5 +1,6 @@
 resources:
   - "base/access.yml"
+  # - "base/volume.yml"
   - "base/service.yml"
   - "base/deploy.yml"
 

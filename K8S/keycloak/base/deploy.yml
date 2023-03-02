@@ -5,6 +5,8 @@ metadata:
   name: "keycloak"
 spec:
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "keycloak"
@@ -12,14 +14,17 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "keycloak"
+        required.db: "psql"
     spec:
       serviceAccount: "keycloak"
       # securityContext:
-      #   readOnlyRootFilesystem: false
-      #   allowPrivilegeEscalation: false
+      #   readOnlyRootFilesystem: true
       volumes:
         - name: "tmp"
           emptyDir: {}
+        # - name: "data"
+        #   persistentVolumeClaim:
+        #     claimName: "keycloak-data"
       containers:
         - name: "keycloak"
           image: "quay.io/keycloak/keycloak:latest"
@@ -29,12 +34,8 @@ spec:
               value: "admin"
             - name: "KEYCLOAK_ADMIN_PASSWORD"
               value: "admin"
-            - name: "KC_PROXY"
-              value: "edge"
             - name: "DB_VENDOR"
               value: "postgres"
-            - name: "DB_SCHEMA"
-              value: "public"
             - name: "DB_ADDR"
               value: "postgres.testing.svc"
             - name: "DB_PORT"
@@ -48,6 +49,8 @@ spec:
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
+            # - name: "data"
+            #   mountPath: "/opt/jboss/keycloak/standalone"
           ports:
             - containerPort: 8080
               protocol: "TCP"
