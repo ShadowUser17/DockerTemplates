@@ -55,3 +55,11 @@ spec:
             - containerPort: 8080
               protocol: "TCP"
               name: "http"
+          readinessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+            httpGet:
+              path: "/health/ready"
+              port: "8080"
