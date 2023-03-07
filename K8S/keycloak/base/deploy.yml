@@ -17,8 +17,6 @@ spec:
         required.db: "psql"
     spec:
       serviceAccount: "keycloak"
-      # securityContext:
-      #   readOnlyRootFilesystem: true
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -55,11 +53,19 @@ spec:
             - containerPort: 8080
               protocol: "TCP"
               name: "http"
-          readinessProbe:
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
-            httpGet:
-              path: "/health/ready"
-              port: "8080"
+          # securityContext:
+          #   readOnlyRootFilesystem: true
+          # livenessProbe:
+          #   initialDelaySeconds: 20
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   httpGet:
+          #     path: "/health/live"
+          #     port: 8080
+          # readinessProbe:
+          #   initialDelaySeconds: 20
+          #   periodSeconds: 10
+          #   timeoutSeconds: 5
+          #   httpGet:
+          #     path: "/health/ready"
+          #     port: 8080
