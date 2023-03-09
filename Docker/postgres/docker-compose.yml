@@ -1,0 +1,22 @@
+networks:
+  core_network:
+    external: true
+
+volumes:
+  postgres_data:
+
+services:
+  postgres:
+    image: "bitnami/postgresql:14.5.0"
+    restart: "always"
+    container_name: "postgres.docker.localhost"
+    environment:
+      - "POSTGRESQL_USERNAME=testing"
+      - "POSTGRESQL_PASSWORD=testing"
+      - "POSTGRESQL_DATABASE=testing"
+    volumes:
+      - "postgres_data:/bitnami/postgresql:rw"
+    networks:
+      - "core_network"
+    ports:
+      - "5432:5432/tcp"
