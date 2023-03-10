@@ -1,0 +1,64 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  keycloak_one:
+    image: "quay.io/keycloak/keycloak:19.0.3-legacy"
+    container_name: "keycloak-one.docker.localhost"
+    environment:
+      - "KEYCLOAK_FRONTEND_URL=http://keycloak/auth"
+      - "JGROUPS_DISCOVERY_PROTOCOL=TCPPING"
+      - "JGROUPS_DISCOVERY_EXTERNAL_IP=172.30.0.11"
+      - "JGROUPS_DISCOVERY_PROPERTIES=\"initial_hosts=172.30.0.11[7600],172.30.0.12[7600]\""
+      - "CACHE_OWNERS_COUNT=2"
+      - "CACHE_OWNERS_AUTH_SESSIONS_COUNT=2"
+      - "KEYCLOAK_LOGLEVEL=TRACE"
+      - "DB_VENDOR=postgres"
+      - "DB_SCHEMA=public"
+      - "DB_ADDR=postgres.docker.localhost"
+      - "DB_PORT=5432"
+      - "DB_DATABASE=keycloak"
+      - "DB_USER=testing"
+      - "DB_PASSWORD=testing"
+    volumes:
+      - "$PWD/deployments:/opt/jboss/keycloak/standalone/deployments:rw"
+      - "$PWD/cli/TCPPING.cli:/opt/jboss/tools/cli/jgroups/discovery/TCPPING.cli:ro"
+      # - "$PWD/themes:/opt/jboss/keycloak/themes:ro"
+    networks:
+      core_network:
+        ipv4_address: "172.30.0.11"
+    expose:
+      - "7600:7600/tcp"
+    ports:
+      - "8091:8080/tcp"
+
+  keycloak_two:
+    image: "quay.io/keycloak/keycloak:19.0.3-legacy"
+    container_name: "keycloak-two.docker.localhost"
+    environment:
+      - "KEYCLOAK_FRONTEND_URL=https://keycloak/auth"
+      - "JGROUPS_DISCOVERY_PROTOCOL=TCPPING"
+      - "JGROUPS_DISCOVERY_EXTERNAL_IP=172.30.0.12"
+      - "JGROUPS_DISCOVERY_PROPERTIES=\"initial_hosts=172.30.0.11[7600],172.30.0.12[7600]\""
+      - "CACHE_OWNERS_COUNT=2"
+      - "CACHE_OWNERS_AUTH_SESSIONS_COUNT=2"
+      - "KEYCLOAK_LOGLEVEL=TRACE"
+      - "DB_VENDOR=postgres"
+      - "DB_SCHEMA=public"
+      - "DB_ADDR=postgres.docker.localhost"
+      - "DB_PORT=5432"
+      - "DB_DATABASE=keycloak"
+      - "DB_USER=testing"
+      - "DB_PASSWORD=testing"
+    volumes:
+      - "$PWD/deployments:/opt/jboss/keycloak/standalone/deployments:rw"
+      - "$PWD/cli/TCPPING.cli:/opt/jboss/tools/cli/jgroups/discovery/TCPPING.cli:ro"
+      # - "$PWD/themes:/opt/jboss/keycloak/themes:ro"
+    networks:
+      core_network:
+        ipv4_address: "172.30.0.12"
+    expose:
+      - "7600:7600/tcp"
+    ports:
+      - "8092:8080/tcp"
