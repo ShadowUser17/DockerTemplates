@@ -18,9 +18,6 @@ spec:
         prometheus.io/scrape: "true"
     spec:
       serviceAccount: "loki"
-      securityContext:
-        readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -54,6 +51,11 @@ spec:
             limits:
               cpu: "100m"
               memory: "250Mi"
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5

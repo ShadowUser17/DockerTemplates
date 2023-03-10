@@ -21,11 +21,6 @@ spec:
         prometheus.io/path: "/prometheus/"
     spec:
       serviceAccountName: "jenkins"
-      securityContext:
-        fsGroup: 1000
-        runAsUser: 1000
-        readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -54,6 +49,11 @@ spec:
               memory: "512Mi"
             limits:
               memory: "1024Mi"
+          securityContext:
+            fsGroup: 1000
+            runAsUser: 1000
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
           livenessProbe:
             initialDelaySeconds: 90
             periodSeconds: 10

@@ -16,8 +16,6 @@ spec:
         app.kubernetes.io/name: "gateway"
     spec:
       serviceAccount: "gateway"
-      securityContext:
-        readOnlyRootFilesystem: true
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -43,3 +41,7 @@ spec:
             limits:
               cpu: "60m"
               memory: "60Mi"
+          securityContext:
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
