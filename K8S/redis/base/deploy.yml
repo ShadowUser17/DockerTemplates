@@ -18,9 +18,6 @@ spec:
         prometheus.io/port: "9121"
     spec:
       serviceAccount: "redis"
-      volumes:
-        - name: "tmp"
-          emptyDir: {}
       containers:
         - name: "redis"
           image: "bitnami/redis:latest"
@@ -29,8 +26,6 @@ spec:
             - name: "ALLOW_EMPTY_PASSWORD"
               value: "yes"
           volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
             - name: "redis-data"
               mountPath: "/bitnami/redis/data"
           ports:
@@ -45,7 +40,6 @@ spec:
               cpu: "50m"
               memory: "256Mi"
           securityContext:
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
@@ -67,6 +61,10 @@ spec:
             requests:
               cpu: "30m"
               memory: "50Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
   volumeClaimTemplates:
     - metadata:
         name: "redis-data"
