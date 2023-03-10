@@ -15,17 +15,32 @@ spec:
       labels:
         app.kubernetes.io/name: "keycloak"
         required.db: "psql"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9990"
     spec:
       serviceAccount: "keycloak"
       volumes:
-        - name: "tmp"
+        - name: "deployments"
           emptyDir: {}
-        # - name: "data"
-        #   persistentVolumeClaim:
-        #     claimName: "keycloak-data"
+      initContainers:
+        - name: "get-jbcrypt"
+          image: "busybox:glibc"
+          imagePullPolicy: "IfNotPresent"
+          command: ["sh", "-c", "wget https://repo1.maven.org/maven2/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar -P /deployments"]
+          volumeMounts:
+            - name: "deployments"
+              mountPath: "/deployments"
+        - name: "get-bcrypt"
+          image: "busybox:glibc"
+          imagePullPolicy: "IfNotPresent"
+          command: ["sh", "-c", "wget https://github.com/leroyguillaume/keycloak-bcrypt/releases/download/1.5.3/keycloak-bcrypt-1.5.3.jar -P /deployments"]
+          volumeMounts:
+            - name: "deployments"
+              mountPath: "/deployments"
       containers:
         - name: "keycloak"
-          image: "quay.io/keycloak/keycloak:latest"
+          image: "quay.io/keycloak/keycloak:legacy"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: "KEYCLOAK_ADMIN"
@@ -44,28 +59,36 @@ spec:
               value: "testing"
             - name: "DB_PASSWORD"
               value: "testing"
+            - name: "KEYCLOAK_LOGLEVEL"
+              value: "INFO"
+            - name: "KEYCLOAK_STATISTICS"
+              value: "all"
           volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
-            # - name: "data"
-            #   mountPath: "/opt/jboss/keycloak/standalone"
+            - name: "deployments"
+              mountPath: "/opt/jboss/keycloak/standalone/deployments"
           ports:
             - containerPort: 8080
               protocol: "TCP"
               name: "http"
-          # securityContext:
-          #   readOnlyRootFilesystem: true
-          # livenessProbe:
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 10
-          #   timeoutSeconds: 5
-          #   httpGet:
-          #     path: "/health/live"
-          #     port: 8080
+            - containerPort: 9990
+              protocol: "TCP"
+              name: "metrics"
+            - containerPort: 7600
+              protocol: "TCP"
+              name: "jgroups"
+          startupProbe:
+            initialDelaySeconds: 60
+            failureThreshold: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            httpGet:
+              path: "/auth/"
+              port: 8080
           # readinessProbe:
-          #   initialDelaySeconds: 20
-          #   periodSeconds: 10
+          #   initialDelaySeconds: 60
+          #   failureThreshold: 5
+          #   periodSeconds: 30
           #   timeoutSeconds: 5
           #   httpGet:
-          #     path: "/health/ready"
+          #     path: "/auth/"
           #     port: 8080

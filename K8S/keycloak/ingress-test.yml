@@ -15,6 +15,7 @@ metadata:
   annotations:
     # cert-manager.io/issuer: "keycloak"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
 spec:
   ingressClassName: "nginx"
   # tls:
