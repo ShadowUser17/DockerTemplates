@@ -17,9 +17,6 @@ spec:
         promtail.io/collect: "true"
     spec:
       serviceAccount: "postgres"
-      volumes:
-        - name: "tmp"
-          emptyDir: {}
       containers:
         - name: "psql"
           image: "bitnami/postgresql:latest"
@@ -31,13 +28,9 @@ spec:
               value: "testing"
             - name: "POSTGRESQL_DATABASE"
               value: "testing"
-            # - name: "ALLOW_EMPTY_PASSWORD"
-            #   value: "yes"
             - name: "POSTGRESQL_LOG_CONNECTIONS"
               value: "yes"
           volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
             - name: "postgres-data"
               mountPath: "/bitnami/postgresql"
           ports:
@@ -52,7 +45,6 @@ spec:
               cpu: "100m"
               memory: "1024Mi"
           securityContext:
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
