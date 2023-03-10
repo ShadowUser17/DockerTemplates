@@ -39,7 +39,7 @@ services:
 
   kafka-exporter:
     image: "danielqsj/kafka-exporter:v1.6.0"
-    container_name: "kafka-exporter"
+    container_name: "kafka-exporter.docker.localhost"
     depends_on:
       - "zookeeper"
       - "kafka"

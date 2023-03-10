@@ -25,5 +25,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cadvisor.service=cadvisor"
-      - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.docker.localhost`)"
+      - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.docker`)"
       - "traefik.http.services.cadvisor.loadbalancer.server.port=8085"

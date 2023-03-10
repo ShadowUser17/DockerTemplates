@@ -18,5 +18,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nginx.service=nginx"
-      - "traefik.http.routers.nginx.rule=Host(`nginx.docker.localhost`)"
+      - "traefik.http.routers.nginx.rule=Host(`testing.docker`)"
       - "traefik.http.services.nginx.loadbalancer.server.port=80"

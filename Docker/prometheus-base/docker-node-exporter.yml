@@ -18,5 +18,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.node-exporter.service=node-exporter"
-      - "traefik.http.routers.node-exporter.rule=Host(`node-exporter.docker.localhost`)"
+      - "traefik.http.routers.node-exporter.rule=Host(`node-exporter.docker`)"
       - "traefik.http.services.node-exporter.loadbalancer.server.port=9100"

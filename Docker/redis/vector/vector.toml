@@ -6,7 +6,7 @@ type = "prometheus_scrape"
 scrape_interval_secs = 30
 instance_tag = "instance"
 honor_labels = true
-endpoints = ["http://redis-exporter:9121/metrics"]
+endpoints = ["http://redis-exporter.docker.localhost:9121/metrics"]
 
 [sinks.prom_write]
 type = "prometheus_remote_write"
