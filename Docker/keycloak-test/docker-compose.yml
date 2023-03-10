@@ -7,7 +7,7 @@ services:
     image: "quay.io/keycloak/keycloak:19.0.3-legacy"
     container_name: "keycloak-one.docker.localhost"
     environment:
-      - "KEYCLOAK_FRONTEND_URL=http://keycloak/auth"
+      - "KEYCLOAK_FRONTEND_URL=http://keycloak:8082/auth"
       - "JGROUPS_DISCOVERY_PROTOCOL=TCPPING"
       - "JGROUPS_DISCOVERY_EXTERNAL_IP=172.30.0.11"
       - "JGROUPS_DISCOVERY_PROPERTIES=\"initial_hosts=172.30.0.11[7600],172.30.0.12[7600]\""
@@ -30,14 +30,18 @@ services:
         ipv4_address: "172.30.0.11"
     expose:
       - "7600:7600/tcp"
-    ports:
-      - "8091:8080/tcp"
+      - "8080:8080/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.service=keycloak"
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
 
   keycloak_two:
     image: "quay.io/keycloak/keycloak:19.0.3-legacy"
     container_name: "keycloak-two.docker.localhost"
     environment:
-      - "KEYCLOAK_FRONTEND_URL=https://keycloak/auth"
+      - "KEYCLOAK_FRONTEND_URL=http://keycloak:8082/auth"
       - "JGROUPS_DISCOVERY_PROTOCOL=TCPPING"
       - "JGROUPS_DISCOVERY_EXTERNAL_IP=172.30.0.12"
       - "JGROUPS_DISCOVERY_PROPERTIES=\"initial_hosts=172.30.0.11[7600],172.30.0.12[7600]\""
@@ -60,5 +64,9 @@ services:
         ipv4_address: "172.30.0.12"
     expose:
       - "7600:7600/tcp"
-    ports:
-      - "8092:8080/tcp"
+      - "8080:8080/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.service=keycloak"
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"

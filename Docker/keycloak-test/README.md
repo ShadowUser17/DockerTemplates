@@ -10,3 +10,11 @@
 #### Hosts:
 - 172.30.0.11 (keycloak-one.docker.localhost)
 - 172.30.0.12 (keycloak-two.docker.localhost)
+
+#### Add first user:
+```bash
+docker exec -it keycloak-one.docker.localhost /opt/jboss/keycloak/bin/add-user-keycloak.sh -u admin -p admin
+```
+```bash
+docker container restart keycloak-one.docker.localhost
+```
