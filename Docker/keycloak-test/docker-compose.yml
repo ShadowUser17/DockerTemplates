@@ -34,7 +34,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.service=keycloak"
-      - "traefik.http.routers.keycloak.rule=Host(`keycloak`)"
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak.docker`)"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
 
   keycloak_two:
@@ -68,5 +68,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.service=keycloak"
-      - "traefik.http.routers.keycloak.rule=Host(`keycloak`)"
+      - "traefik.http.routers.keycloak.rule=Host(`keycloak.docker`)"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
