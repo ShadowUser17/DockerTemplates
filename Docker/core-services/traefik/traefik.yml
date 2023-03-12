@@ -11,10 +11,10 @@ metrics:
 
 entryPoints:
   traefik:
-    address: ":9092"
+    address: ":9090"
 
   web:
-    address: ":8082"
+    address: ":80"
 
 log:
   level: "INFO"
