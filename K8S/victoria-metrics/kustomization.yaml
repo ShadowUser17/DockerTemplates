@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: "victoriametrics/victoria-metrics"
-    newTag: "v1.88.1"
+    newTag: "v1.89.1"
 
 labels:
   - pairs:
