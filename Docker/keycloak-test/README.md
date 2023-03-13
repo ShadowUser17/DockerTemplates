@@ -18,3 +18,9 @@ docker exec -it keycloak-one.docker.localhost /opt/jboss/keycloak/bin/add-user-k
 ```bash
 docker container restart keycloak-one.docker.localhost
 ```
+
+#### Login with kcadm:
+```bash
+docker exec -it keycloak-one.docker.localhost \
+/opt/jboss/keycloak/bin/kcadm.sh config credentials --server "http://localhost:8080/auth" --realm master --user admin --password admin
+```
