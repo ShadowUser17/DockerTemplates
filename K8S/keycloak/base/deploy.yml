@@ -42,11 +42,11 @@ spec:
         - name: "keycloak"
           image: "quay.io/keycloak/keycloak:legacy"
           imagePullPolicy: "IfNotPresent"
+          # command: ["/opt/jboss/keycloak/bin/jboss-cli.sh"]
+          # args: ["--file=/opt/jboss/keycloak/bin/migrate-standalone.cli"]
           env:
-            - name: "KEYCLOAK_ADMIN"
-              value: "admin"
-            - name: "KEYCLOAK_ADMIN_PASSWORD"
-              value: "admin"
+            # - name: "KEYCLOAK_FRONTEND_URL"
+            #   value: "http://access.k3s/auth"
             - name: "DB_VENDOR"
               value: "postgres"
             - name: "DB_ADDR"
@@ -73,9 +73,9 @@ spec:
             - containerPort: 9990
               protocol: "TCP"
               name: "metrics"
-            - containerPort: 7600
-              protocol: "TCP"
-              name: "jgroups"
+            # - containerPort: 7600
+            #   protocol: "TCP"
+            #   name: "jgroups"
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
