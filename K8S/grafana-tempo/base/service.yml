@@ -1,0 +1,29 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "testing"
+  name: "grafana-tempo"
+spec:
+  selector:
+    app.kubernetes.io/name: "grafana-tempo"
+  ports:
+    - name: "tempo"
+      protocol: "TCP"
+      port: 3200
+      targetPort: 3200
+    - name: "zipkin"
+      protocol: "TCP"
+      port: 9411
+      targetPort: 9411
+    - name: "otlp-grpc"
+      protocol: "TCP"
+      port: 4317
+      targetPort: 4317
+    - name: "otlp-http"
+      protocol: "TCP"
+      port: 4318
+      targetPort: 4318
+    - name: "jaeger"
+      protocol: "TCP"
+      port: 14268
+      targetPort: 14268

@@ -1,0 +1,20 @@
+resources:
+  - "base/access.yml"
+  - "base/volume.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+namespace: "testing"
+
+configMapGenerator:
+  - name: "grafana-tempo-config"
+    files: ["config/config.yaml"]
+
+images:
+  - name: "grafana/tempo"
+    newTag: "2.0.1"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

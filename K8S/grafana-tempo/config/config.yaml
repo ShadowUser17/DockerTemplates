@@ -1,0 +1,32 @@
+server:
+  http_listen_port: 3200
+
+distributor:
+  receivers:
+    jaeger:
+      protocols:
+        grpc:
+        thrift_binary:
+        thrift_compact:
+        thrift_http:
+    otlp:
+      protocols:
+        grpc:
+        http:
+    zipkin:
+    opencensus:
+
+ingester:
+  max_block_duration: "5m"
+
+compactor:
+  compaction:
+    block_retention: "1h"
+
+storage:
+  trace:
+    backend: "local"
+    wal:
+      path: "/var/lib/tempo/wal"
+    local:
+      path: "/var/lib/tempo/traces"
