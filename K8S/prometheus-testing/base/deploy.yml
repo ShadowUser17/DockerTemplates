@@ -20,10 +20,10 @@ spec:
       volumes:
         - name: "tmp"
           emptyDir: {}
-        - name: "prometheus-config"
+        - name: "config"
           configMap:
             name: "prometheus-testing-config"
-        - name: "prometheus-data"
+        - name: "data"
           persistentVolumeClaim:
             claimName: "prometheus-testing-data"
       containers:
@@ -38,9 +38,9 @@ spec:
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
-            - name: "prometheus-config"
+            - name: "config"
               mountPath: "/etc/prometheus"
-            - name: "prometheus-data"
+            - name: "data"
               mountPath: "/prometheus"
           ports:
             - name: "http"
