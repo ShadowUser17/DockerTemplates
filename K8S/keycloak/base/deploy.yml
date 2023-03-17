@@ -47,6 +47,8 @@ spec:
           env:
             # - name: "KEYCLOAK_FRONTEND_URL"
             #   value: "http://access.k3s/auth"
+            - name: "PROXY_ADDRESS_FORWARDING"
+              value: "true"
             - name: "DB_VENDOR"
               value: "postgres"
             - name: "DB_ADDR"
@@ -80,19 +82,19 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
-          startupProbe:
+          livenessProbe:
             initialDelaySeconds: 60
             failureThreshold: 5
             periodSeconds: 30
             timeoutSeconds: 5
             httpGet:
-              path: "/auth/"
-              port: 8080
-          # readinessProbe:
-          #   initialDelaySeconds: 60
-          #   failureThreshold: 5
-          #   periodSeconds: 30
-          #   timeoutSeconds: 5
-          #   httpGet:
-          #     path: "/auth/"
-          #     port: 8080
+              path: "/health/live"
+              port: 9990
+          readinessProbe:
+            initialDelaySeconds: 60
+            failureThreshold: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+            httpGet:
+              path: "/health/ready"
+              port: 9990
