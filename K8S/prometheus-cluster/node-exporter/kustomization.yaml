@@ -1,2 +1,10 @@
 resources:
+  - "node-exporter-access.yml"
   - "node-exporter-daemon.yml"
+
+namespace: "prometheus"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

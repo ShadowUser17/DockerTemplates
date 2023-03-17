@@ -1,10 +1,18 @@
 resources:
+  - "alertmanager-access.yml"
+  - "alertmanager-volume.yml"
   - "alertmanager-service.yml"
   - "alertmanager-deploy.yml"
 
 configMapGenerator:
   - name: "alertmanager-config"
-    namespace: "prometheus"
     files:
       - "config/alertmanager.yml"
       - "config/alerts.tmpl"
+
+namespace: "prometheus"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

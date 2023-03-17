@@ -2,7 +2,6 @@ apiVersion: "cert-manager.io/v1"
 kind: "Issuer"
 metadata:
   name: "prometheus-issuer"
-  namespace: "prometheus"
 spec:
   selfSigned: {}
 
@@ -11,7 +10,6 @@ apiVersion: "cert-manager.io/v1"
 kind: "Certificate"
 metadata:
   name: "prometheus-services"
-  namespace: "prometheus"
 spec:
   dnsNames:
     - "alertmanager.k3s"

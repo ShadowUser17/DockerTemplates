@@ -1,7 +1,6 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus"
   name: "loki"
 spec:
   replicas: 1

@@ -1,13 +1,14 @@
 resources:
   - "base/namespace.yml"
-  - "base/volumes.yml"
   - "base/certificate.yml"
   - "base/ingress.yml"
-  - "node-exporter"
   - "kube-state-metrics"
   - "blackbox-exporter"
+  - "node-exporter"
   - "alertmanager"
   - "grafana"
+  - "loki"
+  - "promtail"
   - "prometheus"
 
 namespace: "prometheus"
@@ -25,8 +26,7 @@ images:
     newTag: "v2.42.0"
   - name: "grafana/grafana"
     newTag: "9.4.3"
-
-labels:
-  - pairs:
-      app.kubernetes.io/part-of: "cluster-monitoring"
-      app.kubernetes.io/managed-by: "kustomize"
+  - name: "grafana/loki"
+    newTag: "2.7.4"
+  - name: "grafana/promtail"
+    newTag: "2.7.4"

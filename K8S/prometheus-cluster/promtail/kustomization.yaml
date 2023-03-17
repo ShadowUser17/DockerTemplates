@@ -1,11 +1,10 @@
 resources:
-  - "blackbox-exporter-access.yml"
-  - "blackbox-exporter-service.yml"
-  - "blackbox-exporter-deploy.yml"
+  - "promtail-access.yml"
+  - "promtail-daemon.yml"
 
 configMapGenerator:
-  - name: "blackbox-config"
-    files: ["config/config.yml"]
+  - name: "promtail-config"
+    files: ["config/promtail.yaml"]
 
 namespace: "prometheus"
 

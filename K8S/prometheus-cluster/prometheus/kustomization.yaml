@@ -1,11 +1,11 @@
 resources:
   - "prometheus-access.yml"
+  - "prometheus-volume.yml"
   - "prometheus-service.yml"
   - "prometheus-deploy.yml"
 
 configMapGenerator:
   - name: "prometheus-config"
-    namespace: "prometheus"
     files:
       - "config/prometheus.yml"
       - "config/prometheus-rules.yml"
@@ -15,3 +15,10 @@ configMapGenerator:
       - "config/prometheus-loki-rules.yml"
       - "config/prometheus-promtail-rules.yml"
       - "config/prometheus-ingress-rules.yml"
+
+namespace: "prometheus"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

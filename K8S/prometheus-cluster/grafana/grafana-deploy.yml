@@ -1,14 +1,6 @@
-apiVersion: "v1"
-kind: "ServiceAccount"
-metadata:
-  name: "grafana"
-  namespace: "prometheus"
-
----
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus"
   name: "grafana"
 spec:
   replicas: 1

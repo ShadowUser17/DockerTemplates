@@ -1,11 +1,12 @@
 resources:
-  - "blackbox-exporter-access.yml"
-  - "blackbox-exporter-service.yml"
-  - "blackbox-exporter-deploy.yml"
+  - "loki-access.yml"
+  - "loki-volume.yml"
+  - "loki-service.yml"
+  - "loki-deploy.yml"
 
 configMapGenerator:
-  - name: "blackbox-config"
-    files: ["config/config.yml"]
+  - name: "loki-config"
+    files: ["config/loki.yaml"]
 
 namespace: "prometheus"
 

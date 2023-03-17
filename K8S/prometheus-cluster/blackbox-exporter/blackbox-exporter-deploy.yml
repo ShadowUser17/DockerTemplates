@@ -1,15 +1,7 @@
-apiVersion: "v1"
-kind: "ServiceAccount"
-metadata:
-  name: "blackbox"
-  namespace: "prometheus"
-
----
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "prometheus"
-  name: "blackbox"
+  name: "blackbox-exporter"
 spec:
   replicas: 1
   selector:
@@ -20,7 +12,7 @@ spec:
       labels:
         app.kubernetes.io/name: "blackbox-exporter"
     spec:
-      serviceAccount: "blackbox"
+      serviceAccount: "blackbox-exporter"
       volumes:
         - name: "tmp"
           emptyDir: {}
