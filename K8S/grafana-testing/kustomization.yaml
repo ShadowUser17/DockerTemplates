@@ -6,6 +6,10 @@ resources:
 
 namespace: "testing"
 
+configMapGenerator:
+  - name: "grafana-testing-datasources"
+    files: ["datasources/testing.yml"]
+
 images:
   - name: "grafana/grafana"
     newTag: "9.4.3"

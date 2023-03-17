@@ -21,9 +21,12 @@ spec:
       volumes:
         - name: "tmp"
           emptyDir: {}
-        - name: "grafana-data"
+        - name: "data"
           persistentVolumeClaim:
             claimName: "grafana-testing-data"
+        - name: "datasources"
+          configMap:
+            name: "grafana-testing-datasources"
       containers:
         - name: "grafana"
           image: "grafana/grafana:latest"
@@ -31,8 +34,10 @@ spec:
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
-            - name: "grafana-data"
+            - name: "data"
               mountPath: "/var/lib/grafana"
+            - name: "datasources"
+              mountPath: "/etc/grafana/provisioning/datasources"
           ports:
             - name: "http"
               protocol: "TCP"
