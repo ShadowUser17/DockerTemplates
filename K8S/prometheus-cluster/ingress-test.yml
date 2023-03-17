@@ -1,7 +1,32 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Issuer"
+metadata:
+  name: "prometheus-issuer"
+  namespace: "prometheus"
+spec:
+  selfSigned: {}
+
+---
+apiVersion: "cert-manager.io/v1"
+kind: "Certificate"
+metadata:
+  name: "prometheus-services"
+  namespace: "prometheus"
+spec:
+  dnsNames:
+    - "alertmanager.k3s"
+    - "grafana.k3s"
+    - "prometheus.k3s"
+  secretName: "prometheus-ingress-cert"
+  issuerRef:
+    name: "prometheus-issuer"
+
+---
 apiVersion: "networking.k8s.io/v1"
 kind: "Ingress"
 metadata:
   name: "prometheus-services"
+  namespace: "prometheus"
 spec:
   ingressClassName: "nginx"
   tls:

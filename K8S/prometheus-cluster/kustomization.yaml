@@ -1,7 +1,5 @@
 resources:
   - "base/namespace.yml"
-  - "base/certificate.yml"
-  - "base/ingress.yml"
   - "kube-state-metrics"
   - "blackbox-exporter"
   - "node-exporter"

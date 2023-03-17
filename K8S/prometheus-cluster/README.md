@@ -12,6 +12,11 @@
 kubectl apply -k .
 ```
 
+#### Create ingress:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus-cluster/ingress-test.yml"
+```
+
 #### Automatic deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus-cluster/fluxcd-deploy.yml"
