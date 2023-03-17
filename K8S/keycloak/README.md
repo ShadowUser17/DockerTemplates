@@ -1,5 +1,8 @@
 ### Warning! This is an experimental deployment.
 
+#### Required PostgreSQL DB:
+- `keycloak`
+
 #### URLs:
 - [Documentation](https://www.keycloak.org/documentation-archive.html)
 - [Quickstarts](https://github.com/keycloak/keycloak-quickstarts)
