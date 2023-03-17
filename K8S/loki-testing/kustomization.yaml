@@ -1,0 +1,20 @@
+resources:
+  - "base/access.yml"
+  - "base/volume.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+configMapGenerator:
+  - name: "loki-testing-config"
+    files: ["config/loki.yaml"]
+
+namespace: "testing"
+
+images:
+  - name: "grafana/loki"
+    newTag: "2.7.4"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"
