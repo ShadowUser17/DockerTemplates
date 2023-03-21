@@ -22,6 +22,11 @@ kubectl -n testing exec -it svc/minio -- sh
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/minio/fluxcd-deploy.yml"
 ```
 
+#### Create VPA:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/minio/vpa-test.yml"
+```
+
 #### Create ingress:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/minio/ingress-test.yml"

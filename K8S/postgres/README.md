@@ -24,6 +24,11 @@ kubectl -n testing exec -it postgres-0 -- psql -d testing -U testing -W
 kubectl apply -k .
 ```
 
+#### Create VPA:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/postgres/vpa-test.yml"
+```
+
 #### Automatic deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/postgres/fluxcd-deploy.yml"

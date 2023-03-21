@@ -5,6 +5,11 @@
 kubectl apply -k .
 ```
 
+#### Create VPA:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/vpa-test.yml"
+```
+
 #### Automatic single deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/fluxcd-deploy.yml"

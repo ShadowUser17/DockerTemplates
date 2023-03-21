@@ -23,6 +23,11 @@ kubectl -n testing port-forward svc/redis-exporter 9121
 kubectl apply -k .
 ```
 
+#### Create VPA:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/redis/vpa-test.yml"
+```
+
 #### Automatic deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/redis/fluxcd-deploy.yml"

@@ -8,6 +8,11 @@ kubectl apply -k .
 kubectl -n testing port-forward svc/grafana-testing 3000
 ```
 
+#### Create VPA:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-testing/vpa-test.yml"
+```
+
 #### Create ingress:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-testing/ingress-test.yml"
