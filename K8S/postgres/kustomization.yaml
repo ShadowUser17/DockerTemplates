@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: "bitnami/postgresql"
-    newTag: "14.5.0"
+    newTag: "14.7.0"
 
 labels:
   - pairs:
