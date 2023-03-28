@@ -12,7 +12,7 @@ namespace: "testing"
 
 images:
   - name: "grafana/loki"
-    newTag: "2.7.4"
+    newTag: "2.7.5"
 
 labels:
   - pairs:
