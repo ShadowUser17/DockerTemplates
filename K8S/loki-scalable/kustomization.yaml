@@ -11,11 +11,11 @@ namespace: "loki"
 
 images:
   - name: "nginx"
-    newTag: "1.23.3"
+    newTag: "1.23.4"
   - name: "grafana/loki"
-    newTag: "2.7.5"
+    newTag: "2.8.0"
   - name: "grafana/promtail"
-    newTag: "2.7.5"
+    newTag: "2.8.0"
 
 labels:
   - pairs:
