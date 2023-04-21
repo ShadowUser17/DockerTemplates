@@ -15,7 +15,7 @@ images:
   - name: "registry.k8s.io/kube-state-metrics/kube-state-metrics"
     newTag: "v2.4.2"
   - name: "prom/node-exporter"
-    newTag: "v1.4.1"
+    newTag: "v1.5.0"
   - name: "prom/blackbox-exporter"
     newTag: "v0.23.0"
   - name: "prom/alertmanager"
