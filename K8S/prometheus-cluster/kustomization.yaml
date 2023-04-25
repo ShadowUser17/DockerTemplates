@@ -25,6 +25,6 @@ images:
   - name: "grafana/grafana"
     newTag: "9.4.7"
   - name: "grafana/loki"
-    newTag: "2.8.0"
+    newTag: "2.8.1"
   - name: "grafana/promtail"
-    newTag: "2.8.0"
+    newTag: "2.8.1"
