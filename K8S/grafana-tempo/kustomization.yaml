@@ -12,7 +12,7 @@ configMapGenerator:
 
 images:
   - name: "grafana/tempo"
-    newTag: "2.0.1"
+    newTag: "2.1.0"
 
 labels:
   - pairs:
