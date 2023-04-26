@@ -38,6 +38,13 @@ spec:
           volumeMounts:
             - name: "deployments"
               mountPath: "/deployments"
+        - name: "get-metrics-spi"
+          image: "busybox:glibc"
+          imagePullPolicy: "IfNotPresent"
+          command: ["sh", "-c", "wget https://github.com/aerogear/keycloak-metrics-spi/releases/download/3.0.0/keycloak-metrics-spi-3.0.0.jar -P /deployments"]
+          volumeMounts:
+            - name: "deployments"
+              mountPath: "/deployments"
       containers:
         - name: "keycloak"
           image: "quay.io/keycloak/keycloak:legacy"
