@@ -23,7 +23,7 @@ images:
   - name: "prom/prometheus"
     newTag: "v2.43.0"
   - name: "grafana/grafana"
-    newTag: "9.4.7"
+    newTag: "9.4.9"
   - name: "grafana/loki"
     newTag: "2.8.1"
   - name: "grafana/promtail"

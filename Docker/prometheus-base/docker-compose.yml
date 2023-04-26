@@ -50,7 +50,7 @@ services:
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
 
   grafana:
-    image: "grafana/grafana:9.2.15"
+    image: "grafana/grafana:9.2.17"
     container_name: "grafana.docker.localhost"
     depends_on:
       - "prometheus"
