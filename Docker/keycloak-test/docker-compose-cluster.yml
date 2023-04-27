@@ -23,6 +23,7 @@ services:
     expose:
       - "7600:7600/tcp"
       - "8080:8080/tcp"
+      - "9990:9990/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.service=keycloak"
@@ -49,6 +50,7 @@ services:
     expose:
       - "7600:7600/tcp"
       - "8080:8080/tcp"
+      - "9990:9990/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.service=keycloak"
