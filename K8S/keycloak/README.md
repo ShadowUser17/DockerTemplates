@@ -1,4 +1,5 @@
 ### Warning! This is an experimental deployment.
+For `keycloak-metrics-spi` need to enable metrics-listener in realm-settings/events for each realm!
 
 #### Required PostgreSQL DB:
 - `keycloak`
