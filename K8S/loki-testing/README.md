@@ -10,6 +10,11 @@ kubectl apply -k .
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/vpa-test.yml"
 ```
 
+#### Create ingress:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/ingress-test.yml"
+```
+
 #### Automatic single deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/fluxcd-deploy.yml"
