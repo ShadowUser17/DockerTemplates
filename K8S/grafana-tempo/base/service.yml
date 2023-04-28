@@ -15,10 +15,10 @@ spec:
       protocol: "TCP"
       port: 9411
       targetPort: 9411
-    - name: "otlp-grpc"
-      protocol: "TCP"
-      port: 4317
-      targetPort: 4317
+    # - name: "otlp-grpc"
+    #   protocol: "TCP"
+    #   port: 4317
+    #   targetPort: 4317
     - name: "otlp-http"
       protocol: "TCP"
       port: 4318

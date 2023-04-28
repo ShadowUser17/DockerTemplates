@@ -1,0 +1,39 @@
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "testing"
+  name: "grafana-tempo"
+spec:
+  ingressClassName: "nginx"
+  rules:
+    - host: "grafana-tempo.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana-tempo"
+                port:
+                  number: 3200
+          - path: "/zipkin"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana-tempo"
+                port:
+                  number: 9411
+          - path: "/otlp"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana-tempo"
+                port:
+                  number: 4318
+          - path: "/jaeger"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana-tempo"
+                port:
+                  number: 14268
