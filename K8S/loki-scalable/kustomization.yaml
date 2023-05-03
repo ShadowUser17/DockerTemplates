@@ -13,9 +13,9 @@ images:
   - name: "nginx"
     newTag: "1.24.0"
   - name: "grafana/loki"
-    newTag: "2.8.1"
+    newTag: "2.8.2"
   - name: "grafana/promtail"
-    newTag: "2.8.1"
+    newTag: "2.8.2"
 
 labels:
   - pairs:
