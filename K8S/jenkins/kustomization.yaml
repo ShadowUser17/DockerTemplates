@@ -9,7 +9,7 @@ namespace: "jenkins"
 
 images:
   - name: "jenkins/jenkins"
-    newTag: "2.387.2-lts"
+    newTag: "2.387.3-lts"
 
 labels:
   - pairs:
