@@ -9,4 +9,4 @@ configMapGenerator:
 namespace: "testing"
 images:
   - name: "grafana/k6"
-    newTag: "0.44.0"
+    newTag: "0.44.1"
