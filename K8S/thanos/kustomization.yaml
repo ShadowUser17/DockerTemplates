@@ -1,0 +1,25 @@
+resources:
+  - "base/thanos-query-access.yaml"
+  - "base/thanos-query-service.yaml"
+  - "base/thanos-query-deploy.yaml"
+  - "base/thanos-receive-ingestor-access.yaml"
+  - "base/thanos-receive-ingestor-service.yaml"
+  - "base/thanos-receive-ingestor-deploy.yaml"
+  - "base/thanos-receive-router-access.yaml"
+  - "base/thanos-receive-router-config.yaml"
+  - "base/thanos-receive-router-service.yaml"
+  - "base/thanos-receive-router-deploy.yaml"
+  - "base/thanos-store-access.yaml"
+  - "base/thanos-store-service.yaml"
+  - "base/thanos-store-deploy.yaml"
+
+namespace: "testing"
+
+# images:
+#   - name: "thanosio/thanos"
+#     newTag: "v0.31.0"
+
+# labels:
+#   - pairs:
+#       app.kubernetes.io/part-of: "cluster-monitoring"
+#       app.kubernetes.io/managed-by: "kustomize"
