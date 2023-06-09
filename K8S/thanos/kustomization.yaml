@@ -10,16 +10,17 @@ resources:
   - "base/thanos-receive-router-service.yaml"
   - "base/thanos-receive-router-deploy.yaml"
   - "base/thanos-store-access.yaml"
+  - "base/thanos-store-config.yaml"
   - "base/thanos-store-service.yaml"
   - "base/thanos-store-deploy.yaml"
 
 namespace: "testing"
 
-# images:
-#   - name: "thanosio/thanos"
-#     newTag: "v0.31.0"
+images:
+  - name: "thanosio/thanos"
+    newTag: "v0.31.0"
 
-# labels:
-#   - pairs:
-#       app.kubernetes.io/part-of: "cluster-monitoring"
-#       app.kubernetes.io/managed-by: "kustomize"
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"
