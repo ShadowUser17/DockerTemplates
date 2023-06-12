@@ -1,0 +1,134 @@
+apiVersion: "v1"
+kind: "ServiceAccount"
+metadata:
+  name: "thanos-prometheus"
+  namespace: "testing"
+
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRole"
+metadata:
+  name: "thanos-prometheus"
+rules:
+  - apiGroups: [""]
+    resources:
+      - "pods"
+      - "nodes"
+      - "nodes/proxy"
+      - "nodes/metrics"
+      - "services"
+      - "endpoints"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - nonResourceURLs: ["/metrics"]
+    verbs: ["get"]
+
+---
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: "ClusterRoleBinding"
+metadata:
+  name: "thanos-prometheus"
+roleRef:
+  apiGroup: "rbac.authorization.k8s.io"
+  kind: "ClusterRole"
+  name: "thanos-prometheus"
+subjects:
+  - kind: "ServiceAccount"
+    namespace: "testing"
+    name: "thanos-prometheus"
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "testing"
+  name: "thanos-prometheus"
+spec:
+  selector:
+    app.kubernetes.io/name: "thanos-prometheus"
+  ports:
+    - name: "http"
+      port: 9090
+      targetPort: 9090
+
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  namespace: "testing"
+  name: "thanos-prometheus"
+spec:
+  replicas: 1
+  strategy:
+    type: "Recreate"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "thanos-prometheus"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "thanos-prometheus"
+    spec:
+      terminationGracePeriodSeconds: 30
+      serviceAccountName: "thanos-prometheus"
+      volumes:
+        - name: "config"
+          configMap:
+            name: "thanos-prometheus-config"
+        - name: "data"
+          emptyDir: {}
+      containers:
+        - name: "prometheus"
+          image: "prom/prometheus:latest"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "--web.enable-remote-write-receiver"
+            - "--web.enable-lifecycle"
+            - "--storage.tsdb.path=/prometheus"
+            - "--config.file=/etc/prometheus/prometheus.yml"
+          volumeMounts:
+            - name: "config"
+              mountPath: "/etc/prometheus"
+            - name: "data"
+              mountPath: "/prometheus"
+          ports:
+            - name: "http"
+              containerPort: 9090
+          # resources:
+          #   requests:
+          #     cpu: "100m"
+          #     memory: "500Mi"
+          #   limits:
+          #     cpu: "100m"
+          #     memory: "700Mi"
+          # securityContext:
+          #   readOnlyRootFilesystem: true
+          #   allowPrivilegeEscalation: false
+          #   capabilities:
+          #     drop: ["ALL"]
+          livenessProbe:
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: "/-/healthy"
+              port: 9090
+              scheme: "HTTP"
+          readinessProbe:
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: "/-/ready"
+              port: 9090
+              scheme: "HTTP"

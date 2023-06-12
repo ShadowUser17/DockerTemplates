@@ -12,7 +12,7 @@ metadata:
   namespace: "testing"
 data:
   hashrings.json: |
-    [{"endpoints": ["thanos-receive.testing.svc:10901"], "hashring": "default", "tenants": []}]
+    [{"endpoints": ["127.0.0.1:10901"]}]
 
 ---
 apiVersion: "v1"
@@ -36,13 +36,14 @@ spec:
 
 ---
 apiVersion: "apps/v1"
-kind: "StatefulSet"
+kind: "Deployment"
 metadata:
   name: "thanos-receive"
   namespace: "testing"
 spec:
-  serviceName: "thanos-receive"
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "thanos-receive"
@@ -61,9 +62,12 @@ spec:
           emptyDir: {}
         - name: "config"
           configMap:
+            name: "thanos-bucket-config"
+        - name: "hashring"
+          configMap:
             name: "thanos-hashring-config"
       containers:
-        - name: "thanos-receive"
+        - name: "thanos"
           image: "thanosio/thanos:latest"
           imagePullPolicy: "IfNotPresent"
           args:
@@ -79,17 +83,20 @@ spec:
             - "--receive.replication-factor=1"
             - "--remote-write.address=0.0.0.0:9090"
             - "--receive.local-endpoint=127.0.0.1:10901"
-            - "--receive.hashrings-file=/var/thanos/hashrings.json"
+            - "--objstore.config-file=/var/thanos/config.yml"
+            - "--receive.hashrings-file=/tmp/thanos/hashrings.json"
           env:
             - name: "NAME"
               valueFrom:
                 fieldRef:
                   fieldPath: "metadata.name"
           volumeMounts:
-            - name: "data"
-              mountPath: "/var/thanos/data"
             - name: "config"
               mountPath: "/var/thanos"
+            - name: "data"
+              mountPath: "/var/thanos/data"
+            - name: "hashring"
+              mountPath: "/tmp/thanos"
           ports:
             - name: "grpc"
               containerPort: 10901
@@ -97,25 +104,27 @@ spec:
               containerPort: 10902
             - name: "remote-write"
               containerPort: 9090
-          # resources:
-          #   requests:
-          #     cpu: "50m"
-          #     memory: "150Mi"
-          #   limits:
-          #     cpu: "50m"
-          #     memory: "150Mi"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "150Mi"
+            limits:
+              cpu: "50m"
+              memory: "200Mi"
           livenessProbe:
-            initialDelaySeconds: 20
+            initialDelaySeconds: 30
             failureThreshold: 5
             timeoutSeconds: 5
+            periodSeconds: 5
             httpGet:
               path: "/-/healthy"
               port: 10902
               scheme: "HTTP"
           readinessProbe:
-            initialDelaySeconds: 20
+            initialDelaySeconds: 30
             failureThreshold: 5
             timeoutSeconds: 5
+            periodSeconds: 5
             httpGet:
               path: "/-/ready"
               port: 10902

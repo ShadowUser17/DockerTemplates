@@ -29,6 +29,8 @@ metadata:
   namespace: "testing"
 spec:
   replicas: 1
+  strategy:
+    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "thanos-store"
@@ -50,7 +52,7 @@ spec:
           configMap:
             name: "thanos-bucket-config"
       containers:
-        - name: "thanos-store"
+        - name: "thanos"
           image: "thanosio/thanos:latest"
           imagePullPolicy: "IfNotPresent"
           args:
@@ -83,6 +85,7 @@ spec:
             initialDelaySeconds: 20
             failureThreshold: 5
             timeoutSeconds: 5
+            periodSeconds: 5
             httpGet:
               path: "/-/healthy"
               port: 10902
@@ -91,6 +94,7 @@ spec:
             initialDelaySeconds: 20
             failureThreshold: 5
             timeoutSeconds: 5
+            periodSeconds: 5
             httpGet:
               path: "/-/ready"
               port: 10902

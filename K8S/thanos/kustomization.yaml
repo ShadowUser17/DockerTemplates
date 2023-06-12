@@ -1,12 +1,17 @@
 resources:
   - "base/thanos-bucket-config.yml"
-  - "base/thanos-compact-deploy.yml"
+  - "base/thanos-prometheus-config.yml"
+  # - "base/thanos-compact-deploy.yml"
   - "base/thanos-store-deploy.yml"
   - "base/thanos-receive-deploy.yml"
+  - "base/thanos-query-deploy.yml"
+  - "base/thanos-prometheus-deploy.yml"
 
 images:
   - name: "thanosio/thanos"
     newTag: "v0.31.0"
+  - name: "prom/prometheus"
+    newTag: "v2.40.7"
 
 labels:
   - pairs:
