@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "thanos-store-config"
+  name: "thanos-bucket-config"
 data:
   config.yml: |
     type: "S3"
