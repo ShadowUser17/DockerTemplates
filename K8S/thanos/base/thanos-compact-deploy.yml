@@ -2,12 +2,14 @@ apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
   name: "thanos-compact"
+  namespace: "testing"
 
 ---
 apiVersion: "v1"
 kind: "Service"
 metadata:
   name: "thanos-compact"
+  namespace: "testing"
 spec:
   selector:
     app.kubernetes.io/name: "thanos-compact"
@@ -21,6 +23,7 @@ apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
   name: "thanos-compact"
+  namespace: "testing"
 spec:
   replicas: 1
   selector:
@@ -44,44 +47,44 @@ spec:
           configMap:
             name: "thanos-bucket-config"
       containers:
-      - name: "thanos-compact"
-        image: "thanosio/thanos:latest"
-        imagePullPolicy: "IfNotPresent"
-        args:
-          - "compact"
-          - "--log.level=info"
-          - "--log.format=logfmt"
-          - "--data-dir=/var/thanos/data"
-          - "--http-address=0.0.0.0:10902"
-          - "--objstore.config-file=/var/thanos/config.yml"
-        volumeMounts:
-          - name: "data"
-            mountPath: "/var/thanos/data"
-          - name: "config"
-            mountPath: "/var/thanos"
-        ports:
-          - name: "http"
-            containerPort: 10902
-        # resources:
-        #   requests:
-        #     cpu: "50m"
-        #     memory: "150Mi"
-        #   limits:
-        #     cpu: "50m"
-        #     memory: "150Mi"
-        livenessProbe:
-          initialDelaySeconds: 20
-          failureThreshold: 5
-          timeoutSeconds: 5
-          httpGet:
-            path: "/-/healthy"
-            port: 10902
-            scheme: "HTTP"
-        readinessProbe:
-          initialDelaySeconds: 20
-          failureThreshold: 5
-          timeoutSeconds: 5
-          httpGet:
-            path: "/-/ready"
-            port: 10902
-            scheme: "HTTP"
+        - name: "thanos-compact"
+          image: "thanosio/thanos:latest"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "compact"
+            - "--log.level=info"
+            - "--log.format=logfmt"
+            - "--data-dir=/var/thanos/data"
+            - "--http-address=0.0.0.0:10902"
+            - "--objstore.config-file=/var/thanos/config.yml"
+          volumeMounts:
+            - name: "data"
+              mountPath: "/var/thanos/data"
+            - name: "config"
+              mountPath: "/var/thanos"
+          ports:
+            - name: "http"
+              containerPort: 10902
+          # resources:
+          #   requests:
+          #     cpu: "50m"
+          #     memory: "150Mi"
+          #   limits:
+          #     cpu: "50m"
+          #     memory: "150Mi"
+          livenessProbe:
+            initialDelaySeconds: 20
+            failureThreshold: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/-/healthy"
+              port: 10902
+              scheme: "HTTP"
+          readinessProbe:
+            initialDelaySeconds: 20
+            failureThreshold: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/-/ready"
+              port: 10902
+              scheme: "HTTP"
