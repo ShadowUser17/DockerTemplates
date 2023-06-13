@@ -3,9 +3,10 @@ resources:
   - "base/thanos-prometheus-config.yml"
   # - "base/thanos-compact-deploy.yml"
   - "base/thanos-store-deploy.yml"
-  - "base/thanos-receive-deploy.yml"
+  # - "base/thanos-receive-deploy.yml"
   - "base/thanos-query-deploy.yml"
-  - "base/thanos-prometheus-deploy.yml"
+  # - "base/thanos-prometheus-deploy.yml"
+  - "base/thanos-prometheus-sidecar.yml"
 
 images:
   - name: "thanosio/thanos"

@@ -39,6 +39,9 @@ spec:
       labels:
         app.kubernetes.io/name: "thanos-store"
         required.storage: "s3"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10902"
     spec:
       terminationGracePeriodSeconds: 120
       serviceAccountName: "thanos-store"

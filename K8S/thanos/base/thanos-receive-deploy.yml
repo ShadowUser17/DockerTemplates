@@ -51,6 +51,9 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "thanos-receive"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10902"
     spec:
       terminationGracePeriodSeconds: 120
       serviceAccountName: "thanos-receive"
