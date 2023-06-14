@@ -5,6 +5,11 @@ global:
     testing: "true"
     storage: "thanos-minio"
 
+rule_files:
+  - "prometheus-rules.yml"
+  # - "thanos-rules.yml"
+  - "minio-rules.yml"
+
 scrape_configs:
   - job_name: "prometheus"
     scrape_interval: "30s"

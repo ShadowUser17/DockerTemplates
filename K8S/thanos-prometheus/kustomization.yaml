@@ -8,10 +8,14 @@ resources:
   - "base/thanos-frontend-deploy.yml"
 
 configMapGenerator:
-  - name: "thanos-prometheus-config"
-    files: ["config/prometheus.yml"]
   - name: "thanos-store-config"
     files: ["config/thanos-store.yml"]
+  - name: "thanos-prometheus-config"
+    files:
+      - "config/prometheus.yml"
+      - "config/prometheus-rules.yml"
+      - "config/thanos-rules.yml"
+      - "config/minio-rules.yml"
 
 namespace: "testing"
 

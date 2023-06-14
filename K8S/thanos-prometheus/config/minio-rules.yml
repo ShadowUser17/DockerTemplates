@@ -1,0 +1,38 @@
+groups:
+  - name: "Minio self-monitoring"
+    rules:
+      - alert: "Minio cluster disk offline"
+        expr: 'minio_cluster_disk_offline_total > 0'
+        for: "0m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Minio cluster disk offline (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Minio cluster disk offline\nVALUE = {{ $value }}\nLABELS = {{ $labels }}"
+
+      - alert: "Minio node disk offline"
+        expr: 'minio_cluster_nodes_offline_total > 0'
+        for: "0m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Minio node disk offline (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Minio node disk offline\nVALUE = {{ $value }}\nLABELS = {{ $labels }}"
+
+      - alert: "Minio disk space usage"
+        expr: 'avg(minio_node_disk_used_bytes / minio_node_disk_total_bytes * 100) by(namespace, pod, disk) > 60'
+        for: "0m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Minio disk space usage is {{ $value | humanize }} %"
+          description: "Minio disk space usage {{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.disk }} is {{ $value | humanize }} %"
+
+      - alert: "Minio disk space usage"
+        expr: 'avg(minio_node_disk_used_bytes / minio_node_disk_total_bytes * 100) by(namespace, pod, disk) > 80'
+        for: "0m"
+        labels:
+          severity: "error"
+        annotations:
+          summary: "Minio disk space usage is {{ $value | humanize }} %"
+          description: "Minio disk space usage {{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.disk }} is {{ $value | humanize }} %"
