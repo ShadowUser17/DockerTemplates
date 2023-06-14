@@ -1,0 +1,7 @@
+type: "S3"
+config:
+  bucket: "thanos-data"
+  endpoint: "minio.testing.svc:9000"
+  insecure: true
+  access_key: "testing"
+  secret_key: "1qaz!QAZ"

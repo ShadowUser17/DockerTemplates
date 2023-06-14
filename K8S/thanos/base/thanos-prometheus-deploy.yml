@@ -1,52 +1,4 @@
 apiVersion: "v1"
-kind: "ServiceAccount"
-metadata:
-  name: "thanos-prometheus"
-  namespace: "testing"
-
----
-apiVersion: "rbac.authorization.k8s.io/v1"
-kind: "ClusterRole"
-metadata:
-  name: "thanos-prometheus"
-rules:
-  - apiGroups: [""]
-    resources:
-      - "pods"
-      - "nodes"
-      - "nodes/proxy"
-      - "nodes/metrics"
-      - "services"
-      - "endpoints"
-    verbs:
-      - "get"
-      - "list"
-      - "watch"
-  - apiGroups: ["networking.k8s.io"]
-    resources: ["ingresses"]
-    verbs:
-      - "get"
-      - "list"
-      - "watch"
-  - nonResourceURLs: ["/metrics"]
-    verbs: ["get"]
-
----
-apiVersion: "rbac.authorization.k8s.io/v1"
-kind: "ClusterRoleBinding"
-metadata:
-  name: "thanos-prometheus"
-roleRef:
-  apiGroup: "rbac.authorization.k8s.io"
-  kind: "ClusterRole"
-  name: "thanos-prometheus"
-subjects:
-  - kind: "ServiceAccount"
-    namespace: "testing"
-    name: "thanos-prometheus"
-
----
-apiVersion: "v1"
 kind: "Service"
 metadata:
   namespace: "testing"
@@ -57,7 +9,12 @@ spec:
   ports:
     - name: "http"
       port: 9090
+      protocol: "TCP"
       targetPort: 9090
+    - name: "grpc"
+      port: 10901
+      protocol: "TCP"
+      targetPort: 10901
 
 ---
 apiVersion: "apps/v1"
@@ -76,14 +33,21 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "thanos-prometheus"
+        required.storage: "s3"
     spec:
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 120
       serviceAccountName: "thanos-prometheus"
+      securityContext:
+        runAsUser: 65534
+        fsGroup: 65534
       volumes:
-        - name: "config"
+        - name: "prometheus-config"
           configMap:
             name: "thanos-prometheus-config"
-        - name: "data"
+        - name: "thanos-config"
+          configMap:
+            name: "thanos-store-config"
+        - name: "prometheus-data"
           emptyDir: {}
       containers:
         - name: "prometheus"
@@ -92,28 +56,26 @@ spec:
           args:
             - "--web.enable-remote-write-receiver"
             - "--web.enable-lifecycle"
+            - "--storage.tsdb.min-block-duration=2h"
+            - "--storage.tsdb.max-block-duration=2h"
             - "--storage.tsdb.path=/prometheus"
             - "--config.file=/etc/prometheus/prometheus.yml"
           volumeMounts:
-            - name: "config"
+            - name: "prometheus-config"
               mountPath: "/etc/prometheus"
-            - name: "data"
+            - name: "prometheus-data"
               mountPath: "/prometheus"
           ports:
             - name: "http"
+              protocol: "TCP"
               containerPort: 9090
-          # resources:
-          #   requests:
-          #     cpu: "100m"
-          #     memory: "500Mi"
-          #   limits:
-          #     cpu: "100m"
-          #     memory: "700Mi"
-          # securityContext:
-          #   readOnlyRootFilesystem: true
-          #   allowPrivilegeEscalation: false
-          #   capabilities:
-          #     drop: ["ALL"]
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "500Mi"
+            limits:
+              cpu: "100m"
+              memory: "700Mi"
           livenessProbe:
             initialDelaySeconds: 10
             failureThreshold: 5
@@ -131,4 +93,55 @@ spec:
             httpGet:
               path: "/-/ready"
               port: 9090
+              scheme: "HTTP"
+
+        - name: "thanos"
+          image: "thanosio/thanos:latest"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "sidecar"
+            - "--log.level=info"
+            - "--log.format=logfmt"
+            - "--grpc-address=0.0.0.0:10901"
+            - "--http-address=0.0.0.0:10902"
+            - "--tsdb.path=/prometheus"
+            - "--shipper.upload-compacted"
+            - "--prometheus.url=http://localhost:9090"
+            - "--objstore.config-file=/etc/thanos/thanos-store.yml"
+          volumeMounts:
+            - name: "thanos-config"
+              mountPath: "/etc/thanos"
+            - name: "prometheus-data"
+              mountPath: "/prometheus"
+          ports:
+            - name: "grpc"
+              protocol: "TCP"
+              containerPort: 10901
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 10902
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
+            limits:
+              cpu: "50m"
+              memory: "150Mi"
+          livenessProbe:
+            initialDelaySeconds: 20
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: "/-/healthy"
+              port: 10902
+              scheme: "HTTP"
+          readinessProbe:
+            initialDelaySeconds: 20
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: "/-/ready"
+              port: 10902
               scheme: "HTTP"

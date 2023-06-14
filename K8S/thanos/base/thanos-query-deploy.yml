@@ -1,32 +1,27 @@
 apiVersion: "v1"
-kind: "ServiceAccount"
-metadata:
-  name: "thanos-query"
-  namespace: "testing"
-
----
-apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "thanos-query"
   namespace: "testing"
+  name: "thanos-query"
 spec:
   selector:
     app.kubernetes.io/name: "thanos-query"
   ports:
     - name: "grpc"
       port: 10901
+      protocol: "TCP"
       targetPort: 10901
     - name: "http"
       port: 9090
+      protocol: "TCP"
       targetPort: 9090
 
 ---
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "thanos-query"
   namespace: "testing"
+  name: "thanos-query"
 spec:
   replicas: 1
   strategy:
@@ -59,21 +54,24 @@ spec:
             - "--query.auto-downsampling"
             - "--query.replica-label=rule_replica"
             - "--query.replica-label=prometheus_replica"
+            - "--endpoint=dnssrv+_grpc._tcp.thanos-prometheus.testing.svc:10901"
             - "--endpoint=dnssrv+_grpc._tcp.thanos-store.testing.svc:10901"
           ports:
             - name: "grpc"
+              protocol: "TCP"
               containerPort: 10901
             - name: "http"
+              protocol: "TCP"
               containerPort: 9090
-          # resources:
-          #   requests:
-          #     cpu: "50m"
-          #     memory: "150Mi"
-          #   limits:
-          #     cpu: "50m"
-          #     memory: "150Mi"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
           livenessProbe:
-            initialDelaySeconds: 20
+            initialDelaySeconds: 10
             failureThreshold: 5
             timeoutSeconds: 5
             periodSeconds: 5
@@ -82,7 +80,7 @@ spec:
               port: 9090
               scheme: "HTTP"
           readinessProbe:
-            initialDelaySeconds: 20
+            initialDelaySeconds: 10
             failureThreshold: 5
             timeoutSeconds: 5
             periodSeconds: 5

@@ -1,32 +1,27 @@
 apiVersion: "v1"
-kind: "ServiceAccount"
-metadata:
-  name: "thanos-store"
-  namespace: "testing"
-
----
-apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "thanos-store"
   namespace: "testing"
+  name: "thanos-store"
 spec:
   selector:
     app.kubernetes.io/name: "thanos-store"
   ports:
     - name: "grpc"
       port: 10901
+      protocol: "TCP"
       targetPort: 10901
     - name: "http"
       port: 10902
+      protocol: "TCP"
       targetPort: 10902
 
 ---
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "thanos-store"
   namespace: "testing"
+  name: "thanos-store"
 spec:
   replicas: 1
   strategy:
@@ -44,7 +39,7 @@ spec:
         prometheus.io/port: "10902"
     spec:
       terminationGracePeriodSeconds: 120
-      serviceAccountName: "thanos-store"
+      serviceAccountName: "thanos-prometheus"
       securityContext:
         runAsUser: 65534
         fsGroup: 65534
@@ -53,7 +48,7 @@ spec:
           emptyDir: {}
         - name: "config"
           configMap:
-            name: "thanos-bucket-config"
+            name: "thanos-store-config"
       containers:
         - name: "thanos"
           image: "thanosio/thanos:latest"
@@ -62,11 +57,11 @@ spec:
             - "store"
             - "--log.level=info"
             - "--log.format=logfmt"
-            - "--data-dir=/var/thanos/data"
             - "--grpc-address=0.0.0.0:10901"
             - "--http-address=0.0.0.0:10902"
-            - "--objstore.config-file=/var/thanos/config.yml"
+            - "--data-dir=/var/thanos/data"
             - "--ignore-deletion-marks-delay=12h"
+            - "--objstore.config-file=/var/thanos/thanos-store.yml"
           volumeMounts:
             - name: "data"
               mountPath: "/var/thanos/data"
@@ -74,16 +69,18 @@ spec:
               mountPath: "/var/thanos"
           ports:
             - name: "grpc"
+              protocol: "TCP"
               containerPort: 10901
             - name: "http"
+              protocol: "TCP"
               containerPort: 10902
-          # resources:
-          #   requests:
-          #     cpu: "50m"
-          #     memory: "150Mi"
-          #   limits:
-          #     cpu: "50m"
-          #     memory: "150Mi"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "150Mi"
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
           livenessProbe:
             initialDelaySeconds: 20
             failureThreshold: 5
