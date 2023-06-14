@@ -1,5 +1,6 @@
 resources:
   - "base/thanos-prometheus-access.yml"
+  - "base/thanos-prometheus-volume.yml"
   - "base/thanos-prometheus-deploy.yml"
   - "base/thanos-compact-deploy.yml"
   - "base/thanos-store-deploy.yml"

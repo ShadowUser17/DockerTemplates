@@ -48,7 +48,8 @@ spec:
           configMap:
             name: "thanos-store-config"
         - name: "prometheus-data"
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: "thanos-prometheus-data"
       containers:
         - name: "prometheus"
           image: "prom/prometheus:latest"
