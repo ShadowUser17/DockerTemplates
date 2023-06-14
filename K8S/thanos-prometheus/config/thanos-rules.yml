@@ -1,5 +1,5 @@
 groups:
-  - name: "Thanos Compactor"
+  - name: "Thanos Compactor rules"
     rules:
       - alert: "Thanos compactor multiple running"
         expr: 'sum(up{app_kubernetes_io_name="thanos-compact"}) by(namespace, pod) > 1'
@@ -35,7 +35,7 @@ groups:
           severity: "warning"
         annotations:
           summary: "Thanos compactor halted (instance {{ $labels.namespace }}/{{ $labels.pod }})"
-          description: "Thanos compact {{ $labels.namespace }}/{{ $labels.pod }} Bucket is failing to execute {{ $value | humanize }}% of operations."
+          description: "Thanos compact {{ $labels.namespace }}/{{ $labels.pod }} bucket is failing to execute {{ $value | humanize }}% of operations."
 
       - alert: "Thanos compact has not run"
         expr: '(time() - max(max_over_time(thanos_objstore_bucket_last_successful_upload_time{app_kubernetes_io_name="thanos-compact"}[24h])) by(namespace, pod)) / 60 / 60 > 24'
@@ -46,3 +46,40 @@ groups:
           summary: "Thanos compact has not run (instance {{ $labels.namespace }}/{{ $labels.pod }})"
           description: "Thanos compact {{ $labels.namespace }}/{{ $labels.pod }} has not uploaded anything for 24 hours."
 
+  - name: "Thanos Store rules"
+    rules:
+      - alert: "Thanos store GRPC error rate"
+        expr: '(sum(rate(grpc_server_handled_total{grpc_code=~"Unknown|ResourceExhausted|Internal|Unavailable|DataLoss|DeadlineExceeded", app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod) / sum(rate(grpc_server_started_total{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod) * 100 > 5)'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos store GRPC error rate (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos store {{ $labels.namespace }}/{{ $labels.pod }} is failing to handle {{ $value | humanize }}% of requests."
+
+      - alert: "Thanos store series high gate latency"
+        expr: '(histogram_quantile(0.99, sum(rate(thanos_bucket_store_series_gate_duration_seconds_bucket{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod, le)) > 2 and sum(rate(thanos_bucket_store_series_gate_duration_seconds_count{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod) > 0)'
+        for: "10m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos store series high gate latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos store {{ $labels.namespace }}/{{ $labels.pod }}) has a 99th percentile latency of {{ $value }} seconds for store series gate requests."
+
+      - alert: "Thanos store bucket high operation failures"
+        expr: '(sum(rate(thanos_objstore_bucket_operation_failures_total{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod) / sum(rate(thanos_objstore_bucket_operations_total{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod) * 100 > 5)'
+        for: "15m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos store bucket high operation failures (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos store {{ $labels.namespace }}/{{ $labels.pod }} bucket is failing to execute {{ $value | humanize }}% of operations."
+
+      - alert: "Thanos store high objstore operation latency"
+        expr: '(histogram_quantile(0.99, sum(rate(thanos_objstore_bucket_operation_duration_seconds_bucket{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod, le)) > 2 and sum(rate(thanos_objstore_bucket_operation_duration_seconds_count{app_kubernetes_io_name="thanos-store"}[5m])) by(namespace, pod, le) > 0)'
+        for: "10m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos store high objstore operation latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos store {{ $labels.namespace }}/{{ $labels.pod }} bucket has a 99th percentile latency of {{ $value }} seconds for the bucket operations."
