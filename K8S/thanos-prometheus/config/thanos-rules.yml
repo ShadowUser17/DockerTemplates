@@ -83,3 +83,77 @@ groups:
         annotations:
           summary: "Thanos store high objstore operation latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
           description: "Thanos store {{ $labels.namespace }}/{{ $labels.pod }} bucket has a 99th percentile latency of {{ $value }} seconds for the bucket operations."
+
+  - name: "Thanos Query rules"
+    rules:
+      - alert: "Thanos query: HTTP request high query error rate"
+        expr: '(sum(rate(http_requests_total{app_kubernetes_io_name="thanos-query", code=~"5..", handler="query"}[5m])) by(namespace, pod) / sum(rate(http_requests_total{app_kubernetes_io_name="thanos-query", handler="query"}[5m])) by(namespace, pod)) * 100 > 5'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Thanos query: HTTP request high query error rate (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} is failing to handle {{ $value | humanize }}% of \"query\" requests."
+
+      - alert: "Thanos Query: HTTP request query range high error rate"
+        expr: '(sum(rate(http_requests_total{app_kubernetes_io_name="thanos-query", code=~"5..", handler="query_range"}[5m])) by(namespace, pod) / sum(rate(http_requests_total{app_kubernetes_io_name="thanos-query", handler="query_range"}[5m])) by(namespace, pod)) * 100 > 5'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos query: HTTP request query range high error rate (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} is failing to handle {{ $value | humanize }}% of \"query_range\" requests."
+
+      - alert: "Thanos query GRPC server error rate"
+        expr: '(sum(rate(grpc_server_handled_total{grpc_code=~"Unknown|ResourceExhausted|Internal|Unavailable|DataLoss|DeadlineExceeded", app_kubernetes_io_name="thanos-query"}[5m])) by(namespace, pod) / sum(rate(grpc_server_started_total{app_kubernetes_io_name="thanos-query"}[5m])) by(namespace, pod) * 100 > 5)'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos query GRPC server error rate (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} is failing to handle {{ $value | humanize }}% of requests."
+
+      - alert: "Thanos query GRPC client error rate"
+        expr: '(sum(rate(grpc_client_handled_total{grpc_code!="OK", app_kubernetes_io_name="thanos-query"}[5m])) by(namespace, pod) / sum(rate(grpc_client_started_total{app_kubernetes_io_name="thanos-query"}[5m])) by(namespace, pod)) * 100 > 5'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos query GRPC client error rate (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} is failing to send {{ $value | humanize }}% of requests."
+
+      - alert: "Thanos query high DNS failures"
+        expr: '(sum(rate(thanos_query_store_apis_dns_failures_total{app_kubernetes_io_name="thanos-query"}[5m])) by(namespace, pod) / sum(rate(thanos_query_store_apis_dns_lookups_total{app_kubernetes_io_name="thanos-query"}[5m])) by(namespace, pod)) * 100 > 1'
+        for: "15m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos query high DNS failures (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} have {{ $value | humanize }}% of failing DNS queries for store endpoints."
+
+      - alert: "Thanos query high instant latency"
+        expr: '(histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{app_kubernetes_io_name="thanos-query", handler="query"}[5m])) by(namespace, pod, le)) > 40 and sum(rate(http_request_duration_seconds_bucket{app_kubernetes_io_name="thanos-query", handler="query"}[5m])) by(namespace, pod, le) > 0)'
+        for: "10m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Thanos query high instant latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} has a 99th percentile latency of {{ $value }} seconds for instant queries."
+
+      - alert: "Thanos query high range latency"
+        expr: '(histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{app_kubernetes_io_name="thanos-query", handler="query_range"}[5m])) by(namespace, pod, le)) > 90 and sum(rate(http_request_duration_seconds_count{app_kubernetes_io_name="thanos-query", handler="query_range"}[5m])) by(namespace, pod, le) > 0)'
+        for: "10m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Thanos query high range latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} has a 99th percentile latency of {{ $value }} seconds for range queries."
+
+      - alert: "Thanos query overload"
+        expr: '(max_over_time(thanos_query_concurrent_gate_queries_max[5m]) - avg_over_time(thanos_query_concurrent_gate_queries_in_flight[5m]) < 1)'
+        for: "15m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos query overload (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} has been overloaded for more than 15 minutes. This may be a symptom of excessive simultanous complex requests, low performance of the Prometheus API, or failures within these components. Assess the health of the Thanos query instances, the connnected Prometheus instances, look for potential senders of these requests and then contact support."
