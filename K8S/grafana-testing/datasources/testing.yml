@@ -6,6 +6,12 @@ datasources:
     url: "http://prometheus-testing.testing.svc:9090"
     jsonData:
       httpMethod: "POST"
+  - name: "Thanos"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://thanos-front.testing.svc:9090"
+    jsonData:
+      httpMethod: "POST"
   - name: "Loki"
     type: "loki"
     access: "proxy"
