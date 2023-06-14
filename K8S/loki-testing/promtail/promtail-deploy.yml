@@ -2,20 +2,20 @@ apiVersion: "apps/v1"
 kind: "DaemonSet"
 metadata:
   namespace: "testing"
-  name: "promtail"
+  name: "promtail-testing"
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: "promtail"
+      app.kubernetes.io/name: "promtail-testing"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "promtail"
+        app.kubernetes.io/name: "promtail-testing"
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9080"
     spec:
-      serviceAccount: "promtail"
+      serviceAccount: "promtail-testing"
       securityContext:
         runAsUser: 0
         runAsGroup: 0

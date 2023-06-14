@@ -1,7 +1,7 @@
 apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
-  name: "promtail"
+  name: "promtail-testing"
   namespace: "testing"
 
 ---
@@ -30,5 +30,5 @@ roleRef:
   name: "loki-testing-promtail"
 subjects:
   - kind: "ServiceAccount"
-    name: "promtail"
+    name: "promtail-testing"
     namespace: "testing"
