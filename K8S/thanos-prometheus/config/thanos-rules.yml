@@ -157,3 +157,23 @@ groups:
         annotations:
           summary: "Thanos query overload (instance {{ $labels.namespace }}/{{ $labels.pod }})"
           description: "Thanos query {{ $labels.namespace }}/{{ $labels.pod }} has been overloaded for more than 15 minutes. This may be a symptom of excessive simultanous complex requests, low performance of the Prometheus API, or failures within these components. Assess the health of the Thanos query instances, the connnected Prometheus instances, look for potential senders of these requests and then contact support."
+
+  - name: "Thanos Sidecar rules"
+    rules:
+      - alert: "Thanos sidecar bucket operations failed"
+        expr: 'sum(rate(thanos_objstore_bucket_operation_failures_total{job="thanos-sidecar"}[5m])) by(job, instance) > 0'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Thanos sidecar bucket operations failed (instance {{ $labels.instance }})"
+          description: "Thanos sidecar {{ $labels.instance }} bucket operations are failing."
+
+      - alert: "Thanos sidecar no connection to prometheus"
+        expr: 'thanos_sidecar_prometheus_up{job="thanos-sidecar"} == 0 and on (namespace, pod) prometheus_tsdb_data_replay_duration_seconds != 0'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Thanos sidecar no connection to prometheus (instance {{ $labels.instance }})"
+          description: "Thanos sidecar {{ $labels.instance }} is unhealthy."
