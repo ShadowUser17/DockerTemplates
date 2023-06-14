@@ -1,0 +1,48 @@
+groups:
+  - name: "Thanos Compactor"
+    rules:
+      - alert: "Thanos compactor multiple running"
+        expr: 'sum(up{app_kubernetes_io_name="thanos-compact"}) by(namespace, pod) > 1'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos compactor multiple running (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "No more than one Thanos Compact instance should be running at once."
+
+      - alert: "Thanos compactor halted"
+        expr: 'thanos_compact_halted{app_kubernetes_io_name="thanos-compact"} == 1'
+        for: "5m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos compactor halted (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos Compact {{ $labels.namespace }}/{{ $labels.pod }} has failed to run and now is halted."
+
+      - alert: "Thanos compactor high compaction failures"
+        expr: '(sum(rate(thanos_compact_group_compactions_failures_total{app_kubernetes_io_name="thanos-compact"}[5m])) by(namespace, pod) / sum(rate(thanos_compact_group_compactions_total{app_kubernetes_io_name="thanos-compact"}[5m])) by(namespace, pod) * 100 > 5)'
+        for: "15m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos compactor high compaction failures (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos compact {{ $labels.namespace }}/{{ $labels.pod }} is failing to execute {{ $value | humanize }}% of compactions."
+
+      - alert: "Thanos compact bucket high operation failures"
+        expr: '(sum(rate(thanos_objstore_bucket_operation_failures_total{app_kubernetes_io_name="thanos-compact"}[5m])) by(namespace, pod) / sum(rate(thanos_objstore_bucket_operations_total{app_kubernetes_io_name="thanos-compact"}[5m])) by(namespace, pod) * 100 > 5)'
+        for: "15m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos compactor halted (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos compact {{ $labels.namespace }}/{{ $labels.pod }} Bucket is failing to execute {{ $value | humanize }}% of operations."
+
+      - alert: "Thanos compact has not run"
+        expr: '(time() - max(max_over_time(thanos_objstore_bucket_last_successful_upload_time{app_kubernetes_io_name="thanos-compact"}[24h])) by(namespace, pod)) / 60 / 60 > 24'
+        for: "0m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Thanos compact has not run (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "Thanos compact {{ $labels.namespace }}/{{ $labels.pod }} has not uploaded anything for 24 hours."
+

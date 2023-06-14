@@ -7,7 +7,7 @@ global:
 
 rule_files:
   - "prometheus-rules.yml"
-  # - "thanos-rules.yml"
+  - "thanos-rules.yml"
   - "minio-rules.yml"
 
 scrape_configs:
