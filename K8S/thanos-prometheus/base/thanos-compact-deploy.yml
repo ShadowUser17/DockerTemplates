@@ -16,6 +16,7 @@ spec:
         app.kubernetes.io/name: "thanos-compact"
         required.storage: "s3"
       annotations:
+        promtail.io/collect: "true"
         prometheus.io/scrape: "true"
         prometheus.io/port: "10902"
     spec:

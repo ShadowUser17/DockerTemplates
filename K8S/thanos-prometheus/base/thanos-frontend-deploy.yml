@@ -30,6 +30,7 @@ spec:
       labels:
         app.kubernetes.io/name: "thanos-front"
       annotations:
+        promtail.io/collect: "true"
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
     spec:
