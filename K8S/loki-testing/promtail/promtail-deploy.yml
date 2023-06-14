@@ -1,7 +1,7 @@
 apiVersion: "apps/v1"
 kind: "DaemonSet"
 metadata:
-  namespace: "loki"
+  namespace: "testing"
   name: "promtail"
 spec:
   selector:
@@ -16,12 +16,13 @@ spec:
         prometheus.io/port: "9080"
     spec:
       serviceAccount: "promtail"
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
       volumes:
-        - name: "tmp"
-          emptyDir: {}
-        - name: "promtail-config"
+        - name: "config"
           configMap:
-            name: "promtail-config"
+            name: "promtail-testing-config"
         - name: "logs"
           hostPath:
             path: "/var/log"
@@ -37,9 +38,7 @@ spec:
                 fieldRef:
                   fieldPath: "spec.nodeName"
           volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
-            - name: "promtail-config"
+            - name: "config"
               mountPath: "/etc/promtail"
             - name: "logs"
               readOnly: true
@@ -55,12 +54,6 @@ spec:
             limits:
               cpu: "100m"
               memory: "120Mi"
-          securityContext:
-            runAsUser: 0
-            runAsGroup: 0
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: ["ALL"]
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"

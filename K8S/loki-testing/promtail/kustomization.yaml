@@ -1,0 +1,18 @@
+resources:
+  - "promtail-access.yml"
+  - "promtail-deploy.yml"
+
+configMapGenerator:
+  - name: "promtail-testing-config"
+    files: ["config/promtail.yaml"]
+
+namespace: "testing"
+
+images:
+  - name: "grafana/promtail"
+    newTag: "2.8.2"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"
