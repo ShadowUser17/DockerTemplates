@@ -77,11 +77,11 @@ spec:
               containerPort: 10902
           resources:
             requests:
-              cpu: "100m"
-              memory: "150Mi"
+              cpu: "50m"
+              memory: "120Mi"
             limits:
-              cpu: "100m"
-              memory: "200Mi"
+              cpu: "50m"
+              memory: "120Mi"
           livenessProbe:
             initialDelaySeconds: 20
             failureThreshold: 5
