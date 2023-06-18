@@ -16,3 +16,11 @@ spec:
                 name: "thanos-front"
                 port:
                   number: 9090
+
+          - path: "/api/v1/receive"
+            pathType: "Exact"
+            backend:
+              service:
+                name: "thanos-receive"
+                port:
+                  number: 10903

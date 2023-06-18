@@ -107,7 +107,7 @@ spec:
             - "--http-address=0.0.0.0:10902"
             - "--tsdb.path=/prometheus"
             - "--shipper.upload-compacted"
-            - "--prometheus.url=http://localhost:9090"
+            - "--prometheus.url=http://127.0.0.1:9090"
             - "--objstore.config-file=/etc/thanos/thanos-store.yml"
           volumeMounts:
             - name: "thanos-config"
