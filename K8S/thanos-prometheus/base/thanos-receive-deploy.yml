@@ -50,7 +50,8 @@ spec:
         fsGroup: 65534
       volumes:
         - name: "data"
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: "thanos-receive-data"
         - name: "hashring"
           configMap:
             name: "thanos-receive-hashring"
@@ -73,6 +74,7 @@ spec:
             - "--receive.replication-factor=1"
             - "--remote-write.address=0.0.0.0:10903"
             - "--receive.local-endpoint=127.0.0.1:10903"
+            - "--tsdb.retention=12h"
             - "--tsdb.path=/var/thanos/data"
             - "--receive.hashrings-file=/var/thanos/thanos-hashring.json"
             - "--objstore.config-file=/etc/thanos/thanos-store.yml"

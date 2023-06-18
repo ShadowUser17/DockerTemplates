@@ -56,6 +56,7 @@ spec:
             - "--query.replica-label=rule_replica"
             - "--query.replica-label=prometheus_replica"
             - "--endpoint=dnssrv+_grpc._tcp.thanos-prometheus.testing.svc:10901"
+            - "--endpoint=dnssrv+_grpc._tcp.thanos-receive.testing.svc:10901"
             - "--endpoint=dnssrv+_grpc._tcp.thanos-store.testing.svc:10901"
           ports:
             - name: "grpc"
