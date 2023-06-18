@@ -27,7 +27,8 @@ spec:
         fsGroup: 65534
       volumes:
         - name: "data"
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: "2Gi"
         - name: "config"
           configMap:
             name: "thanos-store-config"
