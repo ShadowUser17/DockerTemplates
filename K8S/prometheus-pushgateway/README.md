@@ -13,7 +13,12 @@ kubectl apply -k .
 
 #### Get access:
 ```bash
-kubectl -n testing port-forward svc/pushgateway 9091
+kubectl -n testing port-forward svc/pushgateway 9092
+```
+
+#### Create ingress:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus-pushgateway/ingress-test.yml"
 ```
 
 #### Automatic deploy:
