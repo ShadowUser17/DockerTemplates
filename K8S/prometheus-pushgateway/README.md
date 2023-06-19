@@ -1,10 +1,7 @@
-#### Access from namespaces:
-```yaml
-template:
-  metadata:
-    labels:
-      required.pushgateway: "true"
-```
+#### URLs:
+- [Docs](https://github.com/prometheus/pushgateway/blob/master/README.md)
+- [Images](https://hub.docker.com/r/prom/pushgateway/tags)
+- [Releases](https://github.com/prometheus/pushgateway/releases)
 
 #### Manual deploy:
 ```bash

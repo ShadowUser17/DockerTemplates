@@ -10,13 +10,5 @@ spec:
       app.kubernetes.io/name: "pushgateway"
   ingress:
     - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: "ingress-nginx"
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/name: "ingress-nginx"
         - namespaceSelector: {}
-          podSelector:
-            matchLabels:
-              required.pushgateway: "true"
+          podSelector: {}

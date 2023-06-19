@@ -28,7 +28,9 @@ spec:
           image: "prom/pushgateway:latest"
           imagePullPolicy: "IfNotPresent"
           args:
+            - "--log.level=info"
             - "--web.listen-address=0.0.0.0:9092"
+            - "--web.telemetry-path=/metrics"
             - "--persistence.interval=5m"
             - "--persistence.file=/data/pushgateway.data"
           volumeMounts:
