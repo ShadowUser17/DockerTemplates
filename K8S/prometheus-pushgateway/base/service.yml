@@ -1,0 +1,13 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  namespace: "testing"
+  name: "pushgateway"
+spec:
+  selector:
+    app.kubernetes.io/name: "pushgateway"
+  ports:
+    - name: "http"
+      protocol: "TCP"
+      port: 9092
+      targetPort: 9092

@@ -1,0 +1,63 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  namespace: "testing"
+  name: "pushgateway"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "pushgateway"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "pushgateway"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9092"
+    spec:
+      serviceAccountName: "pushgateway"
+      securityContext:
+        runAsUser: 65534
+        fsGroup: 65534
+      volumes:
+        - name: "data"
+          emptyDir: {}
+      containers:
+        - name: "pushgateway"
+          image: "prom/pushgateway:latest"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - "--web.listen-address=0.0.0.0:9092"
+            - "--persistence.interval=5m"
+            - "--persistence.file=/data/pushgateway.data"
+          volumeMounts:
+            - name: "data"
+              mountPath: "/data"
+          ports:
+            - name: "http"
+              protocol: "TCP"
+              containerPort: 9092
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "30Mi"
+            limits:
+              cpu: "20m"
+              memory: "30Mi"
+          livenessProbe:
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/-/healthy"
+              port: 9092
+              scheme: "HTTP"
+          readinessProbe:
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/-/ready"
+              port: 9092
+              scheme: "HTTP"
