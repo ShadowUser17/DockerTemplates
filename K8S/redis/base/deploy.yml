@@ -16,6 +16,7 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9121"
+        promtail.io/collect: "true"
     spec:
       serviceAccount: "redis"
       containers:

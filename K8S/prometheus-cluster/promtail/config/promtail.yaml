@@ -34,6 +34,6 @@ scrape_configs:
         action: "replace"
         target_label: "container"
       - source_labels: ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
-        replacement: "/var/log/pods/*$1/*.log"
+        replacement: "/var/log/pods/*$1/$2/*.log"
         separator: "/"
         target_label: "__path__"
