@@ -33,6 +33,7 @@ services:
       - "--web.enable-remote-write-receiver"
       - "--web.enable-lifecycle"
       - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=12d"
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--web.console.templates=/usr/share/prometheus/consoles"
       - "--web.console.libraries=/usr/share/prometheus/console_libraries"
