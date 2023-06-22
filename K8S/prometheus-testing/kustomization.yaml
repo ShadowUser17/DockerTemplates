@@ -13,7 +13,7 @@ namespace: "testing"
 
 images:
   - name: "prom/prometheus"
-    newTag: "v2.40.7"
+    newTag: "v2.44.0"
 
 labels:
   - pairs:
