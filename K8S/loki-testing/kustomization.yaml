@@ -1,17 +1,23 @@
 resources:
-  - "base/access.yml"
-  - "base/volume.yml"
-  - "base/service.yml"
-  - "base/deploy.yml"
+  - "base/loki-access.yml"
+  - "base/loki-volume.yml"
+  - "base/loki-service.yml"
+  - "base/loki-deploy.yml"
+  - "base/promtail-access.yml"
+  - "base/promtail-deploy.yml"
 
 configMapGenerator:
   - name: "loki-testing-config"
     files: ["config/loki.yaml"]
+  - name: "promtail-testing-config"
+    files: ["config/promtail.yaml"]
 
 namespace: "testing"
 
 images:
   - name: "grafana/loki"
+    newTag: "2.8.2"
+  - name: "grafana/promtail"
     newTag: "2.8.2"
 
 labels:

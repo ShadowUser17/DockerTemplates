@@ -5,16 +5,6 @@
 kubectl apply -k .
 ```
 
-#### Deploy promtail (optional):
-```bash
-kubectl apply -k ./promtail
-```
-
-#### Create VPA:
-```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/vpa-test.yml"
-```
-
 #### Create ingress:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/loki-testing/ingress-test.yml"
