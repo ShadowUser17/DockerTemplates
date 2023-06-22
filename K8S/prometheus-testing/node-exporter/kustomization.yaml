@@ -1,0 +1,14 @@
+resources:
+  - "node-exporter-access.yml"
+  - "node-exporter-daemon.yml"
+
+namespace: "testing"
+
+images:
+  - name: "prom/node-exporter"
+    newTag: "v1.6.0"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"

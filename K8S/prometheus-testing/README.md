@@ -3,6 +3,11 @@
 kubectl apply -k .
 ```
 
+#### Deploy promtail (optional):
+```bash
+kubectl apply -k ./node-exporter
+```
+
 #### Get access:
 ```bash
 kubectl -n testing port-forward svc/prometheus-testing 9090
