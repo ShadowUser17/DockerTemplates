@@ -21,11 +21,6 @@ kubectl exec -n jenkins -it svc/jenkins-http -- cat /var/jenkins_home/secrets/in
 kubectl port-forward -n jenkins svc/jenkins-http 8080
 ```
 
-#### Create VPA:
-```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/vpa-test.yml"
-```
-
 #### Create ingress:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/ingress-test.yml"
