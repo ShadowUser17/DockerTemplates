@@ -1,3 +1,3 @@
 #### Documentation:
-- [MinIO](https://docs.min.io/docs/)
+- [MinIO](https://min.io/docs/minio/container/index.html)
 - [DockerHub](https://hub.docker.com/r/minio/minio)

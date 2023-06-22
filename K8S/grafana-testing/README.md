@@ -1,3 +1,7 @@
+#### URLs:
+- [Docs](https://grafana.com/docs/grafana/latest/)
+- [Images](https://hub.docker.com/r/grafana/grafana/tags)
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .

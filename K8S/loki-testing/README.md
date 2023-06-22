@@ -1,5 +1,9 @@
 ### Warning! Loki using storage: filesystem in standalone mode!
 
+#### URLs:
+- [Docs](https://github.com/grafana/loki/tree/main/docs/sources)
+- [Images](https://hub.docker.com/r/grafana/loki/tags)
+
 #### Manual single deploy:
 ```bash
 kubectl apply -k .

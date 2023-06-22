@@ -1,3 +1,7 @@
+#### URLs:
+- [Docs](https://github.com/grafana/tempo/tree/main/docs/sources/tempo)
+- [Images](https://hub.docker.com/r/grafana/tempo/tags)
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .

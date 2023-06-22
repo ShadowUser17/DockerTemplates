@@ -1,3 +1,7 @@
+#### URLs:
+- [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics/releases)
+- [node-exporter](https://github.com/prometheus/node_exporter/releases)
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .

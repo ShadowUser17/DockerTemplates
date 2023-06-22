@@ -1,3 +1,6 @@
+#### URLs:
+- [Docs](https://min.io/docs/minio/kubernetes/upstream/index.html)
+
 #### Access from namespaces:
 Support types are `minio` or `s3`
 ```yaml

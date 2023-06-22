@@ -1,3 +1,7 @@
+#### URLs:
+- [Docs](https://prometheus.io/docs/introduction/overview/)
+- [Releases](https://github.com/prometheus/prometheus/releases)
+
 #### Manual deploy:
 ```bash
 kubectl apply -k .
