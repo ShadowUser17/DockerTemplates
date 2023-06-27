@@ -17,8 +17,6 @@ spec:
     spec:
       serviceAccount: "gateway"
       volumes:
-        - name: "tmp"
-          emptyDir: {}
         - name: "nginx-config"
           configMap:
             name: "nginx-config"
@@ -27,8 +25,6 @@ spec:
           image: "nginx:latest"
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
             - name: "nginx-config"
               mountPath: "/etc/nginx"
           ports:
@@ -41,7 +37,3 @@ spec:
             limits:
               cpu: "60m"
               memory: "60Mi"
-          securityContext:
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: ["ALL"]
