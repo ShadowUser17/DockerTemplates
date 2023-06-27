@@ -1,7 +1,6 @@
 resources:
-  - "base/access.yml"
-  - "base/volume.yml"
   - "base/service.yml"
+  - "base/access.yml"
   - "base/deploy.yml"
 
 namespace: "testing"

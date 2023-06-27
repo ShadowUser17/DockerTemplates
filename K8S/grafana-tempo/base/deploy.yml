@@ -1,11 +1,10 @@
 apiVersion: "apps/v1"
-kind: "Deployment"
+kind: "StatefulSet"
 metadata:
   name: "grafana-tempo"
 spec:
+  serviceName: "grafana-tempo"
   replicas: 1
-  strategy:
-    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "grafana-tempo"
@@ -24,9 +23,6 @@ spec:
         - name: "config"
           configMap:
             name: "grafana-tempo-config"
-        - name: "data"
-          persistentVolumeClaim:
-            claimName: "grafana-tempo-data"
       containers:
         - name: "tempo"
           image: "grafana/tempo:latest"
@@ -73,3 +69,13 @@ spec:
             httpGet:
               path: "/ready"
               port: 3200
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: "6Gi"
