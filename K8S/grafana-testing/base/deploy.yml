@@ -1,12 +1,11 @@
 apiVersion: "apps/v1"
-kind: "Deployment"
+kind: "StatefulSet"
 metadata:
   namespace: "testing"
   name: "grafana-testing"
 spec:
+  serviceName: "grafana"
   replicas: 1
-  strategy:
-    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "grafana-testing"
@@ -21,9 +20,6 @@ spec:
       volumes:
         - name: "tmp"
           emptyDir: {}
-        - name: "data"
-          persistentVolumeClaim:
-            claimName: "grafana-testing-data"
         - name: "datasources"
           configMap:
             name: "grafana-testing-datasources"
@@ -34,7 +30,7 @@ spec:
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
-            - name: "data"
+            - name: "grafana-testing-data"
               mountPath: "/var/lib/grafana"
             - name: "datasources"
               mountPath: "/etc/grafana/provisioning/datasources"
@@ -66,3 +62,13 @@ spec:
             httpGet:
               path: "/"
               port: 3000
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "grafana-testing-data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: "1Gi"
