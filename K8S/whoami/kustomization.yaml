@@ -3,7 +3,6 @@ resources:
   - "base/whoami-service.yml"
   - "base/whoami-deploy.yml"
 
-namespace: "testing"
 images:
   - name: "traefik/whoami"
     newTag: "v1.9.0"
