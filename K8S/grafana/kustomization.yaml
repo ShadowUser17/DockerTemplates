@@ -1,12 +1,12 @@
 resources:
-  - "base/access.yml"
   - "base/service.yml"
+  - "base/access.yml"
   - "base/deploy.yml"
 
 namespace: "testing"
 
 configMapGenerator:
-  - name: "grafana-testing-datasources"
+  - name: "grafana-datasources"
     files: ["datasources/testing.yml"]
 
 images:

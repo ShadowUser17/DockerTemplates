@@ -2,7 +2,7 @@ apiVersion: "cert-manager.io/v1"
 kind: "Issuer"
 metadata:
   namespace: "testing"
-  name: "grafana-testing-issuer"
+  name: "grafana-issuer"
 spec:
   selfSigned: {}
 
@@ -11,22 +11,22 @@ apiVersion: "networking.k8s.io/v1"
 kind: "Ingress"
 metadata:
   namespace: "testing"
-  name: "grafana-testing"
+  name: "grafana"
   annotations:
-    cert-manager.io/issuer: "grafana-testing-issuer"
+    cert-manager.io/issuer: "grafana-issuer"
 spec:
   ingressClassName: "nginx"
   tls:
-    - hosts: ["grafana-testing.k3s"]
-      secretName: "grafana-testing-cert"
+    - hosts: ["grafana.k3s"]
+      secretName: "grafana-cert"
   rules:
-    - host: "grafana-testing.k3s"
+    - host: "grafana.k3s"
       http:
         paths:
           - path: "/"
             pathType: "Prefix"
             backend:
               service:
-                name: "grafana-testing"
+                name: "grafana"
                 port:
                   number: 3000

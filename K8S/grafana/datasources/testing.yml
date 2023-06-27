@@ -3,7 +3,7 @@ datasources:
   - name: "Prometheus"
     type: "prometheus"
     access: "proxy"
-    url: "http://prometheus-testing.testing.svc:9090"
+    url: "http://prometheus.testing.svc:9090"
     jsonData:
       httpMethod: "POST"
   - name: "Thanos"
@@ -15,7 +15,7 @@ datasources:
   - name: "Loki"
     type: "loki"
     access: "proxy"
-    url: "http://loki-testing.testing.svc:3100"
+    url: "http://loki.testing.svc:3100"
     jsonData:
       maxLines: 1000
   - name: "Tempo"
