@@ -1,38 +1,32 @@
 apiVersion: "apps/v1"
-kind: "Deployment"
+kind: "StatefulSet"
 metadata:
-  namespace: "testing"
-  name: "loki-testing"
+  name: "grafana-loki"
 spec:
+  serviceName: "grafana-loki"
   replicas: 1
-  strategy:
-    type: "Recreate"
   selector:
     matchLabels:
-      app.kubernetes.io/name: "loki-testing"
+      app.kubernetes.io/name: "grafana-loki"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "loki-testing"
+        app.kubernetes.io/name: "grafana-loki"
       annotations:
         prometheus.io/scrape: "true"
     spec:
-      serviceAccount: "loki-testing"
+      serviceAccount: "grafana-loki"
       volumes:
         - name: "tmp"
           emptyDir: {}
         - name: "config"
           configMap:
-            name: "loki-testing-config"
-        - name: "data"
-          persistentVolumeClaim:
-            claimName: "loki-testing-data"
+            name: "loki-config"
       containers:
         - name: "loki"
           image: "grafana/loki:latest"
           imagePullPolicy: "IfNotPresent"
-          args:
-            - "-config.file=/etc/loki/loki.yaml"
+          args: ["-config.file=/etc/loki/loki.yaml"]
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
@@ -62,3 +56,13 @@ spec:
             httpGet:
               path: "/ready"
               port: 3100
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: "6Gi"

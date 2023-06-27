@@ -1,13 +1,12 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "testing"
-  name: "loki-testing"
+  name: "grafana-loki"
 spec:
   selector:
-    app.kubernetes.io/name: "loki-testing"
+    app.kubernetes.io/name: "grafana-loki"
   ports:
     - name: "http"
-      protocol: "TCP"
       port: 3100
+      protocol: "TCP"
       targetPort: 3100

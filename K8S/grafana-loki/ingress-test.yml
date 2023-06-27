@@ -2,17 +2,17 @@ apiVersion: "networking.k8s.io/v1"
 kind: "Ingress"
 metadata:
   namespace: "testing"
-  name: "loki-testing"
+  name: "grafana-loki"
 spec:
   ingressClassName: "nginx"
   rules:
-    - host: "loki-testing.k3s"
+    - host: "grafana-loki.k3s"
       http:
         paths:
           - path: "/"
             pathType: "Prefix"
             backend:
               service:
-                name: "loki-testing"
+                name: "grafana-loki"
                 port:
                   number: 3100

@@ -1,15 +1,14 @@
 resources:
-  - "base/loki-access.yml"
-  - "base/loki-volume.yml"
   - "base/loki-service.yml"
+  - "base/loki-access.yml"
   - "base/loki-deploy.yml"
   - "base/promtail-access.yml"
   - "base/promtail-deploy.yml"
 
 configMapGenerator:
-  - name: "loki-testing-config"
+  - name: "loki-config"
     files: ["config/loki.yaml"]
-  - name: "promtail-testing-config"
+  - name: "promtail-config"
     files: ["config/promtail.yaml"]
 
 namespace: "testing"

@@ -1,28 +1,27 @@
 apiVersion: "apps/v1"
 kind: "DaemonSet"
 metadata:
-  namespace: "testing"
-  name: "promtail-testing"
+  name: "loki-promtail"
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: "promtail-testing"
+      app.kubernetes.io/name: "loki-promtail"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "promtail-testing"
+        app.kubernetes.io/name: "loki-promtail"
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9080"
     spec:
-      serviceAccount: "promtail-testing"
+      serviceAccount: "loki-promtail"
       securityContext:
         runAsUser: 0
         runAsGroup: 0
       volumes:
         - name: "config"
           configMap:
-            name: "promtail-testing-config"
+            name: "promtail-config"
         - name: "logs"
           hostPath:
             path: "/var/log"
@@ -30,8 +29,7 @@ spec:
         - name: "promtail"
           image: "grafana/promtail:latest"
           imagePullPolicy: "IfNotPresent"
-          args:
-            - "-config.file=/etc/promtail/promtail.yaml"
+          args: ["-config.file=/etc/promtail/promtail.yaml"]
           env:
             - name: "HOSTNAME"
               valueFrom:
@@ -54,6 +52,8 @@ spec:
             limits:
               cpu: "100m"
               memory: "120Mi"
+      nodeSelector:
+        kubernetes.io/os: "linux"
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"

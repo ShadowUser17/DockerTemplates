@@ -2,9 +2,9 @@ apiVersion: "kustomize.toolkit.fluxcd.io/v1beta2"
 kind: "Kustomization"
 metadata:
   namespace: "flux-system"
-  name: "loki-testing"
+  name: "grafana-loki"
 spec:
-  path: "./K8S/loki-testing"
+  path: "./K8S/grafana-loki"
   prune: true
   interval: "5m"
   sourceRef:
