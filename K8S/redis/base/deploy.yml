@@ -27,7 +27,7 @@ spec:
             - name: "ALLOW_EMPTY_PASSWORD"
               value: "yes"
           volumeMounts:
-            - name: "redis-data"
+            - name: "data"
               mountPath: "/bitnami/redis/data"
           ports:
             - containerPort: 6379
@@ -66,9 +66,10 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
+
   volumeClaimTemplates:
     - metadata:
-        name: "redis-data"
+        name: "data"
       spec:
         accessModes: ["ReadWriteOnce"]
         storageClassName: "local-path"
