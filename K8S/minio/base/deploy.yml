@@ -1,12 +1,11 @@
 apiVersion: "apps/v1"
-kind: "Deployment"
+kind: "StatefulSet"
 metadata:
   namespace: "testing"
   name: "minio"
 spec:
+  serviceName: "minio"
   replicas: 1
-  strategy:
-    type: "Recreate"
   selector:
     matchLabels:
       app.kubernetes.io/name: "minio"
@@ -23,9 +22,6 @@ spec:
       volumes:
         - name: "tmp"
           emptyDir: {}
-        - name: "minio-data"
-          persistentVolumeClaim:
-            claimName: "minio-data"
       containers:
         - name: "minio"
           image: "minio/minio:latest"
@@ -52,11 +48,11 @@ spec:
               name: "console"
           resources:
             requests:
-              cpu: "50m"
-              memory: "150Mi"
+              cpu: "100m"
+              memory: "256Mi"
             limits:
               cpu: "100m"
-              memory: "250Mi"
+              memory: "256Mi"
           securityContext:
             readOnlyRootFilesystem: true
             capabilities:
@@ -69,3 +65,13 @@ spec:
             httpGet:
               path: "/minio/health/live"
               port: 9000
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "minio-data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: "6Gi"

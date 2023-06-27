@@ -1,6 +1,5 @@
 resources:
   - "base/access.yml"
-  - "base/volume.yml"
   - "base/policy.yml"
   - "base/service.yml"
   - "base/config.yml"
