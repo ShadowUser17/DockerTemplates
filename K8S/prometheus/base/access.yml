@@ -1,14 +1,13 @@
 apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
-  name: "prometheus-testing"
-  namespace: "testing"
+  name: "prometheus"
 
 ---
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRole"
 metadata:
-  name: "prometheus-testing"
+  name: "prometheus"
 rules:
   - apiGroups: [""]
     resources:
@@ -35,12 +34,11 @@ rules:
 apiVersion: "rbac.authorization.k8s.io/v1"
 kind: "ClusterRoleBinding"
 metadata:
-  name: "prometheus-testing"
+  name: "prometheus"
 roleRef:
   apiGroup: "rbac.authorization.k8s.io"
   kind: "ClusterRole"
-  name: "prometheus-testing"
+  name: "prometheus"
 subjects:
   - kind: "ServiceAccount"
-    namespace: "testing"
-    name: "prometheus-testing"
+    name: "prometheus"

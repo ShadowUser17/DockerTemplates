@@ -2,17 +2,17 @@ apiVersion: "networking.k8s.io/v1"
 kind: "Ingress"
 metadata:
   namespace: "testing"
-  name: "prometheus-testing"
+  name: "prometheus"
 spec:
   ingressClassName: "nginx"
   rules:
-    - host: "prometheus-testing.k3s"
+    - host: "prometheus.k3s"
       http:
         paths:
           - path: "/"
             pathType: "Prefix"
             backend:
               service:
-                name: "prometheus-testing"
+                name: "prometheus"
                 port:
                   number: 9090

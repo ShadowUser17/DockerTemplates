@@ -1,12 +1,10 @@
 resources:
-  - "base/access.yml"
-  - "base/policy.yml"
-  - "base/volume.yml"
   - "base/service.yml"
+  - "base/access.yml"
   - "base/deploy.yml"
 
 configMapGenerator:
-  - name: "prometheus-testing-config"
+  - name: "prometheus-config"
     files: ["config/prometheus.yml"]
 
 namespace: "testing"

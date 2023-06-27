@@ -1,31 +1,26 @@
 apiVersion: "apps/v1"
-kind: "Deployment"
+kind: "StatefulSet"
 metadata:
-  namespace: "testing"
-  name: "prometheus-testing"
+  name: "prometheus"
 spec:
+  serviceName: "prometheus"
   replicas: 1
-  strategy:
-    type: "Recreate"
   selector:
     matchLabels:
-      app.kubernetes.io/name: "prometheus-testing"
+      app.kubernetes.io/name: "prometheus"
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: "prometheus-testing"
+        app.kubernetes.io/name: "prometheus"
     spec:
       terminationGracePeriodSeconds: 30
-      serviceAccountName: "prometheus-testing"
+      serviceAccountName: "prometheus"
       volumes:
         - name: "tmp"
           emptyDir: {}
         - name: "config"
           configMap:
-            name: "prometheus-testing-config"
-        - name: "data"
-          persistentVolumeClaim:
-            claimName: "prometheus-testing-data"
+            name: "prometheus-config"
       containers:
         - name: "prometheus"
           image: "prom/prometheus:latest"
@@ -71,3 +66,13 @@ spec:
             httpGet:
               path: "/-/ready"
               port: 9090
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: "6Gi"
