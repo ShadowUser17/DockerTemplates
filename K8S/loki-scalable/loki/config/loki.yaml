@@ -58,7 +58,7 @@ query_range:
 
 compactor:
   shared_store: "s3"
-  compaction_interval: "10m"
+  compaction_interval: "5m"
 
 ingester:
   max_transfer_retries: 0
