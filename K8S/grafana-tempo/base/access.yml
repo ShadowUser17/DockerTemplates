@@ -2,4 +2,3 @@ apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
   name: "grafana-tempo"
-  namespace: "testing"
