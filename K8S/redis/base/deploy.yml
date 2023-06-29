@@ -18,7 +18,7 @@ spec:
         prometheus.io/port: "9121"
         promtail.io/collect: "true"
     spec:
-      serviceAccount: "redis"
+      serviceAccountName: "redis"
       containers:
         - name: "redis"
           image: "bitnami/redis:latest"

@@ -16,7 +16,7 @@ spec:
       annotations:
         promtail.io/collect: "true"
     spec:
-      serviceAccount: "postgres"
+      serviceAccountName: "postgres"
       containers:
         - name: "psql"
           image: "bitnami/postgresql:latest"

@@ -15,7 +15,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9080"
     spec:
-      serviceAccount: "promtail"
+      serviceAccountName: "promtail"
       volumes:
         - name: "tmp"
           emptyDir: {}

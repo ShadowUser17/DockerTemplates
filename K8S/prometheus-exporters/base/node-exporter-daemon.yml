@@ -15,7 +15,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9100"
     spec:
-      serviceAccount: "node-exporter"
+      serviceAccountName: "node-exporter"
       hostNetwork: true
       securityContext:
         fsGroup: 0

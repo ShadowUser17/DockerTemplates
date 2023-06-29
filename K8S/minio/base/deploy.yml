@@ -18,7 +18,7 @@ spec:
         prometheus.io/port: "9000"
         prometheus.io/path: "/minio/v2/metrics/cluster"
     spec:
-      serviceAccount: "minio"
+      serviceAccountName: "minio"
       volumes:
         - name: "tmp"
           emptyDir: {}

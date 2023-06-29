@@ -16,7 +16,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "3200"
     spec:
-      serviceAccount: "grafana-tempo"
+      serviceAccountName: "grafana-tempo"
       volumes:
         - name: "tmp"
           emptyDir: {}

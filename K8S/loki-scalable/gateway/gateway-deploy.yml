@@ -15,7 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: "gateway"
     spec:
-      serviceAccount: "gateway"
+      serviceAccountName: "gateway"
       volumes:
         - name: "nginx-config"
           configMap:

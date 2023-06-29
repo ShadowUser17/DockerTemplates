@@ -21,7 +21,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "3100"
     spec:
-      serviceAccount: "loki"
+      serviceAccountName: "loki"
       volumes:
         - name: "tmp"
           emptyDir: {}
