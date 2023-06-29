@@ -51,15 +51,10 @@ spec:
               drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 30
+            failureThreshold: 5
             timeoutSeconds: 5
             httpGet:
-              path: "/healthz"
-              port: 3000
-          readinessProbe:
-            initialDelaySeconds: 30
-            timeoutSeconds: 5
-            httpGet:
-              path: "/"
+              path: "/api/health"
               port: 3000
 
   volumeClaimTemplates:
