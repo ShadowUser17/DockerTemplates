@@ -15,10 +15,21 @@ kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates
 
 #### Initial access:
 ```bash
-kubectl exec -n jenkins -it svc/jenkins-http -- cat /var/jenkins_home/secrets/initialAdminPassword
+kubectl -n jenkins exec -it svc/jenkins-http -- cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 ```bash
-kubectl port-forward -n jenkins svc/jenkins-http 8080
+kubectl -n jenkins port-forward svc/jenkins-http 8080
+```
+
+#### Install plugins:
+```bash
+kubectl -n jenkins exec -it svc/jenkins-http -- bash
+```
+```bash
+curl -L "https://raw.githubusercontent.com/ShadowUser17/BasicInstalls/master/jenkins/plugins.txt" -o /var/jenkins_home/plugins.txt
+```
+```bash
+jenkins-plugin-cli -d /var/jenkins_home/plugins -f /var/jenkins_home/plugins.txt
 ```
 
 #### Create ingress:
