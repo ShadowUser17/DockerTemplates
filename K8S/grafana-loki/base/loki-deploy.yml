@@ -16,9 +16,11 @@ spec:
         prometheus.io/scrape: "true"
     spec:
       serviceAccountName: "grafana-loki"
+      securityContext:
+        fsGroup: 10001
+        runAsUser: 10001
+        runAsGroup: 10001
       volumes:
-        - name: "tmp"
-          emptyDir: {}
         - name: "config"
           configMap:
             name: "loki-config"
@@ -28,8 +30,6 @@ spec:
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file=/etc/loki/loki.yaml"]
           volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
             - name: "config"
               mountPath: "/etc/loki"
             - name: "data"
@@ -45,13 +45,9 @@ spec:
             limits:
               cpu: "100m"
               memory: "300Mi"
-          securityContext:
-            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
           livenessProbe:
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
+            failureThreshold: 5
             timeoutSeconds: 5
             httpGet:
               path: "/ready"
