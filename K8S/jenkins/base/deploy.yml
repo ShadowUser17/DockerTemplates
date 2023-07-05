@@ -46,8 +46,10 @@ spec:
               containerPort: 50000
           resources:
             requests:
+              cpu: "300m"
               memory: "512Mi"
             limits:
+              cpu: "300m"
               memory: "1024Mi"
           securityContext:
             fsGroup: 1000
