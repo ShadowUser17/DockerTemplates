@@ -41,10 +41,10 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "150Mi"
+              memory: "300Mi"
             limits:
               cpu: "100m"
-              memory: "250Mi"
+              memory: "300Mi"
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
