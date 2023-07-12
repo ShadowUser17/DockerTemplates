@@ -13,7 +13,6 @@ common:
   path_prefix: "/loki"
   replication_factor: 1
   ring:
-    instance_addr: "0.0.0.0"
     kvstore:
       store: "inmemory"
 
@@ -47,6 +46,9 @@ query_range:
         size: 1024
         validity: "12h"
 
+querier:
+  query_timeout: "300s"
+
 frontend:
   compress_responses: true
   log_queries_longer_than: "10s"
@@ -61,12 +63,7 @@ ingester_client:
     max_recv_msg_size: 52428800
     max_send_msg_size: 52428800
 
-ruler:
-  enable_api: true
-  alertmanager_url: ""
-  enable_alertmanager_v2: true
-  rule_path: "/tmp/rules/fake"
-  storage:
-    type: "local"
-    local:
-      directory: "/loki/rules"
+# ruler:
+#   enable_api: true
+#   alertmanager_url: ""
+#   enable_alertmanager_v2: true
