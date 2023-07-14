@@ -1,7 +1,7 @@
 ### Warning! Loki using filesystem storage in standalone mode!
 
 #### URLs:
-- [Docs](https://github.com/grafana/loki/tree/main/docs/sources)
+- [Docs](https://grafana.com/docs/loki/latest/)
 - [Images](https://hub.docker.com/r/grafana/loki/tags)
 
 #### Manual single deploy:
