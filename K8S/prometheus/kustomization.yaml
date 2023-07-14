@@ -5,7 +5,9 @@ resources:
 
 configMapGenerator:
   - name: "prometheus-config"
-    files: ["config/prometheus.yml"]
+    files:
+      - "config/prometheus.yml"
+      - "config/testing-rules.yml"
 
 namespace: "testing"
 
