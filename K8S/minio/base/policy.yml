@@ -16,9 +16,7 @@ spec:
           podSelector:
             matchLabels:
               app.kubernetes.io/name: "ingress-nginx"
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: "prometheus"
+        - namespaceSelector: {}
           podSelector:
             matchLabels:
               app.kubernetes.io/name: "prometheus"
