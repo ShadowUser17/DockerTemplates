@@ -48,9 +48,16 @@ spec:
               drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 30
+            failureThreshold: 5
             timeoutSeconds: 5
             tcpSocket:
-              port: 11211
+              port: "client"
+          readinessProbe:
+            initialDelaySeconds: 5
+            failureThreshold: 5
+            timeoutSeconds: 5
+            tcpSocket:
+              port: "client"
         - name: "exporter"
           image: "bitnami/memcached-exporter:latest"
           imagePullPolicy: "IfNotPresent"

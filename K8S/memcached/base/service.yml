@@ -4,6 +4,7 @@ metadata:
   namespace: "testing"
   name: "memcached"
 spec:
+  # type: "LoadBalancer"
   selector:
     app.kubernetes.io/name: "memcached"
   ports:
