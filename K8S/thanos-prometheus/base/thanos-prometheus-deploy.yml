@@ -34,6 +34,8 @@ spec:
       labels:
         app.kubernetes.io/name: "thanos-prometheus"
         required.storage: "s3"
+      annotations:
+        promtail.io/collect: "true"
     spec:
       terminationGracePeriodSeconds: 120
       serviceAccountName: "thanos-prometheus"
