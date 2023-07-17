@@ -27,27 +27,30 @@ schema_config:
         period: "24h"
 
 limits_config:
+  query_timeout: "300s"
   enforce_metric_name: false
   reject_old_samples: true
   reject_old_samples_max_age: "72h"
   ingestion_rate_mb: 20
   ingestion_burst_size_mb: 30
   split_queries_by_interval: "15m"
+  max_concurrent_tail_requests: 20
   max_cache_freshness_per_query: "10m"
 
 query_range:
-  max_retries: 5
   align_queries_with_step: true
-  cache_results: true
   results_cache:
     cache:
-      enable_fifocache: true
-      fifocache:
-        size: 1024
-        validity: "12h"
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+query_scheduler:
+  # In-flight requests above this limit will fail with HTTP response status code 429
+  # max_outstanding_requests_per_tenant: 300
 
 querier:
-  query_timeout: "300s"
+  max_concurrent: 20
 
 frontend:
   compress_responses: true
