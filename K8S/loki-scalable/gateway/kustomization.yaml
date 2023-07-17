@@ -1,7 +1,0 @@
-resources:
-  - "gateway-access.yml"
-  - "gateway-deploy.yml"
-
-configMapGenerator:
-  - name: "nginx-config"
-    files: ["config/nginx.conf"]

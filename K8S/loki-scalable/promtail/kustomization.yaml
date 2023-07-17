@@ -1,7 +1,0 @@
-resources:
-  - "promtail-access.yml"
-  - "promtail-deploy.yml"
-
-configMapGenerator:
-  - name: "promtail-config"
-    files: ["config/promtail.yaml"]
