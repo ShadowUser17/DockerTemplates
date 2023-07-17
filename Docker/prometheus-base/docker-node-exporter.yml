@@ -4,7 +4,7 @@ networks:
 
 services:
   node-exporter:
-    image: "prom/node-exporter:v1.6.0"
+    image: "prom/node-exporter:v1.6.1"
     container_name: "node-exporter.docker.localhost"
     command:
       - "--path.rootfs=/rootfs"

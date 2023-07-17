@@ -8,7 +8,7 @@ images:
   - name: "registry.k8s.io/kube-state-metrics/kube-state-metrics"
     newTag: "v2.7.0"
   - name: "prom/node-exporter"
-    newTag: "v1.6.0"
+    newTag: "v1.6.1"
 
 labels:
   - pairs:
