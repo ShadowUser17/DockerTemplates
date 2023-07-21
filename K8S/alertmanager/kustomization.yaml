@@ -1,0 +1,19 @@
+resources:
+  - "base/access.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+namespace: "testing"
+
+configMapGenerator:
+  - name: "alertmanager-config"
+    files: ["config/alertmanager.yml"]
+
+images:
+  - name: "prom/alertmanager"
+    newTag: "v0.25.0"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"
