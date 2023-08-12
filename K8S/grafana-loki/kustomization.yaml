@@ -15,9 +15,9 @@ namespace: "testing"
 
 images:
   - name: "grafana/loki"
-    newTag: "2.8.3"
+    newTag: "2.8.4"
   - name: "grafana/promtail"
-    newTag: "2.8.3"
+    newTag: "2.8.4"
 
 labels:
   - pairs:
