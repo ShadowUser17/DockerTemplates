@@ -29,7 +29,7 @@ services:
       - "9090:9090/tcp"
 
   coredns:
-    image: "coredns/coredns:1.11.0"
+    image: "coredns/coredns:1.11.1"
     container_name: "coredns.docker.localhost"
     restart: "always"
     deploy:
