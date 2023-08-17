@@ -11,7 +11,7 @@ configMapGenerator:
 
 images:
   - name: "grafana/grafana"
-    newTag: "9.5.7"
+    newTag: "9.5.8"
 
 labels:
   - pairs:
