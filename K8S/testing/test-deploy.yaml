@@ -1,0 +1,40 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "test-deploy"
+spec:
+  replicas: 1
+  strategy:
+    type: "Recreate"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "test-deploy"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "test-deploy"
+    spec:
+      securityContext:
+        fsGroup: 0
+        runAsUser: 0
+        runAsGroup: 0
+      volumes:
+        - name: "root"
+          hostPath:
+            path: "/"
+      containers:
+        - name: "app"
+          image: "busybox:glibc"
+          imagePullPolicy: "Always"
+          command: ["/bin/sh", "-c"]
+          args: ["tail -f /dev/null"]
+          volumeMounts:
+            - name: "root"
+              mountPath: "/rootfs"
+              readOnly: false
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+      nodeSelector:
+        kubernetes.io/os: "linux"
