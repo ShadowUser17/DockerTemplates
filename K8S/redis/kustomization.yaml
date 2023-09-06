@@ -8,7 +8,7 @@ images:
   - name: "bitnami/redis"
     newTag: "7.2.0"
   - name: "bitnami/redis-exporter"
-    newTag: "1.52.0"
+    newTag: "1.54.0"
 
 labels:
   - pairs:
