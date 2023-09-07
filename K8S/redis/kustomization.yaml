@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: "bitnami/redis"
-    newTag: "7.2.0"
+    newTag: "7.2.1"
   - name: "bitnami/redis-exporter"
     newTag: "1.54.0"
 
