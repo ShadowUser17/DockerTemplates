@@ -96,7 +96,7 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/health/live"
-              port: 9990
+              port: "metrics"
           readinessProbe:
             initialDelaySeconds: 60
             failureThreshold: 5
@@ -104,4 +104,4 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/health/ready"
-              port: 9990
+              port: "metrics"

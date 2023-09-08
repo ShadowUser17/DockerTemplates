@@ -38,7 +38,7 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/healthz"
-              port: 8080
+              port: "metrics"
               scheme: "HTTP"
           readinessProbe:
             initialDelaySeconds: 5
@@ -46,7 +46,7 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/"
-              port: 8081
+              port: "telemetry"
               scheme: "HTTP"
           securityContext:
             allowPrivilegeEscalation: false

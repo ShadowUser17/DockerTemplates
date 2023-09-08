@@ -68,7 +68,7 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/ready"
-              port: 3200
+              port: "tempo"
 
   volumeClaimTemplates:
     - metadata:

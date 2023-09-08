@@ -64,7 +64,7 @@ spec:
             failureThreshold: 5
             httpGet:
               path: "/minio/health/live"
-              port: 9000
+              port: "http"
 
   volumeClaimTemplates:
     - metadata:

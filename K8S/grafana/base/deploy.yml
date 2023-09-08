@@ -55,7 +55,7 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/api/health"
-              port: 3000
+              port: "http"
 
   volumeClaimTemplates:
     - metadata:

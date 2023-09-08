@@ -60,10 +60,10 @@ spec:
             timeoutSeconds: 5
             httpGet:
               path: "/-/healthy"
-              port: 9093
+              port: "http"
           readinessProbe:
             initialDelaySeconds: 5
             timeoutSeconds: 5
             httpGet:
               path: "/-/ready"
-              port: 9093
+              port: "http"

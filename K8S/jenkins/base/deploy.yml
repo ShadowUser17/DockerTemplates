@@ -63,7 +63,7 @@ spec:
             failureThreshold: 5
             httpGet:
               path: "/login"
-              port: 8080
+              port: "http"
           readinessProbe:
             initialDelaySeconds: 60
             periodSeconds: 10
@@ -71,4 +71,4 @@ spec:
             failureThreshold: 3
             httpGet:
               path: "/login"
-              port: 8080
+              port: "http"
