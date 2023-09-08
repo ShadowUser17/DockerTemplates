@@ -68,7 +68,7 @@ spec:
             periodSeconds: 5
             httpGet:
               path: "/-/healthy"
-              port: 10902
+              port: "http"
               scheme: "HTTP"
           readinessProbe:
             initialDelaySeconds: 20
@@ -77,5 +77,5 @@ spec:
             periodSeconds: 5
             httpGet:
               path: "/-/ready"
-              port: 10902
+              port: "http"
               scheme: "HTTP"
