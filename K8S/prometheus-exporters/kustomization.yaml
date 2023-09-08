@@ -1,5 +1,6 @@
 resources:
   - "base/kube-state-metrics-access.yml"
+  - "base/kube-state-metrics-service.yml"
   - "base/kube-state-metrics-deploy.yml"
   - "base/node-exporter-access.yml"
   - "base/node-exporter-daemon.yml"
