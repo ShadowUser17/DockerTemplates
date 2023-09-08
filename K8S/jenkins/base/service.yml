@@ -7,9 +7,10 @@ spec:
   selector:
     app.kubernetes.io/name: "jenkins"
   ports:
-    - port: 8080
+    - name: "http"
+      port: 8080
       protocol: "TCP"
-      targetPort: 8080
+      targetPort: "http"
 
 ---
 apiVersion: "v1"
@@ -21,6 +22,7 @@ spec:
   selector:
     app.kubernetes.io/name: "jenkins"
   ports:
-    - port: 50000
+    - name: "jnlp"
+      port: 50000
       protocol: "TCP"
-      targetPort: 50000
+      targetPort: "jnlp"

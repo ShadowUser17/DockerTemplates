@@ -10,7 +10,7 @@ spec:
     - name: "http"
       port: 8080
       protocol: "TCP"
-      targetPort: 8080
+      targetPort: "http"
 
 # ---
 # apiVersion: "v1"
@@ -25,4 +25,4 @@ spec:
 #     - name: "jgroups"
 #       port: 7600
 #       protocol: "TCP"
-#       targetPort: 7600
+#       targetPort: "jgroups"

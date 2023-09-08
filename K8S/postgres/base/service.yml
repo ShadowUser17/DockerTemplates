@@ -11,4 +11,4 @@ spec:
     - name: "client"
       port: 5432
       protocol: "TCP"
-      targetPort: 5432
+      targetPort: "client"

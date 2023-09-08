@@ -10,8 +10,8 @@ spec:
     - name: "http"
       port: 9000
       protocol: "TCP"
-      targetPort: 9000
+      targetPort: "http"
     - name: "console"
       port: 9001
       protocol: "TCP"
-      targetPort: 9001
+      targetPort: "console"
