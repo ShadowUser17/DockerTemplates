@@ -27,5 +27,5 @@ kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/minio/ingress-test.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/minio/ingress-nginx.yml"
 ```

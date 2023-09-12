@@ -23,5 +23,5 @@ kubectl apply -k .
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/keycloak/ingress-test.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/keycloak/ingress-nginx.yml"
 ```

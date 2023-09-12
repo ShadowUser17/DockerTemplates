@@ -14,7 +14,7 @@ kubectl -n testing port-forward svc/prometheus 9090
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus/ingress-test.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus/ingress-nginx.yml"
 ```
 
 #### Automatic deploy:

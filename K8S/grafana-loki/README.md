@@ -11,7 +11,7 @@ kubectl apply -k .
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/ingress-test.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/ingress-nginx.yml"
 ```
 
 #### Automatic single deploy:

@@ -34,5 +34,5 @@ jenkins-plugin-cli -d /var/jenkins_home/plugins -f /var/jenkins_home/plugins.txt
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/ingress-test.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/ingress-nginx.yml"
 ```

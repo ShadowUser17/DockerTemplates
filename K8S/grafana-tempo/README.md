@@ -14,7 +14,7 @@ kubectl -n testing port-forward svc/grafana-tempo 3200
 
 #### Create ingress:
 ```bash
-kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-tempo/ingress-test.yml"
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-tempo/ingress-nginx.yml"
 ```
 
 #### Automatic deploy:
