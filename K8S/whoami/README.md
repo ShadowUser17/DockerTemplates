@@ -16,3 +16,6 @@ kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/whoami/ingress-nginx.yml"
 ```
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/whoami/ingress-istio.yml"
+```

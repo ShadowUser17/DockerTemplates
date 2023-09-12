@@ -17,6 +17,9 @@ kubectl -n testing port-forward svc/pushgateway 9092
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus-pushgateway/ingress-nginx.yml"
 ```
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/prometheus-pushgateway/ingress-istio.yml"
+```
 
 #### Automatic deploy:
 ```bash

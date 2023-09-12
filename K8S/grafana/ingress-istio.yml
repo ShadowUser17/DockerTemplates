@@ -1,0 +1,33 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Certificate"
+metadata:
+  namespace: "istio-system"
+  name: "grafana-cert"
+spec:
+  dnsNames: ["grafana.k3s"]
+  secretName: "grafana-cert"
+  issuerRef:
+    name: "istio-ingress-issuer"
+
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "testing"
+  name: "grafana"
+spec:
+  ingressClassName: "istio"
+  tls:
+    - hosts: ["grafana.k3s"]
+      secretName: "grafana-cert"
+  rules:
+    - host: "grafana.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana"
+                port:
+                  number: 3000

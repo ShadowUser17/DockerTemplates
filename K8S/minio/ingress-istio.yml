@@ -1,0 +1,33 @@
+apiVersion: "cert-manager.io/v1"
+kind: "Certificate"
+metadata:
+  namespace: "istio-system"
+  name: "minio-ingress-cert"
+spec:
+  dnsNames: ["minio.k3s"]
+  secretName: "minio-ingress-cert"
+  issuerRef:
+    name: "istio-ingress-issuer"
+
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "testing"
+  name: "minio-console"
+spec:
+  ingressClassName: "istio"
+  tls:
+    - secretName: "minio-ingress-cert"
+      hosts: ["minio.k3s"]
+  rules:
+    - host: "minio.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "minio"
+                port:
+                  number: 9001

@@ -13,6 +13,9 @@ kubectl apply -k .
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/ingress-nginx.yml"
 ```
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/ingress-istio.yml"
+```
 
 #### Automatic single deploy:
 ```bash

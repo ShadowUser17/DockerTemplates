@@ -1,0 +1,18 @@
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  namespace: "testing"
+  name: "grafana-loki"
+spec:
+  ingressClassName: "istio"
+  rules:
+    - host: "grafana-loki.k3s"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "grafana-loki"
+                port:
+                  number: 3100

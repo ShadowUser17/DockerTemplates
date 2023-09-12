@@ -16,6 +16,9 @@ kubectl -n testing port-forward svc/grafana 3000
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana/ingress-nginx.yml"
 ```
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana/ingress-istio.yml"
+```
 
 #### Automatic deploy:
 ```bash

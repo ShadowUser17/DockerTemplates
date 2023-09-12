@@ -27,6 +27,9 @@ kubectl -n testing port-forward svc/thanos-prometheus 9090
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/thanos-prometheus/ingress-nginx.yml"
 ```
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/thanos-prometheus/ingress-istio.yml"
+```
 
 #### Automatic deploy:
 ```bash

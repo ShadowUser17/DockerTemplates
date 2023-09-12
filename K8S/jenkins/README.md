@@ -36,3 +36,6 @@ jenkins-plugin-cli -d /var/jenkins_home/plugins -f /var/jenkins_home/plugins.txt
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/ingress-nginx.yml"
 ```
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/jenkins/ingress-istio.yml"
+```
