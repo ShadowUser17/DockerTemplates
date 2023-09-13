@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: "prom/pushgateway"
-    newTag: "v1.6.1"
+    newTag: "v1.6.2"
 
 namespace: "testing"
 
