@@ -1,6 +1,6 @@
 #### URLs:
-- [Source](https://github.com/traefik/whoami/blob/master/README.md)
-- [Images](https://hub.docker.com/r/traefik/whoami)
+- [Source](https://github.com/traefik/whoami)
+- [Images](https://hub.docker.com/r/traefik/whoami/tags)
 
 #### Manual deploy:
 ```bash
