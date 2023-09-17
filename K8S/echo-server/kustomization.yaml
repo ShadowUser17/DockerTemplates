@@ -1,0 +1,8 @@
+resources:
+  - "base/access.yml"
+  - "base/service.yml"
+  - "base/deploy.yml"
+
+images:
+  - name: "ealen/echo-server"
+    newTag: "0.8.2"
