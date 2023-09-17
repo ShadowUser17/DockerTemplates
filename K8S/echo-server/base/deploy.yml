@@ -31,13 +31,13 @@ spec:
             - name: "http"
               protocol: "TCP"
               containerPort: 8080
-          # resources:
-          #   requests:
-          #     cpu: "10m"
-          #     memory: "20Mi"
-          #   limits:
-          #     cpu: "20m"
-          #     memory: "30Mi"
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "30m"
+              memory: "32Mi"
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
