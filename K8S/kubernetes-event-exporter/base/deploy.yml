@@ -47,6 +47,20 @@ spec:
             limits:
               cpu: "100m"
               memory: "32Mi"
+          livenessProbe:
+            initialDelaySeconds: 5
+            failureThreshold: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/-/healthy"
+              port: "http"
+          readinessProbe:
+            initialDelaySeconds: 5
+            failureThreshold: 5
+            timeoutSeconds: 5
+            httpGet:
+              path: "/-/ready"
+              port: "http"
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
