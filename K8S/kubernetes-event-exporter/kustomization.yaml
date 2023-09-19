@@ -1,0 +1,18 @@
+resources:
+  - "base/access.yml"
+  - "base/deploy.yml"
+
+namespace: "testing"
+
+configMapGenerator:
+  - name: "k8s-event-exporter"
+    files: ["config/config.yml"]
+
+images:
+  - name: "bitnami/kubernetes-event-exporter"
+    newTag: "1.4.0"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/managed-by: "kustomize"
