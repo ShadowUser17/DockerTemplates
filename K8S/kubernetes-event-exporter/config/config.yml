@@ -1,13 +1,18 @@
-logLevel: "error"
+logLevel: "info"
 logFormat: "json"
-clusterName: "k3s"
+maxEventAgeSeconds: 10
+
 route:
   routes:
     - match:
+        - receiver: "dump"
         - receiver: "loki"
 
 receivers:
+  - name: "dump"
+    stdout: {}
   - name: "loki"
     loki:
       url: "http://grafana-loki.testing.svc:3100/loki/api/v1/push"
-      streamLabels: {}
+      streamLabels:
+        exporter: "k8s-event-exporter"
