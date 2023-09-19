@@ -42,11 +42,11 @@ spec:
               containerPort: 2112
           resources:
             requests:
-              cpu: "100m"
-              memory: "32Mi"
+              cpu: "60m"
+              memory: "50Mi"
             limits:
-              cpu: "100m"
-              memory: "32Mi"
+              cpu: "60m"
+              memory: "50Mi"
           livenessProbe:
             initialDelaySeconds: 5
             failureThreshold: 5
