@@ -1,17 +1,16 @@
 logLevel: "info"
 logFormat: "json"
+kubeQPS: 60
+kubeBurst: 60
 maxEventAgeSeconds: 10
 metricsNamePrefix: "event_exporter_"
 
 route:
   routes:
     - match:
-        # - receiver: "dump"
         - receiver: "loki"
 
 receivers:
-  # - name: "dump"
-  #   stdout: {}
   - name: "loki"
     loki:
       url: "http://grafana-loki.testing.svc:3100/loki/api/v1/push"
