@@ -1,8 +1,8 @@
 logLevel: "info"
 logFormat: "json"
-kubeQPS: 60
-kubeBurst: 60
-maxEventAgeSeconds: 10
+kubeQPS: 100
+kubeBurst: 500
+maxEventAgeSeconds: 60
 metricsNamePrefix: "event_exporter_"
 
 route:
