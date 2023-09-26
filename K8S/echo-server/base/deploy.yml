@@ -20,7 +20,7 @@ spec:
         - name: "tmp"
           emptyDir: {}
       containers:
-        - name: "app"
+        - name: "echo-server"
           image: "ealen/echo-server:latest"
           imagePullPolicy: "IfNotPresent"
           env:
