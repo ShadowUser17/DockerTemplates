@@ -1,0 +1,20 @@
+groups:
+  - name: "Promtail rules"
+    rules:
+      - alert: "Promtail request errors"
+        expr: '100 * sum(rate(promtail_request_duration_seconds_count{status_code=~"5..|failed"}[1m])) by(namespace, pod, route) / sum(rate(promtail_request_duration_seconds_count[1m])) by(namespace, pod, route) > 10'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Promtail request errors (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "The {{ $labels.namespace }}/{{ $labels.pod }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}% errors."
+
+      - alert: "Promtail request latency"
+        expr: 'histogram_quantile(0.99, sum(rate(promtail_request_duration_seconds_bucket[5m])) by(namespace, pod, route, le)) > 1'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Promtail request latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "The {{ $labels.namespace }}/{{ $labels.pod }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}s 99th percentile latency."

@@ -1,0 +1,38 @@
+groups:
+  - name: "Loki self-monitoring"
+    rules:
+      - alert: "Loki too many restarts"
+        expr: 'changes(process_start_time_seconds{app_kubernetes_io_name="loki"}[10m]) > 2'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Loki process too many restarts (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "A loki process had too many restarts (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+
+      - alert: "Loki request errors"
+        expr: '100 * sum(rate(loki_request_duration_seconds_count{status_code=~"5.."}[1m])) by(namespace, pod, route) / sum(rate(loki_request_duration_seconds_count[1m])) by(namespace, pod, route) > 10'
+        for: "10m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Loki request errors (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "The {{ $labels.namespace }}/{{ $labels.pod }} and {{ $labels.route }} are experiencing errors."
+
+      - alert: "Loki request panic"
+        expr: 'sum(increase(loki_panic_total[10m])) by(namespace, pod) > 0'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Loki request panic (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "The {{ $labels.namespace }}/{{ $labels.pod }} is experiencing {{ printf \"%.2f\" $value }}% increase of panics."
+
+      - alert: "Loki request latency"
+        expr: '(histogram_quantile(0.99, sum(rate(loki_request_duration_seconds_bucket{route!~"(?i).*tail.*"}[5m])) by(namespace, pod, route, le))) > 1'
+        for: "5m"
+        labels:
+          severity: "critical"
+        annotations:
+          summary: "Loki request latency (instance {{ $labels.namespace }}/{{ $labels.pod }})"
+          description: "The {{ $labels.namespace }}/{{ $labels.pod }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}s 99th percentile latency."

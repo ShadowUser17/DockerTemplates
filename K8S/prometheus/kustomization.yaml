@@ -8,6 +8,8 @@ configMapGenerator:
     files:
       - "config/prometheus.yml"
       - "config/prometheus-rules.yml"
+      - "config/loki-rules.yml"
+      - "config/promtail-rules.yml"
 
 namespace: "testing"
 
