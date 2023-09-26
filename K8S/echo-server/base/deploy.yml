@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "echo-server"
+      annotations:
+        promtail.io/collect: "true"
     spec:
       serviceAccountName: "echo-server"
       volumes:
