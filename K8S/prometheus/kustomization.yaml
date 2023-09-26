@@ -10,6 +10,9 @@ configMapGenerator:
       - "config/prometheus-rules.yml"
       - "config/loki-rules.yml"
       - "config/promtail-rules.yml"
+      - "config/k8s-base-rules.yml"
+      - "config/k8s-node-rules.yml"
+      - "config/k8s-pod-rules.yml"
 
 namespace: "testing"
 
