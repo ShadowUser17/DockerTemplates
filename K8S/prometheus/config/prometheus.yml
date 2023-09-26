@@ -12,7 +12,7 @@ alerting:
           action: "keep"
 
 rule_files:
-  - "testing-rules.yml"
+  - "prometheus-rules.yml"
 
 scrape_configs:
   - job_name: "prometheus"

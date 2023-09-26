@@ -7,7 +7,7 @@ configMapGenerator:
   - name: "prometheus-config"
     files:
       - "config/prometheus.yml"
-      - "config/testing-rules.yml"
+      - "config/prometheus-rules.yml"
 
 namespace: "testing"
 
