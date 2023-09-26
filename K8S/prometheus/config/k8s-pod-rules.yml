@@ -11,7 +11,7 @@ groups:
           description: "Pod crash looping of {{ $labels.namespace }}/{{ $labels.pod }}"
 
       - alert: "Container cpu usage"
-        expr: '(sum(rate(container_cpu_usage_seconds_total{name!=""}[2m])) by(namespace, pod, container) / sum(kube_pod_container_resource_limits{resource="cpu"}) by(namespace, pod, container) * 100) > 75'
+        expr: '(sum(rate(container_cpu_usage_seconds_total{name!=""}[2m])) by(namespace, pod, container) / sum(kube_pod_container_resource_limits{resource="cpu"}) by(namespace, pod, container) * 100) > 70'
         for: "2m"
         labels:
           severity: "warning"
@@ -29,7 +29,7 @@ groups:
           description: "CPU usage of {{ $labels.namespace }}/{{ $labels.pod }}/{{ $labels.container }} is {{ $value | humanize }} %"
 
       - alert: "Container memory usage"
-        expr: '(sum(container_memory_working_set_bytes{name!=""}) by(namespace, pod, container) / sum(kube_pod_container_resource_limits{resource="memory"}) by(namespace, pod, container) * 100) > 75'
+        expr: '(sum(container_memory_working_set_bytes{name!=""}) by(namespace, pod, container) / sum(kube_pod_container_resource_limits{resource="memory"}) by(namespace, pod, container) * 100) > 70'
         for: "2m"
         labels:
           severity: "warning"

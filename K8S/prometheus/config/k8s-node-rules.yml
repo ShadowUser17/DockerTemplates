@@ -41,7 +41,7 @@ groups:
   - name: "NodeExporter rules"
     rules:
       - alert: "CPU usage of node"
-        expr: '(100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) by(instance) * 100)) > 75'
+        expr: '(100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) by(instance) * 100)) > 70'
         for: "2m"
         labels:
           severity: "warning"
@@ -50,7 +50,7 @@ groups:
           description: "CPU usage of {{ $labels.instance }} is {{ $value | humanize }} %"
 
       - alert: "CPU usage of node"
-        expr: '(100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) by(instance) * 100)) > 85'
+        expr: '(100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) by(instance) * 100)) > 80'
         for: "2m"
         labels:
           severity: "error"
