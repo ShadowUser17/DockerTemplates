@@ -8,6 +8,7 @@ configMapGenerator:
     files:
       - "config/prometheus.yml"
       - "config/prometheus-rules.yml"
+      - "config/nginx-ingress-rules.yml"
       - "config/loki-rules.yml"
       - "config/promtail-rules.yml"
       - "config/k8s-base-rules.yml"
