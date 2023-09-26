@@ -18,6 +18,7 @@ spec:
         - name: "kube-state-metrics"
           image: "registry.k8s.io/kube-state-metrics/kube-state-metrics:latest"
           imagePullPolicy: "IfNotPresent"
+          args: ["--metric-labels-allowlist=pods=[env,team,system]"]
           ports:
             - name: "metrics"
               protocol: "TCP"
