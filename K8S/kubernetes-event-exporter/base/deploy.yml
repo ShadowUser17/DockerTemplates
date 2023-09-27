@@ -43,10 +43,10 @@ spec:
           resources:
             requests:
               cpu: "60m"
-              memory: "60Mi"
+              memory: "80Mi"
             limits:
               cpu: "60m"
-              memory: "60Mi"
+              memory: "80Mi"
           livenessProbe:
             initialDelaySeconds: 5
             failureThreshold: 5
