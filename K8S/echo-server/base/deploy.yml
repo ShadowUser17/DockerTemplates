@@ -40,10 +40,10 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "20Mi"
+              memory: "30Mi"
             limits:
               cpu: "30m"
-              memory: "32Mi"
+              memory: "40Mi"
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
