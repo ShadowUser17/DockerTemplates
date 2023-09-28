@@ -19,5 +19,5 @@ images:
     newTag: "2.9.1"
 labels:
   - pairs:
-      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/part-of: "monitoring"
       app.kubernetes.io/managed-by: "kustomize"

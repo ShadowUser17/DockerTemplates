@@ -13,5 +13,5 @@ images:
     newTag: "v0.26.0"
 labels:
   - pairs:
-      app.kubernetes.io/part-of: "cluster-monitoring"
+      app.kubernetes.io/part-of: "monitoring"
       app.kubernetes.io/managed-by: "kustomize"
