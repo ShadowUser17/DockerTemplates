@@ -1,18 +1,16 @@
+apiVersion: "kustomize.config.k8s.io/v1beta1"
+kind: "Kustomization"
+namespace: "testing"
 resources:
   - "base/service.yml"
   - "base/access.yml"
   - "base/deploy.yml"
-
-namespace: "testing"
-
 configMapGenerator:
   - name: "grafana-tempo-config"
     files: ["config/config.yaml"]
-
 images:
   - name: "grafana/tempo"
     newTag: "2.2.3"
-
 labels:
   - pairs:
       app.kubernetes.io/part-of: "cluster-monitoring"
