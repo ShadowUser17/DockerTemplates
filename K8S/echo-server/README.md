@@ -19,3 +19,8 @@ kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/echo-server/ingress-istio.yml"
 ```
+
+#### Create alertmanager config:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/echo-server/alertmanager-config.yml"
+```

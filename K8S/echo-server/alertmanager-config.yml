@@ -1,0 +1,23 @@
+apiVersion: "monitoring.coreos.com/v1alpha1"
+kind: "AlertmanagerConfig"
+metadata:
+  name: "echo-server-webhook"
+  labels:
+    release: "prom-operator"
+spec:
+  route:
+    groupBy: ["alertname", "severity"]
+    groupWait: "30s"
+    groupInterval: "5m"
+    repeatInterval: "1h"
+    receiver: "echo-server"
+    routes:
+      - matchers:
+          - name: "severity"
+            value: "info|warning|error|critical"
+            matchType: "=~"
+  receivers:
+    - name: "echo-server"
+      webhookConfigs:
+        - url: "http://echo-server.testing.svc:8080/"
+          sendResolved: true

@@ -17,6 +17,11 @@ kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/ingress-istio.yml"
 ```
 
+#### Create ServicePod monitor:
+```bash
+kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/prom-operator-monitor.yml"
+```
+
 #### Automatic single deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/grafana-loki/fluxcd-deploy.yml"
