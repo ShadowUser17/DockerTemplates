@@ -1,0 +1,32 @@
+apiVersion: "monitoring.coreos.com/v1"
+kind: "ServiceMonitor"
+metadata:
+  namespace: "testing"
+  name: "grafana-loki"
+  labels:
+    release: "prom-operator"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "grafana-loki"
+  endpoints:
+    - port: "http"
+      honorLabels: true
+      scrapeTimeout: "30s"
+
+---
+apiVersion: "monitoring.coreos.com/v1"
+kind: "PodMonitor"
+metadata:
+  namespace: "testing"
+  name: "grafana-promtail"
+  labels:
+    release: "prom-operator"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "loki-promtail"
+  podMetricsEndpoints:
+    - port: "http"
+      honorLabels: true
+      scrapeTimeout: "30s"
