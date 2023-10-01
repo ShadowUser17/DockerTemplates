@@ -1,7 +1,8 @@
 apiVersion: "monitoring.coreos.com/v1alpha1"
 kind: "AlertmanagerConfig"
 metadata:
-  name: "echo-server-webhook"
+  name: "echo-server"
+  namespace: "testing"
   labels:
     release: "prom-operator"
 spec:
@@ -14,7 +15,7 @@ spec:
     routes:
       - matchers:
           - name: "severity"
-            value: "info|warning|error|critical"
+            value: "warning|error|critical"
             matchType: "=~"
   receivers:
     - name: "echo-server"
