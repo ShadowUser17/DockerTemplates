@@ -8,15 +8,32 @@ metadata:
 spec:
   route:
     groupBy: ["alertname", "severity"]
+    receiver: "echo-server"
     groupWait: "30s"
     groupInterval: "5m"
     repeatInterval: "1h"
-    receiver: "echo-server"
     routes:
-      - matchers:
+      - receiver: "echo-server"
+        groupWait: "30s"
+        groupInterval: "5m"
+        repeatInterval: "3h"
+        matchers:
           - name: "severity"
-            value: "warning|error|critical"
-            matchType: "=~"
+            value: "warning"
+      - receiver: "echo-server"
+        groupWait: "30s"
+        groupInterval: "5m"
+        repeatInterval: "2h"
+        matchers:
+          - name: "severity"
+            value: "error"
+      - receiver: "echo-server"
+        groupWait: "30s"
+        groupInterval: "5m"
+        repeatInterval: "1h"
+        matchers:
+          - name: "severity"
+            value: "critical"
   receivers:
     - name: "echo-server"
       webhookConfigs:
