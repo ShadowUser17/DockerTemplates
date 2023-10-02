@@ -24,7 +24,7 @@ configMapGenerator:
       - "config/minio-rules.yml"
 images:
   - name: "thanosio/thanos"
-    newTag: "v0.32.3"
+    newTag: "v0.32.4"
   - name: "prom/prometheus"
     newTag: "v2.40.7"
 labels:
