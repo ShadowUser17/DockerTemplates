@@ -45,11 +45,11 @@ spec:
               containerPort: 9093
           resources:
             requests:
-              cpu: "10m"
-              memory: "50Mi"
+              cpu: "20m"
+              memory: "60Mi"
             limits:
-              cpu: "10m"
-              memory: "50Mi"
+              cpu: "20m"
+              memory: "60Mi"
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
