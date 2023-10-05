@@ -18,3 +18,12 @@ groups:
         annotations:
           summary: "Nginx high HTTP 5xx error rate (instance {{ $labels.instance }})"
           description: "Too many HTTP requests with status 5xx (> 5%).\nValue: {{ $value }}\nLabels: {{ $labels }}"
+
+      - alert: "Nginx High Latency"
+        expr: 'histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[2m])) by(host, node, le)) > 5'
+        for: "2m"
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "Nginx high latency (instance {{ $labels.instance }})"
+          description: "Nginx P99 latency is higher than 5 seconds.\nValue: {{ $value }}\nLabels: {{ $labels }}"
