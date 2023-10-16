@@ -29,6 +29,7 @@ rules:
   - nonResourceURLs:
       - "/metrics"
       - "/metrics/slis"
+      - "/metrics/probes"
       - "/metrics/cadvisor"
     verbs: ["get"]
 
