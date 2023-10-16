@@ -11,12 +11,11 @@ metadata:
 rules:
   - apiGroups: [""]
     resources:
-      - "pods"
       - "nodes"
-      - "nodes/proxy"
       - "nodes/metrics"
-      - "services"
       - "endpoints"
+      - "services"
+      - "pods"
     verbs:
       - "get"
       - "list"
@@ -27,7 +26,10 @@ rules:
       - "get"
       - "list"
       - "watch"
-  - nonResourceURLs: ["/metrics"]
+  - nonResourceURLs:
+      - "/metrics"
+      - "/metrics/slis"
+      - "/metrics/cadvisor"
     verbs: ["get"]
 
 ---
