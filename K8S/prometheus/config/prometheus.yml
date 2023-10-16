@@ -76,20 +76,6 @@ scrape_configs:
       - regex: "__meta_kubernetes_node_label_(.+)"
         action: "labelmap"
 
-  - job_name: "k8s-kubelet-slis"
-    scrape_interval: "30s"
-    metrics_path: "/metrics/slis"
-    scheme: "https"
-    kubernetes_sd_configs:
-      - role: "node"
-    tls_config:
-      ca_file: "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-    authorization:
-      credentials_file: "/var/run/secrets/kubernetes.io/serviceaccount/token"
-    relabel_configs:
-      - regex: "__meta_kubernetes_node_label_(.+)"
-        action: "labelmap"
-
   - job_name: "k8s-pod-metrics"
     scrape_interval: "30s"
     kubernetes_sd_configs:
