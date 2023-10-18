@@ -9,7 +9,7 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "jenkins/jenkins"
-    newTag: "2.414.2-lts"
+    newTag: "2.414.3-lts"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "ci-cd"
