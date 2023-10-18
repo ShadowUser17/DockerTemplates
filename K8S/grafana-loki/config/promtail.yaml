@@ -9,6 +9,10 @@ clients:
 positions:
   filename: "/tmp/positions.yaml"
 
+limits_config:
+  readline_rate_enabled: true
+  readline_rate_drop: true
+
 scrape_configs:
   - job_name: "pod-logs"
     kubernetes_sd_configs:
