@@ -4,6 +4,7 @@ namespace: "testing"
 resources:
   - "base/loki-service.yml"
   - "base/loki-access.yml"
+  - "base/loki-policy.yml"
   - "base/loki-deploy.yml"
   - "base/promtail-access.yml"
   - "base/promtail-deploy.yml"
