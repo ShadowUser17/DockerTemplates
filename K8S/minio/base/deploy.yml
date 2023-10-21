@@ -1,7 +1,6 @@
 apiVersion: "apps/v1"
 kind: "StatefulSet"
 metadata:
-  namespace: "testing"
   name: "minio"
 spec:
   serviceName: "minio"
@@ -19,6 +18,7 @@ spec:
         prometheus.io/path: "/minio/v2/metrics/cluster"
     spec:
       serviceAccountName: "minio"
+      automountServiceAccountToken: false
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -51,8 +51,8 @@ spec:
               cpu: "100m"
               memory: "256Mi"
             limits:
-              cpu: "100m"
-              memory: "256Mi"
+              cpu: "200m"
+              memory: "512Mi"
           securityContext:
             readOnlyRootFilesystem: true
             capabilities:
