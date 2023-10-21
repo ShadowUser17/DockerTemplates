@@ -51,7 +51,7 @@ spec:
               memory: "120Mi"
             limits:
               cpu: "100m"
-              memory: "120Mi"
+              memory: "160Mi"
       nodeSelector:
         kubernetes.io/os: "linux"
       tolerations:
