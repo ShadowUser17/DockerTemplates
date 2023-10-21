@@ -2,7 +2,6 @@ apiVersion: "apps/v1"
 kind: "StatefulSet"
 metadata:
   name: "redis"
-  namespace: "testing"
 spec:
   serviceName: "redis"
   replicas: 1
@@ -19,6 +18,7 @@ spec:
         promtail.io/collect: "true"
     spec:
       serviceAccountName: "redis"
+      automountServiceAccountToken: false
       containers:
         - name: "redis"
           image: "bitnami/redis:latest"
@@ -35,11 +35,11 @@ spec:
               name: "client"
           resources:
             requests:
-              cpu: "30m"
-              memory: "128Mi"
-            limits:
-              cpu: "50m"
+              cpu: "100m"
               memory: "256Mi"
+            limits:
+              cpu: "100m"
+              memory: "512Mi"
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
