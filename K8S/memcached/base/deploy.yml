@@ -2,7 +2,6 @@ apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
   name: "memcached"
-  namespace: "testing"
 spec:
   replicas: 1
   strategy:
@@ -20,6 +19,7 @@ spec:
         promtail.io/collect: "true"
     spec:
       serviceAccountName: "memcached"
+      automountServiceAccountToken: false
       containers:
         - name: "memcached"
           image: "bitnami/memcached:latest"
@@ -40,7 +40,7 @@ spec:
               cpu: "100m"
               memory: "512Mi"
             limits:
-              cpu: "100m"
+              cpu: "200m"
               memory: "512Mi"
           securityContext:
             allowPrivilegeEscalation: false
