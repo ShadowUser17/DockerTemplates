@@ -16,6 +16,7 @@ spec:
         prometheus.io/port: "2112"
     spec:
       serviceAccountName: "k8s-event-exporter"
+      automountServiceAccountToken: true
       securityContext:
         fsGroup: 10001
         runAsUser: 10001
@@ -64,5 +65,6 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            runAsNonRoot: true
             capabilities:
               drop: ["ALL"]
