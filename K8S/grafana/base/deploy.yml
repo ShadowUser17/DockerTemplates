@@ -16,6 +16,7 @@ spec:
         prometheus.io/scrape: "true"
     spec:
       serviceAccountName: "grafana"
+      automountServiceAccountToken: false
       volumes:
         - name: "tmp"
           emptyDir: {}
