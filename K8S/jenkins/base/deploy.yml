@@ -13,13 +13,17 @@ spec:
       labels:
         app.kubernetes.io/name: "jenkins"
       annotations:
-        promtail.io/collect: "true"
         prometheus.io/scrape: "true"
+        promtail.io/collect: "true"
         prometheus.io/port: "8080"
         prometheus.io/path: "/prometheus/"
     spec:
       serviceAccountName: "jenkins"
       automountServiceAccountToken: true
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -48,10 +52,11 @@ spec:
               cpu: "500m"
               memory: "1024Mi"
           securityContext:
-            fsGroup: 1000
-            runAsUser: 1000
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 90
             periodSeconds: 10
