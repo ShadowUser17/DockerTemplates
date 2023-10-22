@@ -17,6 +17,7 @@ spec:
         prometheus.io/scrape: "true"
     spec:
       serviceAccountName: "alertmanager"
+      automountServiceAccountToken: false
       volumes:
         - name: "tmp"
           emptyDir: {}
