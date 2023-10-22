@@ -17,6 +17,7 @@ spec:
         prometheus.io/port: "3200"
     spec:
       serviceAccountName: "grafana-tempo"
+      automountServiceAccountToken: false
       volumes:
         - name: "tmp"
           emptyDir: {}
