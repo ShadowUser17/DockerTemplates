@@ -1,7 +1,6 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "testing"
   name: "whoami"
 spec:
   replicas: 1
@@ -14,6 +13,7 @@ spec:
         app.kubernetes.io/name: "whoami"
     spec:
       serviceAccountName: "whoami"
+      automountServiceAccountToken: false
       volumes:
         - name: "tmp"
           emptyDir: {}
@@ -21,8 +21,7 @@ spec:
         - name: "whoami"
           image: "traefik/whoami:latest"
           imagePullPolicy: "IfNotPresent"
-          args:
-            - "-port=4000"
+          args: ["-port=4000"]
           volumeMounts:
             - name: "tmp"
               mountPath: "/tmp"
@@ -38,7 +37,7 @@ spec:
               cpu: "20m"
               memory: "30Mi"
           securityContext:
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop: ["ALL"]
