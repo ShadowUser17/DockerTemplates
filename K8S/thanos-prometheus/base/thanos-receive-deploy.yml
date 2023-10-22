@@ -1,7 +1,6 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "testing"
   name: "thanos-receive"
 spec:
   selector:
@@ -24,7 +23,6 @@ spec:
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "testing"
   name: "thanos-receive"
 spec:
   replicas: 1
@@ -45,9 +43,11 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: "thanos-prometheus"
+      automountServiceAccountToken: false
       securityContext:
-        runAsUser: 65534
         fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
       volumes:
         - name: "data"
           persistentVolumeClaim:
@@ -102,6 +102,11 @@ spec:
             limits:
               cpu: "50m"
               memory: "120Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 20
             failureThreshold: 5

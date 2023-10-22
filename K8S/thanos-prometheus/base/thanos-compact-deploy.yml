@@ -1,7 +1,6 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "testing"
   name: "thanos-compact"
 spec:
   replicas: 1
@@ -22,9 +21,11 @@ spec:
     spec:
       terminationGracePeriodSeconds: 120
       serviceAccountName: "thanos-prometheus"
+      automountServiceAccountToken: false
       securityContext:
-        runAsUser: 65534
         fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
       volumes:
         - name: "data"
           emptyDir:
@@ -61,6 +62,11 @@ spec:
             limits:
               cpu: "50m"
               memory: "160Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 20
             failureThreshold: 5

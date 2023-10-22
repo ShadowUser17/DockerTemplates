@@ -1,14 +1,12 @@
 apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
-  namespace: "testing"
   name: "thanos-prometheus"
 
 ---
 apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
-  namespace: "testing"
   name: "thanos-query"
 
 ---
@@ -49,5 +47,4 @@ roleRef:
   name: "thanos-prometheus"
 subjects:
   - kind: "ServiceAccount"
-    namespace: "testing"
     name: "thanos-prometheus"

@@ -1,7 +1,6 @@
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  namespace: "testing"
   name: "thanos-query"
 spec:
   selector:
@@ -20,7 +19,6 @@ spec:
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "testing"
   name: "thanos-query"
 spec:
   replicas: 1
@@ -39,9 +37,11 @@ spec:
         prometheus.io/port: "9090"
     spec:
       serviceAccountName: "thanos-query"
+      automountServiceAccountToken: false
       securityContext:
-        runAsUser: 65534
         fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
       containers:
         - name: "thanos"
           image: "thanosio/thanos:latest"
@@ -72,6 +72,11 @@ spec:
             limits:
               cpu: "50m"
               memory: "120Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 10
             failureThreshold: 5
