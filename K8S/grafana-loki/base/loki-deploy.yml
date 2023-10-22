@@ -17,6 +17,7 @@ spec:
         promtail.io/collect: "true"
     spec:
       serviceAccountName: "grafana-loki"
+      automountServiceAccountToken: false
       securityContext:
         fsGroup: 10001
         runAsUser: 10001
