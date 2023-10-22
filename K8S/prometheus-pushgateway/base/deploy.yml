@@ -16,9 +16,11 @@ spec:
         prometheus.io/port: "9092"
     spec:
       serviceAccountName: "pushgateway"
+      automountServiceAccountToken: false
       securityContext:
-        runAsUser: 65534
         fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
       volumes:
         - name: "data"
           emptyDir: {}
@@ -46,6 +48,11 @@ spec:
             limits:
               cpu: "20m"
               memory: "30Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
           livenessProbe:
             initialDelaySeconds: 10
             failureThreshold: 5

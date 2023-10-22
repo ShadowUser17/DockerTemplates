@@ -8,6 +8,4 @@ spec:
     matchLabels:
       app.kubernetes.io/name: "pushgateway"
   ingress:
-    - from:
-        - namespaceSelector: {}
-          podSelector: {}
+    - {}
