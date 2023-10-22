@@ -1,7 +1,6 @@
 apiVersion: "apps/v1"
 kind: "DaemonSet"
 metadata:
-  namespace: "testing"
   name: "node-exporter"
 spec:
   selector:
@@ -16,6 +15,7 @@ spec:
         prometheus.io/port: "9100"
     spec:
       serviceAccountName: "node-exporter"
+      automountServiceAccountToken: false
       hostNetwork: true
       securityContext:
         fsGroup: 0
