@@ -2,7 +2,6 @@ apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
   name: "echo-server"
-  namespace: "testing"
 spec:
   replicas: 1
   selector:
@@ -16,6 +15,7 @@ spec:
         promtail.io/collect: "true"
     spec:
       serviceAccountName: "echo-server"
+      automountServiceAccountToken: false
       volumes:
         - name: "tmp"
           emptyDir: {}
