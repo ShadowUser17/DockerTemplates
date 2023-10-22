@@ -40,7 +40,6 @@ rules:
 apiVersion: "v1"
 kind: "ServiceAccount"
 metadata:
-  namespace: "jenkins"
   name: "jenkins"
 
 ---
@@ -55,4 +54,3 @@ roleRef:
 subjects:
 - kind: "ServiceAccount"
   name: "jenkins"
-  namespace: "jenkins"

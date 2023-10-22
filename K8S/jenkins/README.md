@@ -1,9 +1,12 @@
 #### URLs:
-- [kubernetes-installing](https://www.jenkins.io/doc/book/installing/kubernetes/)
-- [jenkins-docker](https://github.com/jenkinsci/docker/blob/master/README.md)
-- [kubernetes-plugin](https://plugins.jenkins.io/kubernetes/)
+- [Documentation](https://www.jenkins.io/doc/book/installing/kubernetes/)
+- [Images](https://hub.docker.com/r/jenkins/jenkins/tags)
+- [Kubernetes](https://plugins.jenkins.io/kubernetes/)
 
 #### Manual deploy:
+```bash
+kubectl create namespace jenkins
+```
 ```bash
 kubectl apply -k .
 ```
