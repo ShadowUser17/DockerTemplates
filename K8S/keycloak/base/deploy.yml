@@ -1,7 +1,6 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  namespace: "testing"
   name: "keycloak"
 spec:
   replicas: 1
@@ -17,9 +16,11 @@ spec:
         required.db: "psql"
       annotations:
         prometheus.io/scrape: "true"
+        promtail.io/collect: "true"
         prometheus.io/port: "9990"
     spec:
       serviceAccountName: "keycloak"
+      automountServiceAccountToken: false
       volumes:
         - name: "deployments"
           emptyDir: {}
