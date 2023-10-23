@@ -3,6 +3,7 @@ kind: "Kustomization"
 namespace: "testing"
 resources:
   - "base/access.yml"
+  - "base/policy.yml"
   - "base/service.yml"
   - "base/deploy.yml"
 images:
