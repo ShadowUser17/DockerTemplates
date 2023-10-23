@@ -9,7 +9,7 @@ networks:
 
 services:
   traefik:
-    image: "traefik:v2.10.4"
+    image: "traefik:v2.10.5"
     restart: "always"
     container_name: "traefik.docker.localhost"
     deploy:
