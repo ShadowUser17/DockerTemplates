@@ -6,6 +6,12 @@ datasources:
     url: "http://prometheus.testing.svc:9090"
     jsonData:
       httpMethod: "POST"
+  - name: "Prometheus-1"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://prom-operator-kube-prometh-prometheus.monitoring.svc:9090"
+    jsonData:
+      httpMethod: "POST"
   - name: "Thanos"
     type: "prometheus"
     access: "proxy"
@@ -16,6 +22,13 @@ datasources:
     type: "loki"
     access: "proxy"
     url: "http://grafana-loki.testing.svc:3100"
+    jsonData:
+      timeout: 300
+      maxLines: 2000
+  - name: "Loki-1"
+    type: "loki"
+    access: "proxy"
+    url: "http://loki-gateway.monitoring.svc"
     jsonData:
       timeout: 300
       maxLines: 2000
