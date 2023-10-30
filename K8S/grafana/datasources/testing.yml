@@ -28,7 +28,7 @@ datasources:
   - name: "Loki-1"
     type: "loki"
     access: "proxy"
-    url: "http://loki-gateway.monitoring.svc"
+    url: "http://loki.monitoring.svc:3100"
     jsonData:
       timeout: 300
       maxLines: 2000
