@@ -10,7 +10,7 @@ configMapGenerator:
     files: ["config/config.yaml"]
 images:
   - name: "grafana/tempo"
-    newTag: "2.2.4"
+    newTag: "2.3.0"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "monitoring"
