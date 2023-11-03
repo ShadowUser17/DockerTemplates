@@ -23,14 +23,14 @@ datasources:
     access: "proxy"
     url: "http://grafana-loki.testing.svc:3100"
     jsonData:
-      timeout: 300
+      timeout: 500
       maxLines: 2000
   - name: "Loki-1"
     type: "loki"
     access: "proxy"
     url: "http://loki.monitoring.svc:3100"
     jsonData:
-      timeout: 300
+      timeout: 500
       maxLines: 2000
   - name: "Tempo"
     type: "tempo"
