@@ -4,8 +4,10 @@ server:
   log_level: "info"
   http_listen_port: 3100
   grpc_listen_port: 9095
-  http_server_read_timeout: "300s"
-  http_server_write_timeout: "300s"
+  http_server_read_timeout: "500s"
+  http_server_write_timeout: "500s"
+  grpc_server_max_recv_msg_size: 134217728
+  grpc_server_max_send_msg_size: 134217728
 
 common:
   path_prefix: "/loki"
@@ -25,27 +27,41 @@ schema_config:
         period: "24h"
 
 limits_config:
-  query_timeout: "300s"
+  query_timeout: "500s"
   enforce_metric_name: false
   reject_old_samples: true
   reject_old_samples_max_age: "72h"
+  ingestion_rate_mb: 50
+  ingestion_burst_size_mb: 70
   split_queries_by_interval: "15m"
+  max_query_parallelism: 32
   max_cache_freshness_per_query: "10m"
+
+query_range:
+  align_queries_with_step: true
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 128
+
+querier:
+  max_concurrent: 32
 
 query_scheduler:
   max_outstanding_requests_per_tenant: 32768
-
-querier:
-  max_concurrent: 16
 
 frontend:
   compress_responses: true
   log_queries_longer_than: "20s"
 
-compactor:
-  compaction_interval: "10m"
+frontend_worker:
+  parallelism: 32
 
 ingester:
   chunk_encoding: "snappy"
   chunk_idle_period: "5m"
   chunk_retain_period: "1m"
+
+compactor:
+  compaction_interval: "10m"
