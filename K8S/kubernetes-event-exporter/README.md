@@ -1,5 +1,5 @@
 #### URLs:
-- [kubernetes-event-exporter](https://github.com/resmoio/kubernetes-event-exporter)
+- [kubernetes-event-exporter](https://hub.docker.com/r/bitnami/kubernetes-event-exporter/tags)
 
 #### Manual deploy:
 ```bash
