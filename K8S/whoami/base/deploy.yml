@@ -31,11 +31,9 @@ spec:
               containerPort: 4000
           resources:
             requests:
-              cpu: "10m"
-              memory: "15Mi"
+              memory: "32Mi"
             limits:
-              cpu: "20m"
-              memory: "30Mi"
+              memory: "32Mi"
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
