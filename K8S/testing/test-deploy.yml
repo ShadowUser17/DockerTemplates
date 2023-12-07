@@ -41,7 +41,6 @@ spec:
             #   readOnly: false
           resources:
             requests:
-              cpu: "50m"
               memory: "128Mi"
       nodeSelector:
         kubernetes.io/os: "linux"
