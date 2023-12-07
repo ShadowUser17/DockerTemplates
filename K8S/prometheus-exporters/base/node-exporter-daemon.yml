@@ -42,11 +42,9 @@ spec:
               containerPort: 9100
           resources:
             requests:
-              cpu: "10m"
-              memory: "50Mi"
+              memory: "64Mi"
             limits:
-              cpu: "10m"
-              memory: "50Mi"
+              memory: "64Mi"
       nodeSelector:
         kubernetes.io/os: "linux"
       tolerations:
