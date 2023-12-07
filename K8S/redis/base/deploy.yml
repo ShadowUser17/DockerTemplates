@@ -35,10 +35,8 @@ spec:
               name: "client"
           resources:
             requests:
-              cpu: "100m"
-              memory: "256Mi"
+              memory: "512Mi"
             limits:
-              cpu: "100m"
               memory: "512Mi"
           securityContext:
             allowPrivilegeEscalation: false
@@ -58,10 +56,6 @@ spec:
             - containerPort: 9121
               protocol: "TCP"
               name: "metrics"
-          resources:
-            requests:
-              cpu: "30m"
-              memory: "50Mi"
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
