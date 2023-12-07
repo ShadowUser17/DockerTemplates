@@ -10,7 +10,7 @@ images:
   - name: "bitnami/memcached"
     newTag: "1.6.22"
   - name: "bitnami/memcached-exporter"
-    newTag: "0.13.0"
+    newTag: "0.14.1"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "storage"

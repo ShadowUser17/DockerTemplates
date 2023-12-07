@@ -37,10 +37,8 @@ spec:
               name: "client"
           resources:
             requests:
-              cpu: "100m"
               memory: "512Mi"
             limits:
-              cpu: "200m"
               memory: "512Mi"
           securityContext:
             allowPrivilegeEscalation: false
