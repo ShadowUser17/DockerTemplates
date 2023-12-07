@@ -43,11 +43,9 @@ spec:
               containerPort: 9092
           resources:
             requests:
-              cpu: "20m"
-              memory: "30Mi"
+              memory: "32Mi"
             limits:
-              cpu: "20m"
-              memory: "30Mi"
+              memory: "32Mi"
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
