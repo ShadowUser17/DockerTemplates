@@ -78,11 +78,9 @@ spec:
               containerPort: 10902
           resources:
             requests:
-              cpu: "50m"
-              memory: "120Mi"
+              memory: "128Mi"
             limits:
-              cpu: "50m"
-              memory: "120Mi"
+              memory: "128Mi"
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true

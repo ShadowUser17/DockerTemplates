@@ -73,11 +73,9 @@ spec:
               containerPort: 9090
           resources:
             requests:
-              cpu: "100m"
-              memory: "500Mi"
+              memory: "720Mi"
             limits:
-              cpu: "100m"
-              memory: "700Mi"
+              memory: "720Mi"
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
@@ -129,11 +127,9 @@ spec:
               containerPort: 10902
           resources:
             requests:
-              cpu: "50m"
-              memory: "100Mi"
+              memory: "128Mi"
             limits:
-              cpu: "50m"
-              memory: "100Mi"
+              memory: "128Mi"
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
