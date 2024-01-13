@@ -9,7 +9,7 @@ configMapGenerator:
     files: ["config/config.yml"]
 images:
   - name: "bitnami/kubernetes-event-exporter"
-    newTag: "1.6.0"
+    newTag: "1.6.1"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "monitoring"
