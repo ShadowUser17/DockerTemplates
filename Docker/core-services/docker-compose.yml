@@ -51,7 +51,7 @@ services:
 
   # watchtower:
   #   restart: "always"
-  #   image: "containrrr/watchtower:1.5.3"
+  #   image: "containrrr/watchtower:1.7.1"
   #   container_name: "watchtower.docker.localhost"
   #   command:
   #     - "--interval=3600"
