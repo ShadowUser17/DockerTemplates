@@ -27,7 +27,7 @@ services:
       - "9121:9121/tcp"
 
   vector:
-    image: "timberio/vector:0.35.0-alpine"
+    image: "timberio/vector:0.35.1-alpine"
     container_name: "vector-exporter.docker.localhost"
     external_links:
       - "prometheus"
