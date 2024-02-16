@@ -8,7 +8,7 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "bitnami/postgresql"
-    newTag: "14.10.0"
+    newTag: "14.11.0"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "storage"
