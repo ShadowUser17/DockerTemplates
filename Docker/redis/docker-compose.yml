@@ -14,7 +14,7 @@ services:
       - "6379:6379/tcp"
 
   redis-exporter:
-    image: "bitnami/redis-exporter:1.57.0"
+    image: "bitnami/redis-exporter:1.58.0"
     container_name: "redis-exporter.docker.localhost"
     depends_on:
       - "redis"
