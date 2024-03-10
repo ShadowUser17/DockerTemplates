@@ -22,6 +22,7 @@ spec:
         - name: "toxiproxy"
           image: "ghcr.io/shopify/toxiproxy:latest"
           imagePullPolicy: "IfNotPresent"
+          args: ["-host=0.0.0.0", "-proxy-metrics"]
           env:
             - name: "LOG_LEVEL"
               value: "info"

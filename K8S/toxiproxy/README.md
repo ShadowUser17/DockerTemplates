@@ -7,6 +7,11 @@
 kubectl apply -k .
 ```
 
+#### Enable monitoring:
+```bash
+kubectl apply -f monitoring.yml
+```
+
 #### Automatic deploy:
 ```bash
 kubectl apply -f "https://raw.githubusercontent.com/ShadowUser17/DockerTemplates/master/K8S/toxiproxy/fluxcd-deploy.yml"
