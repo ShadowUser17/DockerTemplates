@@ -10,3 +10,7 @@ spec:
       port: 8474
       protocol: "TCP"
       targetPort: "http"
+    - name: "proxy"
+      port: 8080
+      protocol: "TCP"
+      targetPort: "proxy"
