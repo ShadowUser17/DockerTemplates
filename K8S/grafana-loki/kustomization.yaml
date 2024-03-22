@@ -15,9 +15,9 @@ configMapGenerator:
     files: ["config/promtail.yaml"]
 images:
   - name: "grafana/loki"
-    newTag: "2.9.5"
+    newTag: "2.9.6"
   - name: "grafana/promtail"
-    newTag: "2.9.5"
+    newTag: "2.9.6"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "monitoring"
