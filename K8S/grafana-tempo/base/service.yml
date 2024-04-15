@@ -3,26 +3,19 @@ kind: "Service"
 metadata:
   name: "grafana-tempo"
 spec:
+  type: "LoadBalancer"
   selector:
     app.kubernetes.io/name: "grafana-tempo"
   ports:
     - name: "tempo"
+      port: 3100
       protocol: "TCP"
-      port: 3200
       targetPort: "tempo"
-    - name: "zipkin"
+    - name: "otlp-grpc"
+      port: 4317
       protocol: "TCP"
-      port: 9411
-      targetPort: "zipkin"
-    # - name: "otlp-grpc"
-    #   protocol: "TCP"
-    #   port: 4317
-    #   targetPort: "otlp-grpc"
+      targetPort: "otlp-grpc"
     - name: "otlp-http"
-      protocol: "TCP"
       port: 4318
-      targetPort: "otlp-http"
-    - name: "jaeger"
       protocol: "TCP"
-      port: 14268
-      targetPort: "jaeger"
+      targetPort: "otlp-http"

@@ -1,20 +1,15 @@
 server:
-  http_listen_port: 3200
+  http_listen_port: 3100
+  log_level: "info"
 
 distributor:
   receivers:
-    jaeger:
-      protocols:
-        grpc:
-        thrift_binary:
-        thrift_compact:
-        thrift_http:
     otlp:
       protocols:
         grpc:
+          endpoint: "0.0.0.0:4317"
         http:
-    zipkin:
-    opencensus:
+          endpoint: "0.0.0.0:4318"
 
 ingester:
   max_block_duration: "5m"

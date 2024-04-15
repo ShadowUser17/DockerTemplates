@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: "grafana-tempo"
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "3200"
+        prometheus.io/port: "3100"
     spec:
       serviceAccountName: "grafana-tempo"
       automountServiceAccountToken: false
@@ -39,19 +39,13 @@ spec:
           ports:
             - name: "tempo"
               protocol: "TCP"
-              containerPort: 3200
-            - name: "zipkin"
-              protocol: "TCP"
-              containerPort: 9411
+              containerPort: 3100
             - name: "otlp-grpc"
               protocol: "TCP"
               containerPort: 4317
             - name: "otlp-http"
               protocol: "TCP"
               containerPort: 4318
-            - name: "jaeger"
-              protocol: "TCP"
-              containerPort: 14268
           resources:
             requests:
               memory: "512Mi"
