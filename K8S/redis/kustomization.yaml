@@ -10,7 +10,7 @@ images:
   - name: "bitnami/redis"
     newTag: "7.2.4"
   - name: "bitnami/redis-exporter"
-    newTag: "1.58.0"
+    newTag: "1.59.0"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "storage"
