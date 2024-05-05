@@ -1,5 +1,5 @@
 global:
-  scrape_timeout: "10s"
+  scrape_timeout: "20s"
   scrape_interval: "30s"
   evaluation_interval: "1m"
 
@@ -24,12 +24,6 @@ scrape_configs:
         labels:
           group: "alerts"
 
-  - job_name: "grafana-loki"
-    static_configs:
-      - targets: ["loki.docker.localhost:3100"]
-        labels:
-          group: "logs"
-
   - job_name: "traefik"
     static_configs:
       - targets: ["traefik.docker.localhost:9092"]
@@ -41,12 +35,6 @@ scrape_configs:
       - targets: ["coredns.docker.localhost:9153"]
         labels:
           group: "dns"
-
-  - job_name: "cadvisor"
-    static_configs:
-      - targets: ["cadvisor.docker.localhost:8080"]
-        labels:
-          group: "docker"
 
   - job_name: "node-exporter"
     static_configs:

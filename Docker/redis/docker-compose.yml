@@ -25,18 +25,3 @@ services:
       - "core_network"
     expose:
       - "9121:9121/tcp"
-
-  vector:
-    image: "timberio/vector:0.37.1-alpine"
-    container_name: "vector-exporter.docker.localhost"
-    external_links:
-      - "prometheus"
-    depends_on:
-      - "redis-exporter"
-    volumes:
-      - "$PWD/vector:/etc/vector:ro"
-    networks:
-      - "core_network"
-    expose:
-      - "8383:8383/tcp"
-      - "9500:9500/tcp"
