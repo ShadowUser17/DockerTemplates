@@ -11,8 +11,7 @@ services:
     restart: "always"
     container_name: "mongodb.docker.localhost"
     environment:
-      - "MONGODB_USERNAME=testing"
-      - "MONGODB_PASSWORD=testing"
+      - "MONGODB_ROOT_PASSWORD=testing"
       - "MONGODB_DATABASE=testing"
     volumes:
       - "mongodb_data:/bitnami/mongodb:rw"
