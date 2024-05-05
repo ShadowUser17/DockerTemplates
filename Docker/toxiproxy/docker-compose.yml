@@ -1,0 +1,10 @@
+services:
+  toxiproxy:
+    network_mode: "host"
+    image: "ghcr.io/shopify/toxiproxy:2.9.0"
+    container_name: "toxiproxy.docker.localhost"
+    command:
+      - "-host=0.0.0.0"
+      - "-proxy-metrics"
+    environment:
+      - "LOG_LEVEL=info"
