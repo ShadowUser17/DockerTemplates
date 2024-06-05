@@ -8,7 +8,7 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "bitnami/redis"
-    newTag: "7.2.4"
+    newTag: "7.2.5"
   - name: "bitnami/redis-exporter"
     newTag: "1.59.0"
 labels:
