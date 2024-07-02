@@ -1,0 +1,36 @@
+apiVersion: "batch/v1"
+kind: "Job"
+metadata:
+  name: "test-dind-run"
+  namespace: "testing"
+spec:
+  backoffLimit: 3
+  # activeDeadlineSeconds: 120
+  # ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      restartPolicy: "Never"
+      volumes:
+        - name: "docker-data"
+          emptyDir: {}
+      containers:
+        - name: "main"
+          image: "docker:cli"
+          imagePullPolicy: "Always"
+          env:
+            - name: "DOCKER_HOST"
+              value: "tcp://127.0.0.1:2375"
+          command: ["/bin/sh", "-c"]
+          args: ["tail -f /dev/null"]
+
+        - name: "dind"
+          image: "docker:dind"
+          imagePullPolicy: "Always"
+          env:
+            - name: "DOCKER_TLS_CERTDIR"
+              value: ""
+          volumeMounts:
+            - name: "docker-data"
+              mountPath: "/var/lib/docker"
+          securityContext:
+            privileged: true
