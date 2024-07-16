@@ -1,0 +1,16 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  rq-exporter:
+    image: "mdawar/rq-exporter:v2.1.2"
+    container_name: "rq-exporter.docker.localhost"
+    environment:
+      - "RQ_REDIS_HOST=redis.docker.localhost"
+      - "RQ_REDIS_PASS=testing"
+      - "RQ_REDIS_DB=0"
+    networks:
+      - "core_network"
+    expose:
+      - "9726:9726/tcp"
