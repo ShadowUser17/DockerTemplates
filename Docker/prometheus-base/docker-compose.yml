@@ -10,6 +10,7 @@ volumes:
 services:
   alertmanager:
     image: "prom/alertmanager:v0.27.0"
+    restart: "always"
     container_name: "alertmanager.docker.localhost"
     volumes:
       - "$PWD/alertmanager:/etc/alertmanager:ro"
@@ -27,6 +28,7 @@ services:
   prometheus:
     user: "root"
     image: "prom/prometheus:v2.52.0"
+    restart: "always"
     container_name: "prometheus.docker.localhost"
     depends_on:
       - "alertmanager"
@@ -39,8 +41,8 @@ services:
       - "--web.console.templates=/usr/share/prometheus/consoles"
       - "--web.console.libraries=/usr/share/prometheus/console_libraries"
     volumes:
-      - "$PWD/prometheus:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
+      - "$PWD/prometheus:/etc/prometheus:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
       - "core_network"
@@ -54,6 +56,7 @@ services:
 
   grafana:
     image: "grafana/grafana:10.1.10"
+    restart: "always"
     container_name: "grafana.docker.localhost"
     depends_on:
       - "prometheus"
