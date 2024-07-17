@@ -5,6 +5,7 @@ networks:
 services:
   redis:
     image: "bitnami/redis:7.2.5"
+    restart: "always"
     container_name: "redis.docker.localhost"
     environment:
       - "REDIS_PASSWORD=testing"
@@ -15,6 +16,7 @@ services:
 
   redis-exporter:
     image: "bitnami/redis-exporter:1.61.0"
+    restart: "always"
     container_name: "redis-exporter.docker.localhost"
     depends_on:
       - "redis"

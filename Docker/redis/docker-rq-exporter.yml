@@ -5,6 +5,7 @@ networks:
 services:
   rq-exporter:
     image: "mdawar/rq-exporter:v2.1.2"
+    restart: "always"
     container_name: "rq-exporter.docker.localhost"
     environment:
       - "RQ_REDIS_HOST=redis.docker.localhost"
