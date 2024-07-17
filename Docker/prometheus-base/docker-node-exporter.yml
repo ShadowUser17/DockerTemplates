@@ -16,6 +16,9 @@ services:
     expose:
       - "9100:9100/tcp"
     labels:
+      labels:
+      - "prometheus.io/scrape=true"
+      - "prometheus.io/port=9100"
       - "traefik.enable=true"
       - "traefik.http.routers.node-exporter.service=node-exporter"
       - "traefik.http.routers.node-exporter.rule=Host(`node-exporter.docker`)"

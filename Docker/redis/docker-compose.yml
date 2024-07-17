@@ -25,3 +25,6 @@ services:
       - "core_network"
     expose:
       - "9121:9121/tcp"
+    labels:
+      - "prometheus.io/scrape=true"
+      - "prometheus.io/port=9121"
