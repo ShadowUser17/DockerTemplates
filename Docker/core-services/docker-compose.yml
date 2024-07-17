@@ -29,7 +29,7 @@ services:
       - "9090:9090/tcp"
     labels:
       - "prometheus.io/scrape=true"
-      - "prometheus.io/port=9092"
+      - "prometheus.io/port=9090"
 
   coredns:
     image: "coredns/coredns:1.11.1"
