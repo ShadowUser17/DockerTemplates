@@ -40,6 +40,7 @@ services:
     volumes:
       - "$PWD/prometheus:/etc/prometheus:ro"
       - "prometheus_data:/prometheus:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
       - "core_network"
     expose:

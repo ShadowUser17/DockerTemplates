@@ -24,20 +24,31 @@ scrape_configs:
         labels:
           group: "alerts"
 
-  - job_name: "traefik"
-    static_configs:
-      - targets: ["traefik.docker.localhost:9092"]
-        labels:
-          group: "proxy"
-
-  - job_name: "coredns"
-    static_configs:
-      - targets: ["coredns.docker.localhost:9153"]
-        labels:
-          group: "dns"
-
-  - job_name: "node-exporter"
-    static_configs:
-      - targets: ["node-exporter.docker.localhost:9100"]
-        labels:
-          group: "hypervisor"
+  - job_name: "docker-containers"
+    docker_sd_config:
+      - host: "unix:///var/run/docker.sock"
+    relabel_configs:
+      - source_labels: ["__meta_docker_container_label_prometheus_io_scrape"]
+        action: "keep"
+        regex: "true"
+      - source_labels: ["__address__", "__meta_docker_container_label_prometheus_io_port"]
+        action: "replace"
+        regex: '([^:]+)(?::\d+)?;(\d+)'
+        replacement: "$1:$2"
+        target_label: "__address__"
+      - source_labels: ["__meta_docker_container_label_prometheus_io_path"]
+        action: "replace"
+        regex: "(.+)"
+        target_label: "__metrics_path__"
+      - source_labels: ["__meta_docker_container_id"]
+        action: "replace"
+        target_label: "id"
+      - source_labels: ["__meta_docker_container_name"]
+        action: "replace"
+        target_label: "name"
+      - source_labels: ["__meta_docker_network_name"]
+        action: "replace"
+        target_label: "network"
+      - source_labels: ["__meta_docker_network_ip"]
+        action: "replace"
+        target_label: "ip"
