@@ -10,7 +10,7 @@ configMapGenerator:
     files: ["datasources/testing.yml"]
 images:
   - name: "grafana/grafana"
-    newTag: "10.1.10"
+    newTag: "10.4.8"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "monitoring"
