@@ -7,7 +7,7 @@ volumes:
 
 services:
   kafka:
-    image: "bitnami/kafka:3.6.1"
+    image: "bitnami/kafka:3.6.2"
     container_name: "kafka.docker.localhost"
     environment:
       - "KAFKA_CFG_NODE_ID=0"
