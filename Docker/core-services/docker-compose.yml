@@ -32,7 +32,7 @@ services:
       - "prometheus.io/port=9090"
 
   coredns:
-    image: "coredns/coredns:1.11.1"
+    image: "coredns/coredns:1.11.3"
     container_name: "coredns.docker.localhost"
     restart: "always"
     deploy:
