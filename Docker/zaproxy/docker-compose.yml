@@ -1,0 +1,22 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  zaproxy:
+    image: "zaproxy/zap-stable:latest"
+    container_name: "zaproxy.docker.localhost"
+    command:
+      - "zap-webswing.sh"
+    volumes:
+      - "$PWD:/zap/wrk:rw"
+    networks:
+      - "core_network"
+    ports:
+      - "8080:8080/tcp"
+      - "8090:8090/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.zaproxy.service=zaproxy"
+      - "traefik.http.routers.zaproxy.rule=Host(`zaproxy.docker`)"
+      - "traefik.http.services.zaproxy.loadbalancer.server.port=8080"
