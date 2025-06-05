@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "selenium"
+spec:
+  selector:
+    app.kubernetes.io/name: "selenium"
+  ports:
+    - name: "api"
+      port: 4444
+      protocol: "TCP"
+      targetPort: "api"
+
+    - name: "vnc"
+      port: 7900
+      protocol: "TCP"
+      targetPort: "vnc"

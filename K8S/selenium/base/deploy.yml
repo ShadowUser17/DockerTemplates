@@ -1,0 +1,43 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "selenium"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "selenium"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "selenium"
+    spec:
+      serviceAccountName: "selenium"
+      automountServiceAccountToken: false
+      volumes:
+        - name: "tmp"
+          emptyDir: {}
+      containers:
+        - name: "selenium"
+          image: "selenium/standalone-chrome:latest"
+          imagePullPolicy: "IfNotPresent"
+          volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
+          ports:
+            - name: "api"
+              protocol: "TCP"
+              containerPort: 4444
+            - name: "vnc"
+              protocol: "TCP"
+              containerPort: 7900
+          resources:
+            requests:
+              memory: "512Mi"
+            # limits:
+            #   memory: "1024Mi"
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
