@@ -4,7 +4,7 @@ networks:
 
 services:
   selenium:
-    image: "selenium/standalone-chrome:latest"
+    image: "selenium/standalone-chrome:136.0-20250525"
     restart: "always"
     container_name: "selenium.docker.localhost"
     networks:
