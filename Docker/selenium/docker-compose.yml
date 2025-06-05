@@ -4,13 +4,14 @@ networks:
 
 services:
   selenium:
-    image: "selenium/standalone-chrome"
+    image: "selenium/standalone-chrome:latest"
     restart: "always"
     container_name: "selenium.docker.localhost"
     networks:
       - "core_network"
     ports:
       - "4444:4444/tcp"
+      - "7900:7900/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.selenium.service=selenium"
