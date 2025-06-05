@@ -14,16 +14,10 @@ spec:
     spec:
       serviceAccountName: "selenium"
       automountServiceAccountToken: false
-      volumes:
-        - name: "tmp"
-          emptyDir: {}
       containers:
         - name: "selenium"
           image: "selenium/standalone-chrome:latest"
           imagePullPolicy: "IfNotPresent"
-          volumeMounts:
-            - name: "tmp"
-              mountPath: "/tmp"
           ports:
             - name: "api"
               protocol: "TCP"
@@ -37,7 +31,6 @@ spec:
             # limits:
             #   memory: "1024Mi"
           securityContext:
-            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
