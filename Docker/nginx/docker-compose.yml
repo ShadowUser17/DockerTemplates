@@ -13,8 +13,8 @@ services:
       - "$PWD/root:/var/nginx:rw"
     networks:
       - "core_network"
-    ports:
-      - "8085:80/tcp"
+    expose:
+      - "80:80/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nginx.service=nginx"
