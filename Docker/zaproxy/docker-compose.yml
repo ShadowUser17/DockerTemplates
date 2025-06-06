@@ -7,10 +7,10 @@ services:
     image: "ghcr.io/zaproxy/zaproxy:stable"
     container_name: "zaproxy.docker.localhost"
     command: >
-      zap.sh -daemon -host 0.0.0.0 -port 8080 -config api.disablekey=true
+      zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.disablekey=true
     volumes:
       - "$PWD:/zap/wrk:rw"
     networks:
       - "core_network"
     ports:
-      - "8080:8080/tcp"
+      - "8090:8090/tcp"
