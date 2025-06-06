@@ -7,6 +7,9 @@ services:
     image: "selenium/standalone-chrome:136.0-20250525"
     restart: "always"
     container_name: "selenium.docker.localhost"
+    environment:
+      - "SE_VNC_PASSWORD=testing"
+      - "SE_VNC_NO_PASSWORD=true"
     networks:
       - "core_network"
     ports:
