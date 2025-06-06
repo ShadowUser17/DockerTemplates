@@ -5,7 +5,7 @@ networks:
 services:
   zaproxy:
     image: "ghcr.io/zaproxy/zaproxy:stable"
-    container_name: "zaproxy"
+    container_name: "zaproxy.docker.localhost"
     command: >
       zap.sh -daemon -host 0.0.0.0 -port 8080 -config api.disablekey=true
     volumes:
@@ -14,9 +14,3 @@ services:
       - "core_network"
     ports:
       - "8080:8080/tcp"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.zaproxy.service=zaproxy"
-      - "traefik.http.routers.zaproxy.entrypoints=web"
-      - "traefik.http.routers.zaproxy.rule=Host(`zaproxy.docker.localhost`)"
-      - "traefik.http.services.zaproxy.loadbalancer.server.port=8080"
