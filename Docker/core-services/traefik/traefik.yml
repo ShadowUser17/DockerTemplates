@@ -1,6 +1,6 @@
 providers:
   docker:
-    exposedByDefault: false
+    exposedByDefault: true
     defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
     endpoint: "unix:///var/run/docker.sock"
 
