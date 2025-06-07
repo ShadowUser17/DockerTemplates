@@ -27,7 +27,7 @@ services:
 
   prometheus:
     user: "root"
-    image: "prom/prometheus:v2.55.1"
+    image: "prom/prometheus:v3.4.1"
     restart: "always"
     container_name: "prometheus.docker.localhost"
     depends_on:
@@ -55,7 +55,7 @@ services:
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
 
   grafana:
-    image: "grafana/grafana:10.4.19"
+    image: "grafana/grafana:12.0.1"
     restart: "always"
     container_name: "grafana.docker.localhost"
     depends_on:
