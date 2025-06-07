@@ -6,18 +6,6 @@ datasources:
     url: "http://prometheus.testing.svc:9090"
     jsonData:
       httpMethod: "POST"
-  - name: "Prometheus-1"
-    type: "prometheus"
-    access: "proxy"
-    url: "http://prom-operator-kube-prometh-prometheus.monitoring.svc:9090"
-    jsonData:
-      httpMethod: "POST"
-  - name: "Thanos"
-    type: "prometheus"
-    access: "proxy"
-    url: "http://thanos-front.testing.svc:9090"
-    jsonData:
-      httpMethod: "POST"
   - name: "Loki"
     type: "loki"
     access: "proxy"
@@ -25,16 +13,3 @@ datasources:
     jsonData:
       timeout: 500
       maxLines: 2000
-  - name: "Loki-1"
-    type: "loki"
-    access: "proxy"
-    url: "http://loki.monitoring.svc:3100"
-    jsonData:
-      timeout: 500
-      maxLines: 2000
-  - name: "Tempo"
-    type: "tempo"
-    access: "proxy"
-    url: "http://grafana-tempo.testing.svc:3200"
-    jsonData:
-      httpMethod: "GET"
