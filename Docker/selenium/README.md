@@ -1,7 +1,7 @@
 #### URLs:
-- [Documentation](https://www.selenium.dev/documentation/)
-- [Images](https://hub.docker.com/r/selenium/standalone-chrome)
+- [documentation](https://www.selenium.dev/documentation/)
+- [selenium-hub](https://hub.docker.com/r/selenium/hub/tags)
+- [selenium-node](https://hub.docker.com/r/selenium/node-chrome/tags)
 
 #### Get access:
-- [selenium-web](http://selenium.docker:4444/)
-- [selenium-vnc](http://selenium.docker:7900/)
+- [selenium-web](http://selenium.docker/)
