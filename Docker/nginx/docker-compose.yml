@@ -4,7 +4,7 @@ networks:
 
 services:
   nginx:
-    image: "nginx:1.27.1"
+    image: "nginx:1.28.0"
     container_name: "nginx.docker.localhost"
     volumes:
       - "$PWD/nginx.conf:/etc/nginx/nginx.conf:ro"
