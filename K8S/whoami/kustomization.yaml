@@ -7,7 +7,7 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "traefik/whoami"
-    newTag: "v1.10.3"
+    newTag: "v1.11.0"
 labels:
   - pairs:
       app.kubernetes.io/managed-by: "kustomize"
