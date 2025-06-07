@@ -9,7 +9,7 @@ networks:
 
 services:
   traefik:
-    image: "traefik:v2.11.24"
+    image: "traefik:v2.11.25"
     restart: "always"
     container_name: "traefik.docker.localhost"
     networks:
@@ -26,7 +26,7 @@ services:
       - "prometheus.io/port=9090"
 
   coredns:
-    image: "coredns/coredns:1.12.1"
+    image: "coredns/coredns:1.12.2"
     container_name: "coredns.docker.localhost"
     restart: "always"
     command:
