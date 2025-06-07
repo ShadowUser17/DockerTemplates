@@ -4,7 +4,7 @@ networks:
 
 services:
   rq-exporter:
-    image: "mdawar/rq-exporter:v2.1.2"
+    image: "mdawar/rq-exporter:v3.0.0"
     restart: "always"
     container_name: "rq-exporter.docker.localhost"
     environment:

@@ -8,9 +8,9 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "bitnami/redis"
-    newTag: "7.4.1"
+    newTag: "8.0.2"
   - name: "bitnami/redis-exporter"
-    newTag: "1.63.0"
+    newTag: "1.73.0"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "storage"
