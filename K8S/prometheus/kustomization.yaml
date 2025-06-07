@@ -9,12 +9,6 @@ configMapGenerator:
   - name: "prometheus-config"
     files:
       - "config/prometheus.yml"
-      - "config/prometheus-rules.yml"
-      - "config/nginx-ingress-rules.yml"
-      - "config/trivy-operator-rules.yml"
-      - "config/flux-rules.yml"
-      - "config/loki-rules.yml"
-      - "config/promtail-rules.yml"
       - "config/k8s-base-rules.yml"
       - "config/k8s-node-rules.yml"
       - "config/k8s-pod-rules.yml"
