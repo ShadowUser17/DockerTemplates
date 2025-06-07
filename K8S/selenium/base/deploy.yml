@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: "selenium"
+      annotations:
+        promtail.io/collect: "true"
     spec:
       serviceAccountName: "selenium"
       automountServiceAccountToken: false
@@ -32,9 +34,7 @@ spec:
               containerPort: 7900
           resources:
             requests:
-              memory: "512Mi"
-            # limits:
-            #   memory: "1024Mi"
+              memory: "630Mi"
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
