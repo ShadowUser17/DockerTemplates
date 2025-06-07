@@ -19,10 +19,10 @@ spec:
           image: "selenium/standalone-chrome:latest"
           imagePullPolicy: "IfNotPresent"
           env:
-            - name: "SE_VNC_PASSWORD"
-              value: "testing"
             - name: "SE_VNC_NO_PASSWORD"
               value: "true"
+            - name: "SE_SESSION_TIMEOUT"
+              value: "0"
           ports:
             - name: "api"
               protocol: "TCP"
