@@ -8,7 +8,7 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "selenium/standalone-chrome"
-    newTag: "136.0-20250525"
+    newTag: "137.0-20250606"
 labels:
   - pairs:
       app.kubernetes.io/managed-by: "kustomize"

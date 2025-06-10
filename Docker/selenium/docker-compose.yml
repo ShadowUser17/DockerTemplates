@@ -20,7 +20,7 @@ services:
       - "traefik.http.services.selenium.loadbalancer.server.port=4444"
 
   node:
-    image: "selenium/node-chrome:136.0-20250525"
+    image: "selenium/node-chrome:137.0-20250606"
     restart: "always"
     container_name: "selenium-node.docker.localhost"
     depends_on:
