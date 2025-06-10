@@ -1,0 +1,58 @@
+apiVersion: "apps/v1"
+kind: "StatefulSet"
+metadata:
+  name: "mariadb"
+spec:
+  serviceName: "mariadb"
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: "mariadb"
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: "mariadb"
+      annotations:
+        promtail.io/collect: "true"
+    spec:
+      serviceAccountName: "mariadb"
+      automountServiceAccountToken: false
+      containers:
+        - name: "mysql"
+          image: "bitnami/mariadb:latest"
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: "MARIADB_USER"
+              value: "testing"
+            - name: "MARIADB_PASSWORD"
+              value: "testing"
+            - name: "MARIADB_DATABASE"
+              value: "testing"
+            - name: "ALLOW_EMPTY_PASSWORD"
+              value: "yes"
+          volumeMounts:
+            - name: "data"
+              mountPath: "/bitnami/mariadb"
+          ports:
+            - containerPort: 3306
+              protocol: "TCP"
+              name: "client"
+          resources:
+            requests:
+              memory: "1024Mi"
+            limits:
+              memory: "1024Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+
+  volumeClaimTemplates:
+    - metadata:
+        name: "data"
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"
+        resources:
+          requests:
+            storage: "8Gi"
