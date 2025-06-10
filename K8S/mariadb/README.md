@@ -16,7 +16,7 @@ kubectl -n testing port-forward svc/mariadb 3306
 
 #### Exec command:
 ```bash
-kubectl -n testing exec -it mariadb-0 -- mariadb -u testing -D testing -p
+kubectl -n testing exec -it mariadb-0 -- mariadb -u root -D testing -p
 ```
 
 #### Manual deploy:

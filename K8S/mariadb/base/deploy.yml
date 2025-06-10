@@ -22,14 +22,12 @@ spec:
           image: "bitnami/mariadb:latest"
           imagePullPolicy: "IfNotPresent"
           env:
-            - name: "MARIADB_USER"
-              value: "testing"
-            - name: "MARIADB_PASSWORD"
-              value: "testing"
             - name: "MARIADB_DATABASE"
               value: "testing"
-            - name: "ALLOW_EMPTY_PASSWORD"
-              value: "yes"
+            - name: "MARIADB_ROOT_USER"
+              value: "root"
+            - name: "MARIADB_ROOT_PASSWORD"
+              value: "testing"
           volumeMounts:
             - name: "data"
               mountPath: "/bitnami/mariadb"
