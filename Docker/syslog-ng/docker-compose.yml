@@ -1,0 +1,23 @@
+networks:
+  core_network:
+    external: true
+
+services:
+  syslog-ng:
+    image: "linuxserver/syslog-ng:4.8.3"
+    restart: "unless-stopped"
+    container_name: "syslog-ng.docker.localhost"
+    environment:
+      - "PUID=0"
+      - "PGID=0"
+      - "TZ=Europe/Kyiv"
+    volumes:
+      - "$PWD/syslog-ng.conf:/config/syslog-ng.conf:ro"
+      - "$PWD/conf.d:/config/conf.d:ro"
+      - "$PWD/logs:/var/log:rw"
+    networks:
+      - "core_network"
+    ports:
+      - "5514:5514/udp"
+      - "6601:6601/tcp"
+      - "6514:6514/tcp"
