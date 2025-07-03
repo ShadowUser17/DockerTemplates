@@ -11,6 +11,7 @@ services:
       - "PUID=0"
       - "PGID=0"
       - "TZ=Europe/Kyiv"
+      - "LOG_TO_STDOUT=true"
     volumes:
       - "$PWD/syslog-ng.conf:/config/syslog-ng.conf:ro"
       - "$PWD/conf.d:/config/conf.d:ro"
