@@ -19,5 +19,5 @@ services:
       - "core_network"
     ports:
       - "5514:5514/udp"
-      - "6601:6601/tcp"
       - "6514:6514/tcp"
+      - "6601:6601/tcp"
