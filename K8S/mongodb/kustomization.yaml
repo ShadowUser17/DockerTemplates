@@ -8,7 +8,7 @@ resources:
   - "base/deploy.yml"
 images:
   - name: "bitnami/mongodb"
-    newTag: "8.0.10"
+    newTag: "8.0.11"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "storage"
