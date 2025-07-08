@@ -4,7 +4,7 @@ networks:
 
 services:
   hub:
-    image: "selenium/hub:4.33.0"
+    image: "selenium/hub:4.34.0"
     restart: "always"
     container_name: "selenium-hub.docker.localhost"
     networks:
@@ -20,7 +20,7 @@ services:
       - "traefik.http.services.selenium.loadbalancer.server.port=4444"
 
   node:
-    image: "selenium/node-chrome:137.0-20250606"
+    image: "selenium/node-chrome:138.0-20250707"
     restart: "always"
     container_name: "selenium-node.docker.localhost"
     depends_on:
