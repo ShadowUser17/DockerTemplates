@@ -14,7 +14,7 @@ configMapGenerator:
       - "config/k8s-pod-rules.yml"
 images:
   - name: "prom/prometheus"
-    newTag: "v3.4.1"
+    newTag: "v3.4.2"
 labels:
   - pairs:
       app.kubernetes.io/part-of: "monitoring"
