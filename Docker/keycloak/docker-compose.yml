@@ -10,13 +10,15 @@ services:
     command:
       - "start-dev"
     environment:
-      - "DB_VENDOR=postgres"
-      - "DB_ADDR=postgres.docker.localhost"
-      - "DB_DATABASE=keycloak"
-      - "DB_USER=testing"
-      - "DB_PASSWORD=testing"
+      - "KC_DB=postgres"
+      - "KC_DB_URL=jdbc:postgresql://postgres.docker.localhost:5432/keycloak"
+      - "KC_DB_USERNAME=testing"
+      - "KC_DB_PASSWORD=testing"
       - "KEYCLOAK_ADMIN=keycloak"
       - "KEYCLOAK_ADMIN_PASSWORD=keycloak"
+      - "KC_HOSTNAME_STRICT=false"
+      - "KC_HOSTNAME_STRICT_HTTPS=false"
+      - "KC_HTTP_ENABLED=true"
     networks:
       - "core_network"
     ports:
