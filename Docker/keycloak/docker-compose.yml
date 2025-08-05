@@ -7,12 +7,14 @@ services:
     image: "quay.io/keycloak/keycloak:26.3.2"
     restart: "always"
     container_name: "keycloak.docker.localhost"
+    command:
+      - "start-dev"
     environment:
       - "DB_VENDOR=postgres"
       - "DB_ADDR=postgres.docker.localhost"
       - "DB_DATABASE=keycloak"
-      - "DB_USER=keycloak"
-      - "DB_PASSWORD=keycloak"
+      - "DB_USER=testing"
+      - "DB_PASSWORD=testing"
       - "KEYCLOAK_ADMIN=keycloak"
       - "KEYCLOAK_ADMIN_PASSWORD=keycloak"
     networks:
