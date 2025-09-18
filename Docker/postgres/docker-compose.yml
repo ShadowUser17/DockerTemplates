@@ -7,15 +7,19 @@ volumes:
 
 services:
   postgres:
-    image: "bitnami/postgresql:17.5.0"
+    image: "postgres:14.18"
     restart: "always"
+    shm_size: "128mb"
     container_name: "postgres.docker.localhost"
     environment:
-      - "POSTGRESQL_USERNAME=testing"
-      - "POSTGRESQL_PASSWORD=testing"
-      - "POSTGRESQL_DATABASE=testing"
+      - "POSTGRES_PASSWORD=testing"
+    command:
+      - "-c"
+      - "log_connections=on"
+      - "-c"
+      - "log_disconnections=on"
     volumes:
-      - "postgres_data:/bitnami/postgresql:rw"
+      - "postgres_data:/var/lib/postgresql/data:rw"
     networks:
       - "core_network"
     ports:
