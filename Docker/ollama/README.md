@@ -1,6 +1,6 @@
 #### Run model:
 ```bash
-docker compose exec -it ollama ollama run phi3:mini
+docker compose exec -it ollama ollama run gemma3:270m
 ```
 
 #### URLs:
