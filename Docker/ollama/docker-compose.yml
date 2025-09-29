@@ -3,6 +3,7 @@ networks:
     external: true
 
 volumes:
+  webui_data:
   ollama_data:
 
 services:
@@ -16,3 +17,23 @@ services:
       - "core_network"
     ports:
       - "11434:11434/tcp"
+
+  webui:
+    image: "ghcr.io/open-webui/open-webui:v0.6.32"
+    restart: "unless-stopped"
+    container_name: "webui.docker.localhost"
+    depends_on:
+      - "ollama"
+    environment:
+      - "OLLAMA_BASE_URL=http://ollama.docker.localhost:11434"
+    volumes:
+      - "webui_data:/app/backend/data:rw"
+    networks:
+      - "core_network"
+    expose:
+      - "8080:8080/tcp"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webui.service=webui"
+      - "traefik.http.routers.webui.rule=Host(`ollama.docker`)"
+      - "traefik.http.services.webui.loadbalancer.server.port=8080"
