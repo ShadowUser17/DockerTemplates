@@ -1,6 +1,9 @@
-#### Run model:
+#### Download models:
 ```bash
-docker compose exec -it ollama ollama run gemma3:270m
+docker compose exec -it ollama ollama pull gemma3:1b-it-qat
+```
+```bash
+docker compose exec -it ollama ollama pull gemma3:4b-it-qat
 ```
 
 #### URLs:
