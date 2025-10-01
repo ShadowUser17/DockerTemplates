@@ -7,7 +7,7 @@ volumes:
 
 services:
   postgres:
-    image: "postgres:14.18"
+    image: "postgres:14.19"
     restart: "always"
     shm_size: "128mb"
     container_name: "postgres.docker.localhost"
