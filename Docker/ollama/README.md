@@ -1,5 +1,8 @@
 #### Download models:
 ```bash
+docker compose exec -it ollama ollama pull gemma3:270m-it-qat
+```
+```bash
 docker compose exec -it ollama ollama pull gemma3:1b-it-qat
 ```
 ```bash
