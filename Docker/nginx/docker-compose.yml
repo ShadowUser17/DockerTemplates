@@ -14,7 +14,7 @@ services:
     networks:
       - "core_network"
     expose:
-      - "80:80/tcp"
+      - "80/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nginx.service=nginx"

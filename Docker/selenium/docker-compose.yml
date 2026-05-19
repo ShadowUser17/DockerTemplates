@@ -10,9 +10,9 @@ services:
     networks:
       - "core_network"
     expose:
-      - "4442:4442/tcp"
-      - "4443:4443/tcp"
-      - "4444:4444/tcp"
+      - "4442/tcp"
+      - "4443/tcp"
+      - "4444/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.selenium.service=selenium"
