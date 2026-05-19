@@ -31,7 +31,7 @@ services:
     networks:
       - "core_network"
     expose:
-      - "8080:8080/tcp"
+      - "8080/tcp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.webui.service=webui"
