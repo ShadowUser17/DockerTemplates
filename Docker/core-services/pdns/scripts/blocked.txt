@@ -1,4 +1,3 @@
-0.0.0.0
 ad-assets.futurecdn.net
 ck.getcookiestxt.com
 eu1.clevertap-prod.com
