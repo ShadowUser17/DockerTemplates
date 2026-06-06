@@ -40,7 +40,8 @@ services:
     ports:
       - "53:53/udp"
       - "53:53/tcp"
-      - "8082:8082/tcp"
+    expose:
+      - "8082/tcp"
     labels:
       - "prometheus.io/scrape=true"
       - "prometheus.io/port=8082"
