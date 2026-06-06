@@ -1,6 +1,6 @@
--- Configuration variables
-local STATIC_FILE = "/etc/powerdns/scripts/static.txt"
-local BLOCKED_FILE = "/etc/powerdns/scripts/blocked.txt"
+-- Get paths from environment variables, or use defaults
+local STATIC_FILE = os.getenv("PDNS_STATIC_FILE") or "/etc/powerdns/scripts/static.txt"
+local BLOCKED_FILE = os.getenv("PDNS_BLOCKED_FILE") or "/etc/powerdns/scripts/blocked.txt"
 
 -- Data tables
 local static_records = {}
