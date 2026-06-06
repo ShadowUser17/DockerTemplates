@@ -25,20 +25,22 @@ services:
       - "prometheus.io/scrape=true"
       - "prometheus.io/port=9090"
 
-  # coredns:
-  #   image: "coredns/coredns:1.12.4"
-  #   container_name: "coredns.docker.localhost"
-  #   restart: "always"
-  #   command:
-  #     - "-conf=/etc/coredns/Corefile"
-  #   volumes:
-  #     - "$PWD/coredns:/etc/coredns:ro"
-  #   networks:
-  #     core_network:
-  #       ipv4_address: "172.30.1.253"
-  #   expose:
-  #     - "9153/tcp"
-  #     - "5300/udp"
-  #   labels:
-  #     - "prometheus.io/scrape=true"
-  #     - "prometheus.io/port=9153"
+  powerdns:
+    image: "powerdns/pdns-recursor-51:latest"
+    restart: "always"
+    container_name: "pdns.docker.localhost"
+    networks:
+     core_network:
+       ipv4_address: "172.30.1.253"
+    volumes:
+      - "$PWD/pdns/config/recursor.conf:/etc/powerdns/recursor.conf:ro"
+      - "$PWD/pdns/scripts/recursor.lua:/etc/powerdns/recursor.lua:ro"
+      - "$PWD/pdns/scripts/static.txt:/etc/powerdns/scripts/static.txt:ro"
+      - "$PWD/pdns/scripts/blocked.txt:/etc/powerdns/scripts/blocked.txt:ro"
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+      - "8082:8082/tcp"
+    labels:
+      - "prometheus.io/scrape=true"
+      - "prometheus.io/port=8082"

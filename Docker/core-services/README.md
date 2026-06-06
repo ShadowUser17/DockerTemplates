@@ -2,9 +2,9 @@
 - [Documentation](https://doc.traefik.io/traefik/)
 - [DockerHub](https://hub.docker.com/_/traefik)
 
-#### CoreDNS:
-- [Documentation](https://coredns.io/manual/toc/)
-- [DockerHub](https://hub.docker.com/r/coredns/coredns)
+#### PowerDNS:
+- [Documentation](https://doc.powerdns.com/recursor/index.html)
+- [Images](https://hub.docker.com/r/powerdns/pdns-recursor-51/tags)
 
 #### Labels:
 - traefik.enable=true
