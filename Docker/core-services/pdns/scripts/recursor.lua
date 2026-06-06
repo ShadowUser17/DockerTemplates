@@ -1,121 +1,76 @@
+-- Get file paths from environment variables or use defaults
 local STATIC_FILE = os.getenv("PDNS_STATIC_FILE") or "/etc/powerdns/scripts/static.txt"
 local BLOCKED_FILE = os.getenv("PDNS_BLOCKED_FILE") or "/etc/powerdns/scripts/blocked.txt"
 
+-- Data tables
 local static_records = {}
 local blocked_domains = {}
 
-local last_static_mtime = 0
-local last_blocked_mtime = 0
-local initialized = false
-
-local function trim(s)
-    return (s:gsub("^%s*(.-)%s*$", "%1"))
-end
-
-local function normalize(q)
-    return tostring(q):gsub("%.$", ""):lower()
-end
-
-local function file_mtime(path)
-    local f = io.popen("stat -c %Y " .. path .. " 2>/dev/null")
-    if not f then return 0 end
-    local out = f:read("*a")
-    f:close()
-    return tonumber(out) or 0
-end
-
-local function load_data(force_log)
-    local sm = file_mtime(STATIC_FILE)
-    local bm = file_mtime(BLOCKED_FILE)
-
-    if sm == last_static_mtime and bm == last_blocked_mtime then
+-- Strict domain validator and loader
+local function read_file(filepath, target_table, is_static)
+    local f = io.open(filepath, "r")
+    if not f then
+        pdnslog("ERROR: Could not open file: " .. filepath, pdns.loglevels.Error)
         return
     end
 
-    static_records = {}
-    blocked_domains = {}
+    for line in f:lines() do
+        -- Remove trailing spaces, tabs, and Windows line endings (\r)
+        line = line:match("^%s*(.-)%s*$")
 
-    local fb = io.open(BLOCKED_FILE, "r")
-    if fb then
-        for line in fb:lines() do
-            line = trim(line)
-            if line ~= "" and not line:match("^#") then
-                blocked_domains[normalize(line)] = true
-            end
-        end
-        fb:close()
-    end
+        if line and line ~= "" then
+            -- Skip comments or URLs that might accidentally be in the file
+            if not line:find("^#") and not line:find("^http") then
+                local raw_domain = line:lower()
 
-    local fs = io.open(STATIC_FILE, "r")
-    if fs then
-        for line in fs:lines() do
-            line = trim(line)
-            if line ~= "" and not line:match("^#") then
-                local d, t, v = line:match("([^,]+),([^,]+),(.+)")
-                if d then
-                    static_records[normalize(d)] = {
-                        type = trim(t):upper(),
-                        value = trim(v)
-                    }
+                if is_static then
+                    local domain, ip = raw_domain:match("^([%w%.%-%_]+)%s+(%d+%.%d+%.%d+%.%d+)$")
+                    if domain and ip then
+                        target_table[domain .. "."] = ip
+                    end
+                else
+                    -- Extract pure domain name to prevent parsing file paths or garbage
+                    local domain_match = raw_domain:match("^([%w%.%-_]+)$")
+                    if domain_match then
+                        -- PowerDNS queries always end with a dot, so we map it directly
+                        target_table[domain_match .. "."] = true
+                    end
                 end
             end
         end
-        fs:close()
     end
-
-    last_static_mtime = sm
-    last_blocked_mtime = bm
-
-    if not initialized or force_log then
-        pdnslog(
-            "Lua initialized: blocked=" .. tostring((function()
-                local c = 0
-                for _ in pairs(blocked_domains) do c = c + 1 end
-                return c
-            end)()) ..
-            " static=" .. tostring((function()
-                local c = 0
-                for _ in pairs(static_records) do c = c + 1 end
-                return c
-            end)()),
-            pdns.loglevels.Warning
-        )
-        initialized = true
-    end
+    f:close()
 end
 
--- initial load ONLY
-load_data(true)
+-- Load datasets on initialization
+read_file(STATIC_FILE, static_records, true)
+read_file(BLOCKED_FILE, blocked_domains, false)
 
+-- Count what actually got into the clean table
+local static_count = 0
+for _ in pairs(static_records) do static_count = static_count + 1 end
+local blocked_count = 0
+for _ in pairs(blocked_domains) do blocked_count = blocked_count + 1 end
+
+pdnslog("--- LUA INIT: Successfully loaded " .. static_count .. " static records and " .. blocked_count .. " VALID blocked domains ---", pdns.loglevels.Warning)
+
+-- Query interception hook
 function preresolve(dq)
+    local qname = dq.qname:toString():lower()
 
-    local qname = normalize(dq.qname)
-
-    local sm = file_mtime(STATIC_FILE)
-    local bm = file_mtime(BLOCKED_FILE)
-
-    if sm ~= last_static_mtime or bm ~= last_blocked_mtime then
-        load_data(false)
+    -- 1. Check exact match in blocklist
+    if blocked_domains[qname] then
+        pdnslog("LUA BLOCK EXECUTION: " .. qname, pdns.loglevels.Warning)
+        dq.rcode = pdns.NXDOMAIN
+        return true -- Blocked immediately
     end
 
-    for blocked in pairs(blocked_domains) do
-        if qname == blocked or qname:sub(-#blocked-1) == "." .. blocked then
-            pdnslog("BLOCKED: " .. qname, pdns.loglevels.Warning)
-            dq.rcode = pdns.NXDOMAIN
-            return true
-        end
-    end
-
-    local rec = static_records[qname]
-    if rec then
-        if dq.qtype == pdns.A and rec.type == "A" then
-            dq:addAnswer(pdns.A, rec.value, 300)
-            return true
-        end
-        if dq.qtype == pdns.CNAME and rec.type == "CNAME" then
-            dq:addAnswer(pdns.CNAME, rec.value, 300)
-            return true
-        end
+    -- 2. Check exact match in static overrides
+    if static_records[qname] then
+        local ip = static_records[qname]
+        dq:addAnswer(pdns.A, ip)
+        dq.rcode = pdns.NOERROR
+        return true
     end
 
     return false
