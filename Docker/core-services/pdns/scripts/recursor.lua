@@ -71,11 +71,6 @@ end
 -- LOAD ON SCRIPT START (IMPORTANT: no init() in Recursor Lua)
 load_data()
 
--- OPTIONAL HOT RELOAD HOOK
-function maintenance()
-    load_data()
-end
-
 -- MAIN DNS HOOK
 function preresolve(dq)
     local qname = normalize(dq.qname)
