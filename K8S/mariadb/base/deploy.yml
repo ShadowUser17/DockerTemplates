@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: "mysql"
-          image: "bitnami/mariadb:latest"
+          image: "soldevelo/mariadb:latest"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: "MARIADB_DATABASE"
