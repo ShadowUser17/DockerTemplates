@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: "psql"
-          image: "bitnami/postgresql:latest"
+          image: "soldevelo/postgresql:latest"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: "POSTGRESQL_USERNAME"

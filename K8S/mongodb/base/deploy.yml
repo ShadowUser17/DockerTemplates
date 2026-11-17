@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: "mongo"
-          image: "bitnami/mongodb:latest"
+          image: "soldevelo/mongodb:latest"
           imagePullPolicy: "IfNotPresent"
           env:
             - name: "MONGODB_ROOT_PASSWORD"
